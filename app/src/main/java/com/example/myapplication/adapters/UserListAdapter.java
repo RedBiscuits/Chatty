@@ -1,6 +1,8 @@
 package com.example.myapplication.adapters;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.models.UserModel;
 
 import java.util.ArrayList;
+import java.util.Base64;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -37,9 +40,14 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         holder.name.setText(usersList.get(position).getName());
         holder.msg.setText(usersList.get(position).getMsg());
-
+//        holder.image.setImageBitmap(getUserImage(usersList.get(position).getImageUri()));
 
     }
+
+//    private Bitmap getUserImage(String encodedImage) {
+//        byte[] bytes = Base64.getDecoder().decode(encodedImage);
+//        return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+//    }
 
     @SuppressLint("NotifyDataSetChanged")
     public void setList(ArrayList<UserModel> usersList){
