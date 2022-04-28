@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.myapplication.R
 import com.example.myapplication.screens.Users
 import com.example.myapplication.ui.main.PlaceholderFragment.Companion.newInstance
+import com.example.statues.StoriesFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
@@ -26,7 +27,8 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         // Return a PlaceholderFragment (defined as a static inner class below).
         return when (position) {
             0 -> Users()
-            1, 2 -> newInstance(position + 1)
+            1 -> StoriesFragment()
+            2 -> newInstance(position + 1)
             else -> newInstance(position + 1)
         }
     }

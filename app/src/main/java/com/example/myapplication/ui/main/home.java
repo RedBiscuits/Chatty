@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -23,15 +24,19 @@ import com.example.myapplication.databinding.ActivityMainBinding;
 import com.example.myapplication.screens.AddNewContact;
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Queue;
+
+import kotlin.jvm.internal.Intrinsics;
 
 public class home extends AppCompatActivity {
 
     private ActivityMainBinding binding ;
     static final int PICK_CONTACT=1;
     private boolean clicked = false;
-    private  String selectedContactNumber;
     private Animation rotOpen;
     private Animation rotClose;
     private Animation toBottom;
@@ -42,7 +47,7 @@ public class home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);//will hide the title
-        getSupportActionBar().hide(); //hide the title bar
+        Objects.requireNonNull(getSupportActionBar()).hide(); //hide the title bar
         //Binding and drawing layout
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -62,26 +67,13 @@ public class home extends AppCompatActivity {
 
 
         //Adding Existing user
-        binding.addExisting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openContacts();
-            }
-        });
+        binding.addExisting.setOnClickListener(view -> openContacts());
         //Adding new user
-        binding.addNew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNewContact();
-            }
-        });
+        binding.addNew.setOnClickListener(view -> addNewContact());
         //FAB of addition
-        binding.addFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onAddButtonClicked();
-            }
-        });
+        binding.addFab.setOnClickListener(view -> onAddButtonClicked());
+        checkStoragePermission();
+
     }
 
 
@@ -90,15 +82,35 @@ public class home extends AppCompatActivity {
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
 
-        switch (reqCode) {
-            case (PICK_CONTACT) :
-                if (resultCode == Activity.RESULT_OK) {
-                    getSelectedPhoneNumber(data);
-                }
-                break;
+        if (reqCode == PICK_CONTACT) {
+            if (resultCode == Activity.RESULT_OK) {
+                getSelectedPhoneNumber(data);
+            }
         }
     }
 
+    private void checkStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == -1) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
+        } else {
+            Toast.makeText(this, "Permission already granted", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
+        Intrinsics.checkNotNullParameter(permissions, "permissions");
+        Intrinsics.checkNotNullParameter(grantResults, "grantResults");
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 101) {
+            if (grantResults.length != 0 && grantResults[0] == 0) {
+                Toast.makeText(this, "Storage Permission Granted", Toast.LENGTH_LONG).show();
+            } else {
+                this.onBackPressed();
+            }
+        }
+
+    }
     //gets the contact from contacts cursor
     private void getSelectedPhoneNumber(Intent data) {
         Uri contactData = data.getData();
@@ -113,8 +125,9 @@ public class home extends AppCompatActivity {
                         ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ id,
                         null, null);
                 phones.moveToFirst();
-                selectedContactNumber= phones.getString(phones.getColumnIndexOrThrow("data1"));
+                String selectedContactNumber = phones.getString(phones.getColumnIndexOrThrow("data1"));
                 System.out.println(processPhone(selectedContactNumber));
+                phones.close();
             }
         }
     }

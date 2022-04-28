@@ -13,12 +13,11 @@ import com.example.myapplication.databinding.ActivitySplashScreenBinding;
 import com.example.myapplication.ui.main.home;
 
 public class SplashScreen extends AppCompatActivity {
-    private ActivitySplashScreenBinding binding ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
+        com.example.myapplication.databinding.ActivitySplashScreenBinding binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Animation topAnim = AnimationUtils.loadAnimation(this, R.anim.top);
         Animation bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bot);
