@@ -4,10 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.197" />
+        <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/drawable/grey_btn.xml" value="0.124" />
+        <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/layout/activity_add_image.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/layout/activity_add_phone_contact.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/layout/activity_add_text_story.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/layout/activity_splash_screen.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/layout/fragment_image_story_details.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/layout/fragment_main.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/layout/fragment_stories.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/layout/fragment_story_text_details.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/layout/fragment_users.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/layout/user_list_item.xml" value="0.11302083333333333" />
       </map>

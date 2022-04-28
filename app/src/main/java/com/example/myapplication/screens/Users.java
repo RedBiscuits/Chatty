@@ -28,9 +28,8 @@ public class Users extends Fragment {
     }
 
     public static Users newInstance() {
-        Users fragment = new Users();
 
-        return fragment;
+        return new Users();
     }
 
     @Override

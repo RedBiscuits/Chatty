@@ -1,5 +1,6 @@
 package com.example.myapplication.adapters;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder> {
-    private ArrayList<UserModel> usersList = new ArrayList<>();
+    private ArrayList<UserModel> usersList ;
 
     public UserListAdapter(ArrayList<UserModel> arrayList) {
         usersList = arrayList;
@@ -40,6 +41,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setList(ArrayList<UserModel> usersList){
         this.usersList = usersList;
         notifyDataSetChanged();
@@ -50,7 +52,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         return usersList.size();
     }
 
-    public class UserViewHolder extends RecyclerView.ViewHolder {
+    public static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView msg;
         CircleImageView image;

@@ -31,7 +31,7 @@ public class UserModel {
         this.imageUri=uri;
     }
 
-    public void setMsg(String name) {
+    public void setMsg(String msg) {
         this.msg = msg;
     }
 }
