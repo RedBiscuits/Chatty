@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
-import kotlinx.android.synthetic.main.item.view.*
+import kotlinx.android.synthetic.main.story_list_item.view.*
 
 class Statue_Adapter() : androidx.recyclerview.widget.ListAdapter<UserStatue, Statue_Adapter.viewHolder>(Diff()) {
 
     class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
-        return viewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false))
+        return viewHolder(LayoutInflater.from(parent.context).inflate(R.layout.story_list_item, parent, false))
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

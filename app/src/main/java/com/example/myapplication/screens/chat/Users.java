@@ -1,4 +1,4 @@
-package com.example.myapplication.screens;
+package com.example.myapplication.screens.chat;
 
 import android.Manifest;
 import android.app.Activity;
@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.UserListAdapter;
 import com.example.myapplication.models.UserModel;
+import com.example.myapplication.screens.chat.AddNewContact;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

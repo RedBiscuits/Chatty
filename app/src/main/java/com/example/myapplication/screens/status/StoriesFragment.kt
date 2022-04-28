@@ -1,4 +1,4 @@
-package com.example.statues
+package com.example.myapplication.screens.status
 
 import Statue_Adapter
 import android.content.Intent
@@ -12,8 +12,6 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.models.StoryModel
 import com.example.myapplication.models.UserStatue
-import com.example.myapplication.screens.AddImageActivity
-import com.example.myapplication.screens.AddTextStory
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -24,7 +22,6 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_stories.*
 import omari.hamza.storyview.StoryView
 import omari.hamza.storyview.model.MyStory
-import java.text.DateFormat.getDateInstance
 import java.text.SimpleDateFormat
 import java.util.*
 

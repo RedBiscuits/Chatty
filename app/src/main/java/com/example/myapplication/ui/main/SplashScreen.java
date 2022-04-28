@@ -1,4 +1,4 @@
-package com.example.myapplication.screens;
+package com.example.myapplication.ui.main;
 
 import android.Manifest;
 import android.content.Intent;
@@ -11,11 +11,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivitySplashScreenBinding;
-import com.example.myapplication.ui.main.home;
+import com.example.myapplication.screens.authentication.SignUp;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,7 +41,7 @@ public class SplashScreen extends AppCompatActivity {
             checkStoragePermission();
             //Do something after delay
             finish();
-            startActivity(new Intent(SplashScreen.this, home.class));
+            startActivity(new Intent(SplashScreen.this, SignUp.class));
         }, 3000);
     }
     private void checkStoragePermission() {

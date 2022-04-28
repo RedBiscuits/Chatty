@@ -1,4 +1,4 @@
-package com.example.myapplication.screens;
+package com.example.myapplication.screens.chat;
 
 import android.content.ContentUris;
 import android.content.ContentValues;

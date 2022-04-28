@@ -1,4 +1,4 @@
-package com.example.myapplication.screens
+package com.example.myapplication.screens.status
 
 import android.app.Activity
 import android.content.Intent
