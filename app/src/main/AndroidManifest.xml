@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".screens.chat.ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.status.AddTextStory"
             android:exported="false" />
         <activity
@@ -24,7 +27,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.main.home"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".screens.chat.AddNewContact"
             android:exported="false" />
@@ -43,10 +46,7 @@
             android:exported="true" />
         <activity
             android:name=".screens.authentication.SignUp"
-            android:exported="true">
-
-        </activity>
-
+            android:exported="true"/>
     </application>
 
 </manifest>

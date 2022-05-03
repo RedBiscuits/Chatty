@@ -3,6 +3,8 @@ package com.example.myapplication.models;
 public class UserModel {
     private String name;
     private String imageUri;
+    private String phone;
+
 
     public String getImageUri() {
         return imageUri;
@@ -25,13 +27,22 @@ public class UserModel {
         return msg;
     }
 
-    public UserModel(String name, String msg, String uri) {
+    public UserModel(String name, String msg, String uri, String phone) {
         this.name = name;
         this.msg = msg;
         this.imageUri=uri;
+        this.phone = phone;
     }
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

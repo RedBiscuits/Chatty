@@ -25,24 +25,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.UserListAdapter;
 import com.example.myapplication.models.UserModel;
-import com.example.myapplication.screens.chat.AddNewContact;
+import com.example.myapplication.utils.UsersRecyclerViewClick;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class Users extends Fragment {
+public class Users extends Fragment implements UsersRecyclerViewClick {
 
     static final int PICK_CONTACT=1;
     private boolean clicked = false;
+    ArrayList<UserModel> userModels;
     private Animation rotOpen;
     private Animation rotClose;
     private Animation toBottom;
     private Animation fromBottom;
-    FloatingActionButton addFab ;
-    FloatingActionButton addExisting ;
-    FloatingActionButton addNew ;
+    private FloatingActionButton addFab ;
+    private FloatingActionButton addExisting ;
+    private FloatingActionButton addNew ;
 
 
     public Users() {
@@ -71,10 +72,9 @@ public class Users extends Fragment {
         addFab =  view.findViewById(R.id.add_fab);
         addExisting =  view.findViewById(R.id.add_existing);
         addNew =  view.findViewById(R.id.add_new);
-        ArrayList<UserModel> arrayList;
 
-        arrayList = buildList();
-        recyclerView.setAdapter(new UserListAdapter(arrayList));
+        userModels = buildList();
+        recyclerView.setAdapter(new UserListAdapter(userModels, this));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //Adding Existing user
@@ -202,11 +202,21 @@ public class Users extends Fragment {
     private ArrayList<UserModel> buildList(){
         ArrayList<UserModel> arrayList = new ArrayList<>();
         String address = "mipmap-xxhdpi/img.png";
-        arrayList.add(new UserModel("Eljoo" , "Yasta ana b7bk yasta",address));
-        arrayList.add(new UserModel("Samy" , "El3nkboot el nono",address));
-        arrayList.add(new UserModel("Kimo" , "Yalla Valo",address));
-        arrayList.add(new UserModel("Omar" , "Yalla Generalz",address));
-        arrayList.add(new UserModel("Nofal" , "Ana mosh 3arefny ana toht mny",address));
+        arrayList.add(new UserModel("Eljoo" , "Yasta ana b7bk yasta",address, "123"));
+        arrayList.add(new UserModel("Samy" , "El3nkboot el nono",address, "123"));
+        arrayList.add(new UserModel("Kimo" , "Yalla Valo",address, "123"));
+        arrayList.add(new UserModel("Omar" , "Yalla Generalz",address, "123"));
+        arrayList.add(new UserModel("Nofal" , "Ana mosh 3arefny ana toht mny",address,"123"));
         return arrayList;
+    }
+
+    @Override
+    public void onUserClickListener(int position) {
+        Intent intent = new Intent(getContext() , ChatActivity.class);
+        intent.putExtra("name", userModels.get(position).getName());
+        intent.putExtra("phone", userModels.get(position).getPhone());
+        intent.putExtra("image", userModels.get(position).getImageUri());
+
+        startActivity(intent);
     }
 }

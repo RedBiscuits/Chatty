@@ -1,8 +1,6 @@
 package com.example.myapplication.adapters;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.models.UserModel;
+import com.example.myapplication.utils.UsersRecyclerViewClick;
 
 import java.util.ArrayList;
-import java.util.Base64;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder> {
     private ArrayList<UserModel> usersList ;
-
-    public UserListAdapter(ArrayList<UserModel> arrayList) {
+    private final UsersRecyclerViewClick usersRecyclerViewClick;
+    public UserListAdapter(ArrayList<UserModel> arrayList,
+                           UsersRecyclerViewClick usersRecyclerViewClick) {
         usersList = arrayList;
+        this.usersRecyclerViewClick = usersRecyclerViewClick;
     }
 
 
@@ -33,7 +33,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list_item,parent,false);
 
-        return new UserViewHolder(view);
+        return new UserViewHolder(view,usersRecyclerViewClick);
     }
 
     @Override
@@ -64,11 +64,23 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         TextView name;
         TextView msg;
         CircleImageView image;
-        public UserViewHolder(@NonNull View itemView) {
+        public UserViewHolder(@NonNull View itemView,UsersRecyclerViewClick usersRecyclerViewClick) {
             super(itemView);
             this.name =(TextView) itemView.findViewById(R.id.name);
             this.msg = (TextView) itemView.findViewById(R.id.msg);
             this.image = (CircleImageView) itemView.findViewById(R.id.profile_image);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(usersRecyclerViewClick != null){
+                        int pos= getAdapterPosition();
+                        if(pos != RecyclerView.NO_POSITION){
+                            usersRecyclerViewClick.onUserClickListener(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 }
