@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".screens.authentication.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.chat.VideoActivity"
             android:exported="false" />
         <activity

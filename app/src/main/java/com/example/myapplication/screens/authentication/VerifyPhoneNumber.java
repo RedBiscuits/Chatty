@@ -24,38 +24,47 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class VerifyPhoneNumber extends AppCompatActivity {
-    String verificationCodesBySystem;
-    Button verify_Btn;
-    EditText phoneNoEnteredByTheUser;
-    ProgressBar progressBar;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    ActivityVerifyPhoneNumberBinding binding;
+    private String verificationCodesBySystem;
+    private EditText verificationCode;
+    private ProgressBar progressBar;
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private String name;
+    private String description;
+    private String phoneNo;
+    private String activityDeterminant;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityVerifyPhoneNumberBinding.inflate(getLayoutInflater());
+        ActivityVerifyPhoneNumberBinding binding = ActivityVerifyPhoneNumberBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        verify_Btn = findViewById(R.id.verify_Btn);
-        phoneNoEnteredByTheUser = findViewById(R.id.editTextNumberSigned);
+        activityDeterminant = getIntent().getStringExtra("determinant");
+        Button verify_Btn = findViewById(R.id.verify_Btn);
+        verificationCode = findViewById(R.id.editTextNumberSigned);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
 
         //To receive the phone no, we will use getIntent()
-        String phoneNo = getIntent().getStringExtra("phoneNo");
+        phoneNo = getIntent().getStringExtra("phoneNo");
+        name = getIntent().getStringExtra("name");
+        description = getIntent().getStringExtra("description");
+
         sendVerificationCodeToUser(phoneNo);
 
         binding.verifyBtn.setOnClickListener(v -> {
 
-            String code = phoneNoEnteredByTheUser.getText().toString();
+            String code = verificationCode.getText().toString();
 
             if (code.isEmpty() || code.length() < 6) {
-                phoneNoEnteredByTheUser.setError("Wrong verification code. ");
-                phoneNoEnteredByTheUser.requestFocus();
+                verificationCode.setError("Wrong verification code. ");
+                verificationCode.requestFocus();
             } else {
                 progressBar.setVisibility(View.VISIBLE);
                 verifyCode(code);
@@ -68,7 +77,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     private void sendVerificationCodeToUser(String phoneNo) {
         // [START start_phone_auth]
         PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
+                PhoneAuthOptions.newBuilder(firebaseAuth)
                         .setPhoneNumber("+20" + phoneNo)       // Phone number to verify
                         .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this)                 // Activity (for callback binding)
@@ -116,7 +125,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     private void signInTheUserByCredential(PhoneAuthCredential credential) {
 
 
-        mAuth.signInWithCredential(credential).addOnCompleteListener(VerifyPhoneNumber.this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(VerifyPhoneNumber.this, new OnCompleteListener<AuthResult>() {
 
             private void showInfoToUser(Task<AuthResult> task) {
                 //here manage the exceptions and show relevant information to user
@@ -126,8 +135,6 @@ public class VerifyPhoneNumber extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 String NewMessage="......";
                 if (task.isSuccessful()) {
-                    Toast.makeText(VerifyPhoneNumber.this, "Success", Toast.LENGTH_SHORT).show();
-
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         NewMessage = "This account is already Exist";
                         Snackbar snackbar = Snackbar.make(findViewById(R.id.progressBar), NewMessage, Snackbar.LENGTH_LONG);
@@ -135,14 +142,31 @@ public class VerifyPhoneNumber extends AppCompatActivity {
 
                         });
                         snackbar.show();
-
                     }
-                    Intent intent = new Intent(VerifyPhoneNumber.this , home.class);
-                    startActivity(intent);
+                    if(activityDeterminant.equals("signup"))
+                        saveInfo();
 
+                    navigateToHome();
                 }
             }
 
         });
+    }
+
+    private void navigateToHome() {
+        Intent intent =new Intent(VerifyPhoneNumber.this , home.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void saveInfo() {
+        Map<String,Object> map = new HashMap<>();
+        map.put("name",name);
+        map.put("description",description);
+        db.collection("users").document(phoneNo).set(map).addOnCompleteListener(task -> {
+            Toast.makeText(VerifyPhoneNumber.this , "Access granted " , Toast.LENGTH_SHORT).show();
+        });
+
+
     }
 }
