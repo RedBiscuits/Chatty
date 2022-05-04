@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivitySplashScreenBinding;
 import com.example.myapplication.screens.authentication.SignUp;
+import com.example.myapplication.screens.chat.VideoActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +42,7 @@ public class SplashScreen extends AppCompatActivity {
             checkStoragePermission();
             //Do something after delay
             finish();
-            startActivity(new Intent(SplashScreen.this, SignUp.class));
+            startActivity(new Intent(SplashScreen.this, VideoActivity.class));
         }, 3000);
     }
     private void checkStoragePermission() {

@@ -201,7 +201,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     }
     private ArrayList<UserModel> buildList(){
         ArrayList<UserModel> arrayList = new ArrayList<>();
-        String address = "mipmap-xxhdpi/img.png";
+        String address = "mipmap-mdpi/user_img.png";
         arrayList.add(new UserModel("Eljoo" , "Yasta ana b7bk yasta",address, "123"));
         arrayList.add(new UserModel("Samy" , "El3nkboot el nono",address, "123"));
         arrayList.add(new UserModel("Kimo" , "Yalla Valo",address, "123"));
