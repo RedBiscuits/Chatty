@@ -1,4 +1,4 @@
-package com.example.myapplication.screens.status
+package com.datastructures.chatty.screens.status
 
 import Statue_Adapter
 import android.content.Intent
@@ -10,10 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.datastructures.chatty.R
-import com.datastructures.chatty.screens.status.AddImageActivity
-import com.datastructures.chatty.screens.status.AddTextStory
-import com.example.myapplication.models.StoryModel
-import com.example.myapplication.models.UserStatue
+import com.datastructures.chatty.models.StoryModel
+import com.datastructures.chatty.models.UserStatue
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -65,7 +63,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                     databaseRef.child("users").child(uid).orderByChild("date").addValueEventListener(object : ValueEventListener{
                         override fun onDataChange(dataSnapShot: DataSnapshot) {
 
-                            val myStories: java.util.ArrayList<MyStory> = java.util.ArrayList<MyStory>()
+                            val myStories: ArrayList<MyStory> = ArrayList<MyStory>()
 
                             var lastStory = StoryModel( "" , "" , "")
                             for (snapShot in dataSnapShot.children){
@@ -188,7 +186,8 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
                                                             }
 
-                                                            storyOfFriends.add(UserStatue(
+                                                            storyOfFriends.add(
+                                                                UserStatue(
                                                                 stories,
                                                                 it.get("name").toString(),
                                                                 lastStoryTime,
@@ -196,7 +195,8 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                                                 null,
                                                                 null,
                                                                 it.get("myImg").toString()
-                                                            ))
+                                                            )
+                                                            )
 
                                                             adapter.submitList(storyOfFriends)
 

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.datastructures.chatty.databinding.ActivityMainBinding;
-import com.example.myapplication.ui.main.SectionsPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;

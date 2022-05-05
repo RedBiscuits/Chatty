@@ -12,7 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import com.datastructures.chatty.R
-import com.example.myapplication.models.StoryModel
+import com.datastructures.chatty.models.StoryModel
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase

@@ -26,9 +26,6 @@ import com.datastructures.chatty.R;
 import com.datastructures.chatty.adapters.UserListAdapter;
 import com.datastructures.chatty.models.UserModel;
 import com.datastructures.chatty.utils.UsersRecyclerViewClick;
-import com.datastructures.chatty.adapters.UserListAdapter;
-import com.datastructures.chatty.models.UserModel;
-import com.datastructures.chatty.utils.UsersRecyclerViewClick;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

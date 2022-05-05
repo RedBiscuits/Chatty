@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.main
+package com.datastructures.chatty.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

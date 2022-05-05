@@ -1,6 +1,6 @@
 import android.annotation.SuppressLint
 import android.os.Build
-import com.example.myapplication.models.UserStatue
+import com.datastructures.chatty.models.UserStatue
 
 
 import android.view.LayoutInflater
