@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.datastructures.chatty
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.example.myapplication.screens.authentication;
+package com.datastructures.chatty.screens.authentication;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,8 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.R;
-import com.example.myapplication.databinding.ActivitySignUpBinding;
+import com.datastructures.chatty.R;
+import com.datastructures.chatty.databinding.ActivitySignUpBinding;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;

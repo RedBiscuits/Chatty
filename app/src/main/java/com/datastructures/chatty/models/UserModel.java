@@ -1,4 +1,4 @@
-package com.example.myapplication.models;
+package com.datastructures.chatty.models;
 
 public class UserModel {
     private String name;

@@ -1,4 +1,4 @@
-package com.example.myapplication.screens.chat;
+package com.datastructures.chatty.screens.chat;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.R;
+import com.datastructures.chatty.R;
 
 
 public class AddNewContact extends AppCompatActivity {

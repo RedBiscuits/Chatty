@@ -1,4 +1,4 @@
-package com.example.myapplication.adapters;
+package com.datastructures.chatty.adapters;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -9,9 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.R;
-import com.example.myapplication.models.UserModel;
-import com.example.myapplication.utils.UsersRecyclerViewClick;
+import com.datastructures.chatty.R;
+import com.datastructures.chatty.models.UserModel;
+import com.datastructures.chatty.utils.UsersRecyclerViewClick;
 
 import java.util.ArrayList;
 

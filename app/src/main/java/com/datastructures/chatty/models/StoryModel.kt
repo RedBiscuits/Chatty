@@ -1,8 +1,4 @@
-package com.example.myapplication.models
-
-import android.accounts.AuthenticatorDescription
-import android.net.Uri
-import java.util.*
+package com.datastructures.chatty.models
 
 class StoryModel() {
     var uri : String = ""

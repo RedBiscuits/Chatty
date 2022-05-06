@@ -1,4 +1,4 @@
-package com.example.myapplication.screens.status
+package com.datastructures.chatty.screens.status
 
 import android.app.Activity
 import android.content.Context
@@ -11,8 +11,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
-import com.example.myapplication.R
-import com.example.myapplication.models.StoryModel
+import com.datastructures.chatty.R
+import com.datastructures.chatty.models.StoryModel
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
