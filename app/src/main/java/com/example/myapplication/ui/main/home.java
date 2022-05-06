@@ -1,12 +1,18 @@
 package com.example.myapplication.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityMainBinding;
+import com.example.myapplication.screens.authentication.SharedPreferenceClass;
+import com.example.myapplication.utils.Amar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
@@ -14,7 +20,8 @@ import java.util.Objects;
 public class home extends AppCompatActivity {
 
     private ActivityMainBinding binding ;
-
+    private static SharedPreferenceClass sharedPreferenceClass;
+    private Button settingsButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,16 +31,24 @@ public class home extends AppCompatActivity {
         //Binding and drawing layout
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         //Tab layout setup
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
+        settingsButton = findViewById(R.id.settings_button);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToSettings(view);
+            }
+        });
     }
 
 
-
+    public void goToSettings(View view) {
+        startActivity(new Intent(getApplicationContext(), SettingActivity.class));
+    }
 
 }

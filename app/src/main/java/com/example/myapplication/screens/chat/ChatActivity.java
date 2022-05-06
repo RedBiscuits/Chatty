@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.utils.Amar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -21,6 +22,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Amar.setMode(this);
         setContentView(R.layout.activity_chat);
 
         if (savedInstanceState == null) {

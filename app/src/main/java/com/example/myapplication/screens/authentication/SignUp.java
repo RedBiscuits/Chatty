@@ -1,6 +1,5 @@
 package com.example.myapplication.screens.authentication;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,9 +24,10 @@ public class SignUp extends AppCompatActivity {
     private EditText descriptionEditText, registerUserNameEditText, registerPhoneEditText;
     private CircleImageView ProfilePhoto;
     private String phone;
+    private Uri profileImageUri;
+
     //Chek if The username is Valid or not
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class SignUp extends AppCompatActivity {
 
         toLogin.setOnClickListener(view -> {
 
-            Intent intent =new Intent(SignUp.this , LoginActivity.class);
+            Intent intent =new Intent(SignUp.this , LoginFormActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
@@ -72,6 +72,7 @@ public class SignUp extends AppCompatActivity {
                             intent.putExtra("name", name);
                             intent.putExtra("description", descriptionStr);
                             intent.putExtra("determinant", "signup");
+                            intent.putExtra("imageUri", profileImageUri.toString());
                             startActivity(intent);
                         }
                     }
@@ -136,11 +137,9 @@ public class SignUp extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Uri uri;
         if (data != null) {
-            uri = data.getData();
-            ProfilePhoto.setImageURI(uri);
-
+            profileImageUri = data.getData();
+            ProfilePhoto.setImageURI(profileImageUri);
         }else{
             Toast.makeText(this, "Error occurred -1", Toast.LENGTH_LONG).show();
         }

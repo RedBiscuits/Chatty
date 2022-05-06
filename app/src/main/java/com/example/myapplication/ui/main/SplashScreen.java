@@ -14,9 +14,8 @@ import androidx.core.content.ContextCompat;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivitySplashScreenBinding;
-import com.example.myapplication.screens.authentication.LoginActivity;
-import com.example.myapplication.screens.authentication.SignUp;
-import com.example.myapplication.screens.chat.VideoActivity;
+import com.example.myapplication.screens.authentication.LoginFormActivity;
+import com.example.myapplication.utils.Amar;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,6 +25,7 @@ public class SplashScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Amar.setMode(this);
         super.onCreate(savedInstanceState);
         com.example.myapplication.databinding.ActivitySplashScreenBinding binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -43,7 +43,7 @@ public class SplashScreen extends AppCompatActivity {
             checkStoragePermission();
             //Do something after delay
             finish();
-            startActivity(new Intent(SplashScreen.this, LoginActivity.class));
+            startActivity(new Intent(SplashScreen.this, LoginFormActivity.class));
         }, 3000);
     }
     private void checkStoragePermission() {

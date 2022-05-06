@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.UserListAdapter;
 import com.example.myapplication.models.UserModel;
+import com.example.myapplication.utils.Amar;
 import com.example.myapplication.utils.UsersRecyclerViewClick;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -62,6 +63,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= LayoutInflater.from(getContext()).inflate(R.layout.fragment_users,container,false);
+        Amar.setMode(getContext());
         RecyclerView recyclerView = view.findViewById(R.id.users_RV);
         //Animation initialization
         rotOpen = AnimationUtils.loadAnimation(getContext() , R.anim.rotate_open_anim);

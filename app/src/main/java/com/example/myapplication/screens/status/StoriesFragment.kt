@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.models.StoryModel
 import com.example.myapplication.models.UserStatue
+import com.example.myapplication.utils.Amar
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -48,7 +49,11 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
     val adapter = Statue_Adapter()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Amar.setMode(context)
 
+    }
     override fun onResume() {
         super.onResume()
 
