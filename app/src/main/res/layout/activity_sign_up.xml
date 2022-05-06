@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.authentication.SignUp">
+    tools:context="com.example.myapplication.screens.authentication.SignUp">
 
     <Button
         android:id="@+id/rigester_button"

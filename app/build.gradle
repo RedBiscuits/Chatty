@@ -9,7 +9,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.datastructures.chatty"
+        applicationId "com.example.myapplication"
         minSdk 28
         targetSdk 32
         versionCode 1
