@@ -20,15 +20,7 @@ public class VideoActivity extends  AppCompatActivity{
         Amar.setMode(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
-//        try {
-//            JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions.Builder()
-//                    .setServerURL(new URL(""))
-//                    .setWelcomePageEnabled(true)
-//                    .build();
-//            JitsiMeetActivity.launch(this , options);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
+
     }
 
     public void onButtonClick(View view) {

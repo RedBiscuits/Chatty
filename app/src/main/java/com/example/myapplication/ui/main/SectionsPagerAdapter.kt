@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.main
 
+import StoriesFragment
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -7,7 +8,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.datastructures.chatty.R
 import com.example.myapplication.screens.chat.Users
 import com.example.myapplication.ui.main.PlaceholderFragment.Companion.newInstance
-import com.example.myapplication.screens.status.StoriesFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
