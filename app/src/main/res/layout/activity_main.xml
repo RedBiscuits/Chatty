@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.home">
+    tools:context="com.example.myapplication.ui.main.home">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,12 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
+                android:id="@+id/current_user_profile_image"
                 android:layout_marginTop="@dimen/_11sdp"
                 android:layout_marginStart="@dimen/_11sdp"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
-                android:src="@mipmap/img"
+                android:src="@mipmap/logo"
                 app:civ_border_width="@dimen/_2sdp"
                 app:civ_border_color="#FF000000"/>
             <TextView

@@ -1,15 +1,12 @@
 package com.example.myapplication.screens.chat;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.datastructures.chatty.R;
-import com.example.myapplication.utils.Amar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -19,10 +16,10 @@ public class ChatActivity extends AppCompatActivity {
     CircleImageView userChatImage;
     String userName;
     String userPhone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Amar.setMode(this);
         setContentView(R.layout.activity_chat);
 
         if (savedInstanceState == null) {
@@ -45,12 +42,8 @@ public class ChatActivity extends AppCompatActivity {
         userChatName.setText(userName);
         userChatPhone.setText(userPhone);
 
-        userChatImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ChatActivity.this, VideoActivity.class);
-                startActivity(intent);
-            }
+        userChatImage.setOnClickListener(view -> {
+            startActivity(new Intent(ChatActivity.this, VideoActivity.class));
         });
     }
 }
