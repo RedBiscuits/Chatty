@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/cardBackgroundColor"
-    tools:context=".ui.main.SettingActivity">
+    tools:context="com.example.myapplication.ui.main.SettingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,13 +47,13 @@
             android:layout_height="wrap_content"
             android:onClick="goToHome"
             android:text="@string/goToHome" />
+
         <Button
+            android:id="@+id/logout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/logout_button"
-            android:text="sign out"
             android:onClick="logout"
-            />
+            android:text="sign out" />
 
     </LinearLayout>
 

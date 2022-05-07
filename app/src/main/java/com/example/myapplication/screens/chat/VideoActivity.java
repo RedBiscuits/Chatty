@@ -17,7 +17,6 @@ public class VideoActivity extends  AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Amar.setMode(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 

@@ -71,15 +71,16 @@ public class LoginFormActivity extends AppCompatActivity {
         if(phoneNumber != null) {
             Intent intent = new Intent(LoginFormActivity.this, home.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("phone",phone.getText().toString());
             startActivity(intent);
         }
     }
 
     public void initWidgets() {
-        phone = (EditText) findViewById(R.id.editTextPhoneNumber);
-        verifyOTPBtn = (Button) findViewById(R.id.buttonVerifyOTP);
-        OTP = (EditText) findViewById(R.id.editTextOTP);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        phone =  findViewById(R.id.editTextPhoneNumber);
+        verifyOTPBtn =  findViewById(R.id.buttonVerifyOTP);
+        OTP =  findViewById(R.id.editTextOTP);
+        progressBar =  findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -180,7 +181,11 @@ public class LoginFormActivity extends AppCompatActivity {
         firebaseauth.signInWithCredential(credential).addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
                 Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), home.class));
+
+                Intent intent =new Intent(getApplicationContext(), home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("phone",phone.getText().toString());
+                startActivity(intent);
             }
             else {
                 Toast.makeText(getApplicationContext(),"Login Failed",Toast.LENGTH_SHORT).show();

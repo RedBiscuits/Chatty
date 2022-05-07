@@ -27,6 +27,7 @@ public class SettingActivity extends AppCompatActivity {
     private Switch SwitchTheme;
     private static SharedPreferenceClass sharedPreferenceClass;
     SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferencesHome;
     private static final String SHARED_PREFERENCES_NAME = "mypref";
     Button logout_btn;
 
@@ -44,6 +45,7 @@ public class SettingActivity extends AppCompatActivity {
 //                logout(view);
 //            }
 //        });
+        sharedPreferencesHome = getSharedPreferences(SHARED_PREFERENCES_NAME,Activity.MODE_PRIVATE);
         loadLocale();
         setContentView(R.layout.activity_setting);
         changeActionBarLanguage();
@@ -139,7 +141,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = sharedPreferencesHome.edit();
         editor.clear();
         editor.apply();
         Toast.makeText(getApplicationContext(), "Log out successfully", Toast.LENGTH_SHORT).show();

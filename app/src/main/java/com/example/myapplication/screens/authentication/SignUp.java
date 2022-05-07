@@ -38,7 +38,7 @@ public class SignUp extends AppCompatActivity {
         descriptionEditText = findViewById(R.id.description);
         registerUserNameEditText = findViewById(R.id.registering_user_name);
         registerPhoneEditText = findViewById(R.id.registering_user_phone);
-        ProfilePhoto=findViewById(R.id.profile_image);
+        ProfilePhoto=findViewById(R.id.current_user_profile_image);
         TextView toLogin = findViewById(R.id.to_login_text);
 
         toLogin.setOnClickListener(view -> {
@@ -84,7 +84,7 @@ public class SignUp extends AppCompatActivity {
 
 
         });
-        binding.profileImage.setOnClickListener(new View.OnClickListener() {
+        binding.currentUserProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pickImg();

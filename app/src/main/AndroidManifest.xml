@@ -11,37 +11,51 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo_img_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
             android:name="com.example.myapplication.ui.main.SettingActivity"
+            android:launchMode = "singleTop"
             android:exported="false" />
         <activity
             android:name="com.example.myapplication.screens.authentication.LoginFormActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode = "singleTop"
+            />
         <activity
             android:name="com.example.myapplication.screens.chat.VideoActivity"
+            android:launchMode = "singleTop"
             android:exported="false" />
         <activity
             android:name="com.example.myapplication.screens.chat.ChatActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode = "singleTop"
+            />
         <activity
             android:name="com.example.myapplication.screens.status.AddTextStory"
+            android:launchMode = "singleTop"
             android:exported="false" />
         <activity
             android:name="com.example.myapplication.screens.status.AddImageActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode = "singleTop"
+            />
         <activity
             android:name="com.example.myapplication.ui.main.home"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode = "singleTop"
+            />
         <activity
             android:name="com.example.myapplication.screens.chat.AddNewContact"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode = "singleTop"
+            />
         <activity
             android:name="com.example.myapplication.ui.main.SplashScreen"
+            android:launchMode = "singleTop"
             android:exported="true"
             android:theme="@style/Theme.MyApplication.NoActionBar">
             <intent-filter>
@@ -52,9 +66,11 @@
         </activity>
         <activity
             android:name="com.example.myapplication.screens.authentication.VerifyPhoneNumber"
+            android:launchMode = "singleTop"
             android:exported="true" />
         <activity
             android:name="com.example.myapplication.screens.authentication.SignUp"
+            android:launchMode = "singleTop"
             android:exported="true" />
     </application>
 
