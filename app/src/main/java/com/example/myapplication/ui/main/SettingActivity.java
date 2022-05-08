@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.datastructures.chatty.R;
 import com.example.myapplication.screens.authentication.LoginFormActivity;
-import com.example.myapplication.screens.authentication.SharedPreferenceClass;
+import com.example.myapplication.utils.SharedPreferenceClass;
 
 import java.util.Locale;
 
@@ -137,7 +137,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void goToHome(View view) {
-        startActivity(new Intent(getApplicationContext(), home.class));
+        startActivity(new Intent(getApplicationContext(), Home.class));
     }
 
     public void logout(View view) {

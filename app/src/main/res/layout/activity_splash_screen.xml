@@ -15,5 +15,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/carbon_intro" />
+        app:lottie_rawRes="@raw/carbon_intro_v2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

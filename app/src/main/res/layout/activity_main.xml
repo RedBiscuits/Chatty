@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.myapplication.ui.main.home">
+    tools:context="com.example.myapplication.ui.main.Home">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:src="@mipmap/logo"
-                app:civ_border_width="@dimen/_2sdp"
+                app:civ_border_width="@dimen/_1sdp"
                 app:civ_border_color="#FF000000"/>
             <TextView
                 android:id="@+id/title"

@@ -1,4 +1,4 @@
-package com.example.myapplication.screens.authentication;
+package com.example.myapplication.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

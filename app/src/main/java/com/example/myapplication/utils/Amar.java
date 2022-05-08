@@ -3,7 +3,6 @@ package com.example.myapplication.utils;
 import android.content.Context;
 
 import com.datastructures.chatty.R;
-import com.example.myapplication.screens.authentication.SharedPreferenceClass;
 
 public class Amar {
     private static SharedPreferenceClass sharedPreferenceClass;

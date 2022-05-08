@@ -18,7 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.datastructures.chatty.R;
-import com.example.myapplication.ui.main.home;
+import com.example.myapplication.ui.main.Home;
+import com.example.myapplication.utils.SharedPreferenceClass;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -69,7 +70,7 @@ public class LoginFormActivity extends AppCompatActivity {
 
         String phoneNumber = sharedPreferences.getString(KEY_PHONE_NUMBER, null);
         if(phoneNumber != null) {
-            Intent intent = new Intent(LoginFormActivity.this, home.class);
+            Intent intent = new Intent(LoginFormActivity.this, Home.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("phone",phone.getText().toString());
             startActivity(intent);
@@ -182,7 +183,7 @@ public class LoginFormActivity extends AppCompatActivity {
             if(task.isSuccessful()) {
                 Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
 
-                Intent intent =new Intent(getApplicationContext(), home.class);
+                Intent intent =new Intent(getApplicationContext(), Home.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("phone",phone.getText().toString());
                 startActivity(intent);

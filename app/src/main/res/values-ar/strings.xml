@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="tab_text_1">المحادثات</string>
+    <string name="tab_text_1">carbon</string>
     <string name="tab_text_2">الحالات</string>
     <string name="tab_text_3">المجموعات</string>
     <string name="add_chat">إضافة محادثة</string>

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -14,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.datastructures.chatty.R;
 import com.datastructures.chatty.databinding.ActivityVerifyPhoneNumberBinding;
-import com.example.myapplication.ui.main.home;
+import com.example.myapplication.ui.main.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -51,6 +53,10 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         ActivityVerifyPhoneNumberBinding binding = ActivityVerifyPhoneNumberBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         activityDeterminant = getIntent().getStringExtra("determinant");
@@ -163,7 +169,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     }
 
     private void navigateToHome() {
-        Intent intent =new Intent(VerifyPhoneNumber.this , home.class);
+        Intent intent =new Intent(VerifyPhoneNumber.this , Home.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("phone",phoneNo);
         startActivity(intent);

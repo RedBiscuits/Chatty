@@ -44,7 +44,7 @@
             android:launchMode = "singleTop"
             />
         <activity
-            android:name="com.example.myapplication.ui.main.home"
+            android:name="com.example.myapplication.ui.main.Home"
             android:exported="true"
             android:launchMode = "singleTop"
             />
