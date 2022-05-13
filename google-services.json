@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "694958674680",
+    "project_id": "carbon-57469",
+    "storage_bucket": "carbon-57469.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694958674680:android:a40c298409d383f08a610d",
+        "android_client_info": {
+          "package_name": "com.datastructures.chatty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "694958674680-t81n0mt1dljekef909ul0057hmdq1486.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBPzvf3UJwGejirIvIbwe9RbQiNm-kVF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "694958674680-t81n0mt1dljekef909ul0057hmdq1486.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
