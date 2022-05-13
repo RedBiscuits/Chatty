@@ -35,11 +35,11 @@
             android:launchMode = "singleTop"
             />
         <activity
-            android:name="com.example.myapplication.screens.status.AddTextStory"
+            android:name="com.example.myapplication.screens.status.AddTextStoryActivity"
             android:launchMode = "singleTop"
             android:exported="false" />
         <activity
-            android:name="com.example.myapplication.screens.status.AddImageActivity"
+            android:name="com.example.myapplication.screens.status.AddImageStoryActivity"
             android:exported="false"
             android:launchMode = "singleTop"
             />

@@ -22,10 +22,10 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddTextStory : AppCompatActivity() {
+class AddTextStoryActivity : AppCompatActivity() {
 
     private lateinit var selectedImgUri: Uri
-    private var uid = "01017046725"
+    private var uid =intent.getStringExtra("phone")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_text_story)
@@ -93,8 +93,8 @@ class AddTextStory : AppCompatActivity() {
 
                     realTimeDatabaseRef.child("users").child("01017046725").child(randomKey).setValue(StoryModel(it.toString(), null,  currentDate))
                         .addOnSuccessListener {
-                            fireStoreRef.collection("users").document(uid).update("hasStory" , true)
-                            fireStoreRef.collection("users").document(uid).update("lastStory" , currentDate)
+                            fireStoreRef.collection("users").document(uid!!).update("hasStory" , true)
+                            fireStoreRef.collection("users").document(uid!!).update("lastStory" , currentDate)
                         }
                         .addOnFailureListener {
                             Toast.makeText(

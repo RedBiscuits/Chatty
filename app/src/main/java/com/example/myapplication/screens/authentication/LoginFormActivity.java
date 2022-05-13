@@ -34,8 +34,8 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginFormActivity extends AppCompatActivity {
 
-    private static final String SHARED_PREFERENCES_NAME = "mypref";
-    private static final String KEY_PHONE_NUMBER = "phone";
+    public static final String SHARED_PREFERENCES_NAME = "mypref";
+    public static final String KEY_PHONE_NUMBER = "phone";
     SharedPreferenceClass sharedPreferenceClass;
     EditText phone, OTP;
     Button verifyOTPBtn;

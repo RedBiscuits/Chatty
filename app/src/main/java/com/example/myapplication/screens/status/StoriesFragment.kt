@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.datastructures.chatty.R
 import com.example.myapplication.models.StoryModel
-import com.example.myapplication.models.UserStatue
-import com.example.myapplication.screens.status.AddImageActivity
-import com.example.myapplication.screens.status.AddTextStory
+import com.example.myapplication.models.UserModel
+import com.example.myapplication.screens.status.AddImageStoryActivity
+import com.example.myapplication.screens.status.AddTextStoryActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -29,6 +29,8 @@ import java.util.*
 
 class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
+
+    var uid="01550935404"
     private val fireStoreRef by lazy {
         FirebaseFirestore.getInstance()
     }
@@ -37,15 +39,16 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
         Firebase.database.reference
     }
 
+//    var uid = "01017046725"
 
-    var uid = "01017046725"
 
-    val storyOfFriends : ArrayList<UserStatue> by lazy {
+
+
+    val storyOfFriends : ArrayList<UserModel> by lazy {
         ArrayList()
     }
 
-    lateinit var myUser : UserStatue
-
+    lateinit var myUser : UserModel
 
     val adapter = Statue_Adapter()
 
@@ -53,7 +56,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
     override fun onResume() {
         super.onResume()
 
-        fireStoreRef.collection("users").document(uid).get()
+        fireStoreRef.collection("users").document(uid!!).get()
             .addOnSuccessListener {
 
                 if (it.getBoolean("hasStory") == true){
@@ -61,10 +64,10 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
                     val simpleDateFormat = SimpleDateFormat("dd/M/yyyy HH:mm:ss")
 
-                    databaseRef.child("users").child(uid).orderByChild("date").addValueEventListener(object : ValueEventListener{
+                    databaseRef.child("users").child(uid!!).orderByChild("date").addValueEventListener(object : ValueEventListener{
                         override fun onDataChange(dataSnapShot: DataSnapshot) {
 
-                            val myStories: java.util.ArrayList<MyStory> = java.util.ArrayList<MyStory>()
+                            val myStories: ArrayList<MyStory> = ArrayList<MyStory>()
 
                             var lastStory = StoryModel( "" , "" , "")
                             for (snapShot in dataSnapShot.children){
@@ -96,7 +99,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                         )
                                     )
                                 } else {
-                                    fireStoreRef.collection("users").document(uid).update("hasStory" , false)
+                                    fireStoreRef.collection("users").document(uid!!).update("hasStory" , false)
                                     hideMyStory()
                                 }
                             }
@@ -167,7 +170,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
 
 
-                                myUser = UserStatue(
+                                myUser = UserModel(
                                     myStories,
                                     it.get("name").toString(),
                                     lastStoryTime,
@@ -177,7 +180,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                     it.get("myImg").toString()
                                 )
                             } else {
-                                myUser = UserStatue(
+                                myUser = UserModel(
                                     myStories,
                                     it.get("name").toString(),
                                     "",
@@ -270,13 +273,13 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                                                 }
 
                                                                 storyOfFriends.add(
-                                                                    UserStatue(
+                                                                    UserModel(
                                                                         stories,
                                                                         it.get("name").toString(),
                                                                         lastStoryTime,
-                                                                        it.getBoolean("hasStory"),
-                                                                        null,
-                                                                        null,
+                                                                        it.getBoolean("hasStory")!!,
+                                                                        null!!,
+                                                                        null!!,
                                                                         it.get("myImg").toString()
                                                                     )
                                                                 )
@@ -331,7 +334,6 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
     }
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -342,7 +344,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                 .setStoriesList(myUser.stories)
                 .setStoryDuration(5000)
                 .setTitleText(myUser.name)
-                .setTitleLogoUrl(myUser.myImg)
+                .setTitleLogoUrl(myUser.imageUri)
                 .setStartingIndex(0)
                 .setOnStoryChangedCallback { position ->
 
@@ -363,7 +365,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                 .setStoriesList(it.stories)
                 .setStoryDuration(5000)
                 .setTitleText(it.name)
-                .setTitleLogoUrl(it.myImg)
+                .setTitleLogoUrl(it.imageUri)
                 .setStartingIndex(0)
                 .build()
                 .show()
@@ -378,16 +380,21 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
         addTextStory.setOnClickListener {
 
             addStory.collapseImmediately()
-            startActivity(Intent(this.activity,AddTextStory::class.java))
+            val intent : Intent = Intent(this.activity,AddTextStoryActivity::class.java)
+            intent.putExtra("phone" , uid)
+            startActivity(intent)
         }
 
         addImagedStory.setOnClickListener {
 
             addStory.collapseImmediately()
-            startActivity(Intent(this.activity,AddImageActivity::class.java))
+            val intent : Intent = Intent(this.activity,AddImageStoryActivity::class.java)
+            intent.putExtra("phone" , uid)
+            startActivity(intent)
 
         }
     }
+
 
 
     fun hideMyStory(){
@@ -397,14 +404,13 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
         lineView.visibility = View.GONE
     }
 
+
+
+
     fun showMyStory(){
         myLastStory.visibility = View.VISIBLE
         myStoryImg.visibility = View.VISIBLE
         myStoryTitle.visibility = View.VISIBLE
         lineView.visibility = View.VISIBLE
     }
-
-
-
-
 }

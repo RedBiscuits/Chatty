@@ -20,11 +20,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.jvm.internal.Intrinsics
 
-class AddImageActivity : AppCompatActivity() {
+class AddImageStoryActivity : AppCompatActivity() {
 
 
     lateinit var selectedImgUri : Uri
-    var uid = "01017046725"
+    var uid = "01550935404"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,11 +115,11 @@ class AddImageActivity : AppCompatActivity() {
                     onBackPressed()
 
 
-                    realTimeDatabaseRef.child("users").child(uid).child(randomKey).setValue(
+                    realTimeDatabaseRef.child("users").child(uid!!).child(randomKey).setValue(
                         StoryModel(it.toString() ,Idescription.text.toString()  , currentDate) )
                         .addOnSuccessListener {
-                            fireStoreRef.collection("users").document(uid).update("hasStory" , true)
-                            fireStoreRef.collection("users").document(uid).update("lastStory" , currentDate)
+                            fireStoreRef.collection("users").document(uid!!).update("hasStory" , true)
+                            fireStoreRef.collection("users").document(uid!!).update("lastStory" , currentDate)
 
                         }
                         .addOnFailureListener {
