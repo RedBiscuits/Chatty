@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.datastructures.chatty"
+    android:allowBackup="false"
+    android:fullBackupContent="false"
     android:theme="@android:style/Theme.NoTitleBar">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -30,11 +32,6 @@
             android:launchMode = "singleTop"
             android:exported="false" />
         <activity
-            android:name="com.example.myapplication.screens.chat.ChatActivity"
-            android:exported="false"
-            android:launchMode = "singleTop"
-            />
-        <activity
             android:name="com.example.myapplication.screens.status.AddTextStoryActivity"
             android:launchMode = "singleTop"
             android:exported="false" />
@@ -45,6 +42,11 @@
             />
         <activity
             android:name="com.example.myapplication.ui.main.Home"
+            android:exported="true"
+            android:launchMode = "singleTop"
+            />
+        <activity
+            android:name="com.example.myapplication.screens.chatroom.ChatRoom_activity"
             android:exported="true"
             android:launchMode = "singleTop"
             />

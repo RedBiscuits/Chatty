@@ -2,7 +2,9 @@ package com.example.myapplication.screens.chat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -26,15 +28,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.datastructures.chatty.R;
 import com.example.myapplication.adapters.UserListAdapter;
 import com.example.myapplication.models.UserModel;
-import com.example.myapplication.screens.authentication.SignUp;
-import com.example.myapplication.screens.authentication.VerifyPhoneNumber;
-import com.example.myapplication.utils.Amar;
+import com.example.myapplication.screens.chatroom.ChatRoom_activity;
 import com.example.myapplication.utils.UsersRecyclerViewClick;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -54,6 +53,9 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     private FloatingActionButton addExisting ;
     private FloatingActionButton addNew ;
     private UserListAdapter userListAdapter;
+    private String phone;
+    private SharedPreferences sharedPreferences;
+
 
 
     public Users() {
@@ -91,7 +93,9 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         addNew.setOnClickListener(view12 -> addNewContact());
         //FAB of addition
         addFab.setOnClickListener(view13 -> onAddButtonClicked());
+        sharedPreferences = this.getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
+        phone = sharedPreferences.getString("phone", null);
 
         return view;
     }
@@ -242,9 +246,10 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
 
     @Override
     public void onUserClickListener(int position) {
-        Intent intent = new Intent(getContext() , ChatActivity.class);
+        Intent intent = new Intent(getContext() , ChatRoom_activity.class);
         intent.putExtra("name", userModels.get(position).getName());
-        intent.putExtra("phone", userModels.get(position).getPhone());
+        intent.putExtra("phone", phone);
+        intent.putExtra("RecPhone", userModels.get(position).getPhone());
         intent.putExtra("image", userModels.get(position).getImageUri());
         startActivity(intent);
     }

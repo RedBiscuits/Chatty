@@ -24,12 +24,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class Home extends AppCompatActivity {
 
     private ActivityMainBinding binding ;
-    private CircleImageView currentUserImg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +48,7 @@ public class Home extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         Button settingsButton = findViewById(R.id.settings_button);
         settingsButton.setOnClickListener(this::goToSettings);
-        currentUserImg = findViewById(R.id.current_user_profile_image);
+
 
         String phone = getIntent().getStringExtra("phone");
         try {
@@ -63,10 +61,10 @@ public class Home extends AppCompatActivity {
                         String imageUrl = doc.getString("profileImageUrl");
                         Glide.with(this).load(imageUrl).
                                 diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .into(currentUserImg);
+                                .into(binding.currentUserProfileImage);
                     }else {
                         Toast.makeText(this,
-                                "No Available Pic",
+                                "User doesn't exist !",
                                 Toast.LENGTH_LONG).show();
                     }
                 }
