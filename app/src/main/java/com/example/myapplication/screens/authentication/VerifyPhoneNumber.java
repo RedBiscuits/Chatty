@@ -33,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -192,6 +193,11 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                        map.put("name",name);
                        map.put("description",description);
                        map.put("profileImageUrl",downloadUrl);
+                       map.put("friends",new ArrayList<String>());
+                       map.put("hasStory",false);
+                       map.put("lastStory",null);
+                       map.put("storyUrl",null);
+
                        db.collection("users").document(phoneNo).set(map).addOnCompleteListener(task -> {
                            Toast.makeText(VerifyPhoneNumber.this , "Access granted " , Toast.LENGTH_SHORT).show();
                        });

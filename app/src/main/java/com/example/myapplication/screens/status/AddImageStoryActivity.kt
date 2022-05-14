@@ -23,9 +23,15 @@ import kotlin.jvm.internal.Intrinsics
 class AddImageStoryActivity : AppCompatActivity() {
 
 
-    lateinit var selectedImgUri : Uri
-    var uid = "01550935404"
+    private lateinit var selectedImgUri : Uri
+    val uid : String? by lazy {
+        restorePrefTheme("phone")
+    }
+    private fun restorePrefTheme(key : String): String? {
+        val pref = this.getSharedPreferences("mypref", AppCompatActivity.MODE_PRIVATE)
+        return  pref.getString(key, "01129293050").toString()
 
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_image)

@@ -1,4 +1,5 @@
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -30,7 +31,14 @@ import java.util.*
 class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
 
-    var uid="01550935404"
+    val uid : String? by lazy {
+            restorePrefTheme("phone")
+    }
+    private fun restorePrefTheme(key : String): String? {
+            val pref = requireContext().getSharedPreferences("mypref", AppCompatActivity.MODE_PRIVATE)
+            return  pref.getString(key, "01129293050").toString()
+
+    }
     private val fireStoreRef by lazy {
         FirebaseFirestore.getInstance()
     }
@@ -55,7 +63,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
     override fun onResume() {
         super.onResume()
-
+        Log.d("meowoowowowowowowow",uid.toString())
         fireStoreRef.collection("users").document(uid!!).get()
             .addOnSuccessListener {
 
@@ -177,7 +185,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                     hastStory,
                                     it.get("friends") as ArrayList<String>,
                                     it.get("storyUrl").toString(),
-                                    it.get("myImg").toString()
+                                    it.get("profileImageUrl").toString()
                                 )
                             } else {
                                 myUser = UserModel(
@@ -187,7 +195,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                     hastStory,
                                     it.get("friends") as ArrayList<String>,
                                     it.get("storyUrl").toString(),
-                                    it.get("myImg").toString())
+                                    it.get("profileImageUrl").toString())
                             }
 
 
@@ -278,9 +286,9 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                                                         it.get("name").toString(),
                                                                         lastStoryTime,
                                                                         it.getBoolean("hasStory")!!,
-                                                                        null!!,
-                                                                        null!!,
-                                                                        it.get("myImg").toString()
+                                                                        it.get("friends") as ArrayList<String>,
+                                                                        it.get("storyUrl").toString(),
+                                                                        it.get("profileImageUrl").toString()
                                                                     )
                                                                 )
                                                             }

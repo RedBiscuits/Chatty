@@ -25,7 +25,15 @@ import java.util.*
 class AddTextStoryActivity : AppCompatActivity() {
 
     private lateinit var selectedImgUri: Uri
-    private var uid =intent.getStringExtra("phone")
+
+    val uid : String? by lazy {
+        restorePrefTheme("phone")
+    }
+    private fun restorePrefTheme(key : String): String? {
+        val pref = this.getSharedPreferences("mypref", AppCompatActivity.MODE_PRIVATE)
+        return  pref.getString(key, "01129293050").toString()
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_text_story)
@@ -91,7 +99,7 @@ class AddTextStoryActivity : AppCompatActivity() {
 
                     this.onBackPressed()
 
-                    realTimeDatabaseRef.child("users").child("01017046725").child(randomKey).setValue(StoryModel(it.toString(), null,  currentDate))
+                    realTimeDatabaseRef.child("users").child(uid.toString()).child(randomKey).setValue(StoryModel(it.toString(), null,  currentDate))
                         .addOnSuccessListener {
                             fireStoreRef.collection("users").document(uid!!).update("hasStory" , true)
                             fireStoreRef.collection("users").document(uid!!).update("lastStory" , currentDate)

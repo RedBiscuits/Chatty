@@ -55,6 +55,8 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     private UserListAdapter userListAdapter;
     private String phone;
     private SharedPreferences sharedPreferences;
+    ArrayList<String> friends ;
+
 
 
 
@@ -83,7 +85,11 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         addExisting =  view.findViewById(R.id.add_existing);
         addNew =  view.findViewById(R.id.add_new);
 
-        userModels = buildList();
+        sharedPreferences = this.getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
+        phone = sharedPreferences.getString("phone", null);
+
+        userModels = new ArrayList<>();
+        buildList();
         userListAdapter = new UserListAdapter(userModels, this);
         recyclerView.setAdapter(userListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -93,9 +99,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         addNew.setOnClickListener(view12 -> addNewContact());
         //FAB of addition
         addFab.setOnClickListener(view13 -> onAddButtonClicked());
-        sharedPreferences = this.getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
 
-        phone = sharedPreferences.getString("phone", null);
 
         return view;
     }
@@ -131,9 +135,33 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                 String selectedContactNumber = phones.getString(phones.getColumnIndexOrThrow("data1"));
                 System.out.println(processPhone(selectedContactNumber));
                 getUserData(selectedContactNumber);
+                addToFriends(selectedContactNumber);
                 phones.close();
             }
         }
+    }
+
+    private void addToFriends(String friendPhone) {
+        try {
+            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phone);
+            docRef.get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if(doc.exists()){
+                        friends = (ArrayList<String>) doc.get("friends");
+                        friends.add(friendPhone);
+                        docRef.update("friends", friends);
+                    }else {
+                        Toast.makeText(this.getActivity(),
+                                "User doesn't exist !",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
     private void getUserData(String phone ) {
@@ -239,9 +267,27 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         }
 
     }
-    private ArrayList<UserModel> buildList(){
-        ArrayList<UserModel> arrayList = new ArrayList<>();
-        return arrayList;
+    private void buildList(){
+        try {
+            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phone);
+            docRef.get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if(doc.exists()){
+                        ArrayList<String> friendsNumbers = (ArrayList<String>) doc.get("friends");
+                        for (int i = 0 ; i< friendsNumbers.size();i++){
+                            getUserData(friendsNumbers.get(i));
+                        }
+                        }else {
+                        Toast.makeText(this.getActivity(),
+                                "User doesn't exist !",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

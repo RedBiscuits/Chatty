@@ -16,7 +16,11 @@ public class UserModel {
     private boolean hasStory;
 
 
-    public UserModel(@NotNull ArrayList<MyStory> stories, @NotNull String name, @NotNull String lastStory, boolean hasStory, @NotNull ArrayList<String> friends, @NotNull String storyUrl, @NotNull String imageUri) {
+    public UserModel( ArrayList<MyStory> stories,  String name,
+                      String lastStory, boolean hasStory,
+                      ArrayList<String> friends,
+                      String storyUrl,
+                      String imageUri) {
         this.friends = friends;
         this.stories = stories;
         this.name = name;
