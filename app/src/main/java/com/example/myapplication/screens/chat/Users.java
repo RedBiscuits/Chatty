@@ -55,7 +55,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     private UserListAdapter userListAdapter;
     private String phone;
     private SharedPreferences sharedPreferences;
-    ArrayList<String> friends ;
+    private ArrayList<String> friends ;
 
 
 
@@ -133,10 +133,10 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                         null, null);
                 phones.moveToFirst();
                 String selectedContactNumber = phones.getString(phones.getColumnIndexOrThrow("data1"));
-                System.out.println(processPhone(selectedContactNumber));
-                getUserData(selectedContactNumber);
-                addToFriends(selectedContactNumber);
+                selectedContactNumber = processPhone(selectedContactNumber);
                 phones.close();
+
+                addToFriends(selectedContactNumber);
             }
         }
     }
@@ -149,19 +149,25 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                     DocumentSnapshot doc = task.getResult();
                     if(doc.exists()){
                         friends = (ArrayList<String>) doc.get("friends");
-                        friends.add(friendPhone);
-                        docRef.update("friends", friends);
-                    }else {
-                        Toast.makeText(this.getActivity(),
-                                "User doesn't exist !",
-                                Toast.LENGTH_LONG).show();
+                        if(friends != null){
+                            if(!friends.contains(friendPhone)){
+                                if(!friendPhone.equals(phone)){
+                                friends.add(friendPhone);
+                                docRef.update("friends", friends);
+                                getUserData(friendPhone);
+                                }else{
+                                    Toast.makeText(getActivity(), "Battal 3bt yasta ", Toast.LENGTH_SHORT).show();
+                                }
+                            }else{
+                                Toast.makeText(getActivity(), "User Already Exists !!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
                 }
             });
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-
     }
 
     private void getUserData(String phone ) {
@@ -172,6 +178,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                 if(task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     if(doc.exists()){
+
                         UserModel user = new UserModel();
                         user.setName(Objects.requireNonNull(doc.get("name")).toString());
                         user.setMsg(Objects.requireNonNull(doc.get("description")).toString());
@@ -278,7 +285,8 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                         for (int i = 0 ; i< friendsNumbers.size();i++){
                             getUserData(friendsNumbers.get(i));
                         }
-                        }else {
+                        }
+                    else {
                         Toast.makeText(this.getActivity(),
                                 "User doesn't exist !",
                                 Toast.LENGTH_LONG).show();

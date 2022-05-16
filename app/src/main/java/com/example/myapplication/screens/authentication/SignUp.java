@@ -36,7 +36,9 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //to hide title bar
+        getSupportActionBar().hide(); //to hide action bar
+
 
         ActivitySignUpBinding binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

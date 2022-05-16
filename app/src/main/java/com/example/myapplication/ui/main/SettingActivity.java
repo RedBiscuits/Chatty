@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -37,6 +39,9 @@ public class SettingActivity extends AppCompatActivity {
         loadDarkModeState();
 
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //to hide title bar
+        getSupportActionBar().hide(); //to hide action bar
 
 //        logout_btn = findViewById(R.id.logout_button);
 //        logout_btn.setOnClickListener(new View.OnClickListener() {

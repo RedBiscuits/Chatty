@@ -1,8 +1,6 @@
 package com.example.myapplication.ui.main;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -24,9 +22,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Home extends AppCompatActivity {
 
     private ActivityMainBinding binding ;
+    private CircleImageView currentUserProfileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class Home extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         Button settingsButton = findViewById(R.id.settings_button);
         settingsButton.setOnClickListener(this::goToSettings);
-
+        currentUserProfileImage = findViewById(R.id.current_user_profile_image);
 
         String phone = getIntent().getStringExtra("phone");
         try {
@@ -59,9 +60,9 @@ public class Home extends AppCompatActivity {
                     DocumentSnapshot doc = task.getResult();
                     if(doc.exists()){
                         String imageUrl = doc.getString("profileImageUrl");
-                        Glide.with(this).load(imageUrl).
+                        Glide.with(getBaseContext()).load(imageUrl).
                                 diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .into(binding.currentUserProfileImage);
+                                .into(currentUserProfileImage);
                     }else {
                         Toast.makeText(this,
                                 "User doesn't exist !",
@@ -78,6 +79,10 @@ public class Home extends AppCompatActivity {
 
     public void goToSettings(View view) {
         startActivity(new Intent(getApplicationContext(), SettingActivity.class));
+    }
+
+    public void goToProfile(View view) {
+        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
     }
 
 }
