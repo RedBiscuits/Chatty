@@ -31,7 +31,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class LoginFormActivity extends AppCompatActivity {
@@ -102,10 +101,10 @@ public class LoginFormActivity extends AppCompatActivity {
             return;
         }
 
-        userFoundOrNot(phoneNumber); //check if is a user or not by phone number
+        checkUser(phoneNumber); //check if is a user or not by phone number
     }
 
-    public void userFoundOrNot(String phoneNumber) {
+    public void checkUser(String phoneNumber) {
         documentReference = firestore.collection("users").document(phoneNumber);
         documentReference.addSnapshotListener(this, (value, error) -> {
             String name = value.getString("name");
@@ -214,5 +213,10 @@ public class LoginFormActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+
+    public void toSignup(View view) {
+        startActivity(new Intent(LoginFormActivity.this , SignUp.class));
     }
 }

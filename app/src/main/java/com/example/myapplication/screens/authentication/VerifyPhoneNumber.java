@@ -162,15 +162,15 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                     if(activityDeterminant.equals("signup"))
                         saveInfo();
 
-                    navigateToHome();
+                    navigateToLogin();
                 }
             }
 
         });
     }
 
-    private void navigateToHome() {
-        Intent intent =new Intent(VerifyPhoneNumber.this , Home.class);
+    private void navigateToLogin() {
+        Intent intent =new Intent(VerifyPhoneNumber.this , LoginFormActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("phone",phoneNo);
         startActivity(intent);

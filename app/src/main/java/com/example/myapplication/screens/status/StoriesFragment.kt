@@ -25,6 +25,7 @@ import omari.hamza.storyview.StoryView
 import omari.hamza.storyview.model.MyStory
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class StoriesFragment : Fragment(R.layout.fragment_stories) {
@@ -62,6 +63,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
     override fun onResume() {
         super.onResume()
+
         Log.d("meowoowowowowowowow",uid.toString())
         fireStoreRef.collection("users").document(uid!!).get()
             .addOnSuccessListener {
@@ -176,7 +178,6 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
 
 
-
                                 myUser = UserModel(
                                     myStories,
                                     it.get("name").toString(),
@@ -198,13 +199,14 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                             }
 
 
+                            Log.d("TAG ::::::::::" , myUser.friends.toString())
                             myLastStory.text = myUser.lastStory
                             myStoryTitle.text = myUser.name
                             Glide.with(requireContext()).load(myUser.storyUrl).into(myStoryImg)
 
                             if (myUser.friends?.size != 0) {
                                 for (friend in myUser.friends!!) {
-
+                                Log.d("TAG ::::::::::" , friend.toString())
                                     fireStoreRef.collection("users").document(friend).get()
                                         .addOnSuccessListener {
 
