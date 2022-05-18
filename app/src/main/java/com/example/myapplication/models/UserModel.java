@@ -1,5 +1,7 @@
 package com.example.myapplication.models;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 import omari.hamza.storyview.model.MyStory;
