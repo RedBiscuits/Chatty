@@ -2,7 +2,9 @@ package com.example.myapplication.screens.chat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -26,15 +28,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.datastructures.chatty.R;
 import com.example.myapplication.adapters.UserListAdapter;
 import com.example.myapplication.models.UserModel;
-import com.example.myapplication.screens.authentication.SignUp;
-import com.example.myapplication.screens.authentication.VerifyPhoneNumber;
-import com.example.myapplication.utils.Amar;
+import com.example.myapplication.screens.chatroom.ChatRoom_activity;
 import com.example.myapplication.utils.UsersRecyclerViewClick;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -54,6 +53,11 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     private FloatingActionButton addExisting ;
     private FloatingActionButton addNew ;
     private UserListAdapter userListAdapter;
+    private String phone;
+    private SharedPreferences sharedPreferences;
+    private ArrayList<String> friends ;
+
+
 
 
     public Users() {
@@ -81,7 +85,11 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         addExisting =  view.findViewById(R.id.add_existing);
         addNew =  view.findViewById(R.id.add_new);
 
-        userModels = buildList();
+        sharedPreferences = this.getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
+        phone = sharedPreferences.getString("phone", null);
+
+        userModels = new ArrayList<>();
+        buildList();
         userListAdapter = new UserListAdapter(userModels, this);
         recyclerView.setAdapter(userListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -125,10 +133,40 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                         null, null);
                 phones.moveToFirst();
                 String selectedContactNumber = phones.getString(phones.getColumnIndexOrThrow("data1"));
-                System.out.println(processPhone(selectedContactNumber));
-                getUserData(selectedContactNumber);
+                selectedContactNumber = processPhone(selectedContactNumber);
                 phones.close();
+
+                addToFriends(selectedContactNumber);
             }
+        }
+    }
+
+    private void addToFriends(String friendPhone) {
+        try {
+            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phone);
+            docRef.get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if(doc.exists()){
+                        friends = (ArrayList<String>) doc.get("friends");
+                        if(friends != null){
+                            if(!friends.contains(friendPhone)){
+                                if(!friendPhone.equals(phone)){
+                                friends.add(friendPhone);
+                                docRef.update("friends", friends);
+                                getUserData(friendPhone);
+                                }else{
+                                    Toast.makeText(getActivity(), "Battal 3bt yasta ", Toast.LENGTH_SHORT).show();
+                                }
+                            }else{
+                                Toast.makeText(getActivity(), "User Already Exists !!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -140,6 +178,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                 if(task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     if(doc.exists()){
+
                         UserModel user = new UserModel();
                         user.setName(Objects.requireNonNull(doc.get("name")).toString());
                         user.setMsg(Objects.requireNonNull(doc.get("description")).toString());
@@ -235,16 +274,36 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         }
 
     }
-    private ArrayList<UserModel> buildList(){
-        ArrayList<UserModel> arrayList = new ArrayList<>();
-        return arrayList;
+    private void buildList(){
+        try {
+            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phone);
+            docRef.get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if(doc.exists()){
+                        ArrayList<String> friendsNumbers = (ArrayList<String>) doc.get("friends");
+                        for (int i = 0 ; i< friendsNumbers.size();i++){
+                            getUserData(friendsNumbers.get(i));
+                        }
+                        }
+                    else {
+                        Toast.makeText(this.getActivity(),
+                                "User doesn't exist !",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public void onUserClickListener(int position) {
-        Intent intent = new Intent(getContext() , ChatActivity.class);
+        Intent intent = new Intent(getContext() , ChatRoom_activity.class);
         intent.putExtra("name", userModels.get(position).getName());
-        intent.putExtra("phone", userModels.get(position).getPhone());
+        intent.putExtra("phone", phone);
+        intent.putExtra("RecPhone", userModels.get(position).getPhone());
         intent.putExtra("image", userModels.get(position).getImageUri());
         startActivity(intent);
     }

@@ -1,13 +1,9 @@
 package com.example.myapplication.models
 
-import android.accounts.AuthenticatorDescription
-import android.net.Uri
-import java.util.*
-
 class StoryModel() {
     var uri : String = ""
     var description: String? = null
-    var date: String = ""
+    var date: String = "01/1/2020 12:00:00"
 
     constructor( uri: String , description: String? , date : String) : this(){
         this.uri = uri

@@ -20,6 +20,7 @@
                 android:layout_marginStart="@dimen/_11sdp"
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="@dimen/_35sdp"
+                android:onClick="goToProfile"
                 android:src="@mipmap/logo"
                 app:civ_border_width="@dimen/_1sdp"
                 app:civ_border_color="#FF000000"/>

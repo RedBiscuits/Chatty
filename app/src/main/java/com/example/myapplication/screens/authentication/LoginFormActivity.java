@@ -28,14 +28,16 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.concurrent.TimeUnit;
 
 public class LoginFormActivity extends AppCompatActivity {
 
-    private static final String SHARED_PREFERENCES_NAME = "mypref";
-    private static final String KEY_PHONE_NUMBER = "phone";
+    public static final String SHARED_PREFERENCES_NAME = "mypref";
+    public static final String KEY_PHONE_NUMBER = "phone";
+    private static final String KEY_CURRENT_USER = "name";
     SharedPreferenceClass sharedPreferenceClass;
     EditText phone, OTP;
     Button verifyOTPBtn;
@@ -126,8 +128,25 @@ public class LoginFormActivity extends AppCompatActivity {
         }
         progressBar.setVisibility(View.VISIBLE);
         verifyCode(OTPCode); //to check if OTP code entered by user is true or not
-
         SharedPreferences.Editor editor = sharedPreferences.edit(); //store data in shared preferences
+        try {
+            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phoneNumber);
+            docRef.get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if(doc.exists()){
+                        editor.putString(KEY_CURRENT_USER, doc.getString("name") );
+
+                    }else {
+                        Toast.makeText(this,
+                                "User doesn't exist !",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         editor.putString(KEY_PHONE_NUMBER, phoneNumber);
         editor.apply();
     } //on click in verify OTP button

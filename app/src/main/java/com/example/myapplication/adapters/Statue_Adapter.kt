@@ -1,6 +1,5 @@
 import android.annotation.SuppressLint
 import android.os.Build
-import com.example.myapplication.models.UserStatue
 
 
 import android.view.LayoutInflater
@@ -11,9 +10,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.datastructures.chatty.R
+import com.example.myapplication.models.UserModel
 import kotlinx.android.synthetic.main.story_list_item.view.*
 
-class Statue_Adapter() : androidx.recyclerview.widget.ListAdapter<UserStatue, Statue_Adapter.viewHolder>(Diff()) {
+class Statue_Adapter() : androidx.recyclerview.widget.ListAdapter<UserModel, Statue_Adapter.viewHolder>(Diff()) {
 
     class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -56,9 +56,9 @@ class Statue_Adapter() : androidx.recyclerview.widget.ListAdapter<UserStatue, St
 
 
 
-    private var onItemClickListner: ((UserStatue) -> Unit)? = null
+    private var onItemClickListner: ((UserModel) -> Unit)? = null
 
-    fun setOnItemClickListner(listner: (UserStatue) -> Unit) {
+    fun setOnItemClickListner(listner: (UserModel) -> Unit) {
         onItemClickListner = listner
     }
 
@@ -66,13 +66,13 @@ class Statue_Adapter() : androidx.recyclerview.widget.ListAdapter<UserStatue, St
 }
 
 
-class Diff() : DiffUtil.ItemCallback<UserStatue>() {
-    override fun areItemsTheSame(oldItem: UserStatue, newItem: UserStatue): Boolean {
-        return oldItem.myImg == newItem.myImg
+class Diff() : DiffUtil.ItemCallback<UserModel>() {
+    override fun areItemsTheSame(oldItem: UserModel, newItem: UserModel): Boolean {
+        return oldItem.imageUri == newItem.imageUri
     }
 
     @SuppressLint("DiffUtilEquals")
-    override fun areContentsTheSame(oldItem: UserStatue, newItem: UserStatue): Boolean {
+    override fun areContentsTheSame(oldItem: UserModel, newItem: UserModel): Boolean {
         return oldItem == newItem
     }
 

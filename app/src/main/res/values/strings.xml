@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="message_should_be_displayed_here" translatable="false">Message should be displayed here</string>
-    <string name="app_name">carbon</string>
+    <string name="app_name">Carbon</string>
     <string name="tab_text_1">Chats</string>
     <string name="tab_text_2">Status</string>
     <string name="tab_text_3">Groups</string>
