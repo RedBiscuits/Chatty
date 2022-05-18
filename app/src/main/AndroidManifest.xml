@@ -21,6 +21,7 @@
         android:theme="@style/Theme.MyApplication" >
         <activity
             android:name="com.example.myapplication.ui.main.ProfileActivity"
+            android:launchMode="singleTop"
             android:exported="false" />
         <activity
             android:name="com.example.myapplication.ui.main.SettingActivity"

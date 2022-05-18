@@ -30,6 +30,8 @@ import com.example.myapplication.adapters.UserListAdapter;
 import com.example.myapplication.models.UserModel;
 import com.example.myapplication.screens.chatroom.ChatRoom_activity;
 import com.example.myapplication.utils.UsersRecyclerViewClick;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -148,20 +150,29 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                 if(task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     if(doc.exists()){
+                        DocumentReference friendReference = FirebaseFirestore.getInstance().collection("users").document(friendPhone);
                         friends = (ArrayList<String>) doc.get("friends");
-                        if(friends != null){
-                            if(!friends.contains(friendPhone)){
-                                if(!friendPhone.equals(phone)){
-                                friends.add(friendPhone);
-                                docRef.update("friends", friends);
-                                getUserData(friendPhone);
-                                }else{
-                                    Toast.makeText(getActivity(), "Battal 3bt yasta ", Toast.LENGTH_SHORT).show();
+                        friendReference.get().addOnCompleteListener(task1 -> {
+                            DocumentSnapshot doc2 = task1.getResult();
+                            if(doc2.exists()){
+                                if(friends != null){
+                                    if(!friends.contains(friendPhone)){
+                                        if(!friendPhone.equals(phone)){
+                                            friends.add(friendPhone);
+                                            docRef.update("friends", friends);
+                                            getUserData(friendPhone);
+                                        }else{
+                                            Toast.makeText(getActivity(), "Battal 3bt yasta ", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }else{
+                                        Toast.makeText(getActivity(), "User Already Exists !!", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }else{
-                                Toast.makeText(getActivity(), "User Already Exists !!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "User doesn't Exist !!", Toast.LENGTH_SHORT).show();
+
                             }
-                        }
+                        });
                     }
                 }
             });
@@ -274,6 +285,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         }
 
     }
+
     private void buildList(){
         try {
             DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phone);

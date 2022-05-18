@@ -16,10 +16,9 @@
             android:layout_height="match_parent">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/current_user_profile_image"
-                android:layout_marginTop="@dimen/_11sdp"
-                android:layout_marginStart="@dimen/_11sdp"
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_margin="@dimen/_8sdp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:onClick="goToProfile"
                 android:src="@mipmap/logo"
                 app:civ_border_width="@dimen/_1sdp"
@@ -31,13 +30,13 @@
                 android:gravity="center"
                 android:textSize="@dimen/_20ssp"
                 android:minHeight="?actionBarSize"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:padding="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:text="@string/app_name"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:id="@+id/settings_button"
                     android:onClick="goToSettings"
                     android:text="settings"
@@ -55,6 +54,7 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -74,7 +74,6 @@ public class LoginFormActivity extends AppCompatActivity {
         if(phoneNumber != null) {
             Intent intent = new Intent(LoginFormActivity.this, Home.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("phone",phone.getText().toString());
             startActivity(intent);
         }
     }
@@ -204,7 +203,6 @@ public class LoginFormActivity extends AppCompatActivity {
 
                 Intent intent =new Intent(getApplicationContext(), Home.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("phone",phone.getText().toString());
                 startActivity(intent);
             }
             else {

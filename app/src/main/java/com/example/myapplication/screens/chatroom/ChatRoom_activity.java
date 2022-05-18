@@ -4,22 +4,12 @@ import static android.content.ContentValues.TAG;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,15 +19,11 @@ import com.datastructures.chatty.R;
 import com.example.myapplication.adapters.MessageAdapter;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import org.jitsi.meet.sdk.JitsiMeetActivity;
@@ -134,41 +120,37 @@ public class ChatRoom_activity extends AppCompatActivity {
         rv_messages.setAdapter(this.mMessageAdapter);
 
         //listen to chat
-        collRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Timber.tag(TAG).w(e, "listen:error");
-                    return;
-                }
-
-                for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                    switch (dc.getType()) {
-                        case ADDED:
-                            Message msg = dc.getDocument().toObject(Message.class);
-                            try {
-                                if (!msg.getTime()
-                                        .equals(messageList.get(messageList.size()-1).getTime())){
-                                    messageList.add(msg);
-                                    updateState();
-                                }
-                            }
-                            catch (Exception x){
-                                Timber.tag(TAG).d("Empty messages");
-                            }
-                            Timber.tag(TAG).d("New Message: %s", dc.getDocument().getData());
-                            break;
-                        case MODIFIED:
-                            Timber.tag(TAG).d("Modified Message: %s", dc.getDocument().getData());
-                            break;
-                        case REMOVED:
-                            Timber.tag(TAG).d("Removed Message: %s", dc.getDocument().getData());
-                            break;
-                    }
-                }
-
+        collRef.addSnapshotListener((snapshots, e) -> {
+            if (e != null) {
+                Timber.tag(TAG).w(e, "listen:error");
+                return;
             }
+
+            for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                switch (dc.getType()) {
+                    case ADDED:
+                        Message msg = dc.getDocument().toObject(Message.class);
+                        try {
+                            if (!msg.getTime()
+                                    .equals(messageList.get(messageList.size()-1).getTime())){
+                                messageList.add(msg);
+                                updateState();
+                            }
+                        }
+                        catch (Exception x){
+                            Timber.tag(TAG).d("Empty messages");
+                        }
+                        Timber.tag(TAG).d("New Message: %s", dc.getDocument().getData());
+                        break;
+                    case MODIFIED:
+                        Timber.tag(TAG).d("Modified Message: %s", dc.getDocument().getData());
+                        break;
+                    case REMOVED:
+                        Timber.tag(TAG).d("Removed Message: %s", dc.getDocument().getData());
+                        break;
+                }
+            }
+
         });
 
        //Enable video calls
@@ -200,7 +182,8 @@ public class ChatRoom_activity extends AppCompatActivity {
                 lastMessage.put("text" , tmp.getText());
                 lastMessage.put("time" , tmp.getTime());
                 lastMessage.put("user" , tmp.getUser());
-                collRef.document()
+                collRef.document(new Timestamp(System.currentTimeMillis())
+                        .toString().replaceAll("\\s", ""))
                         .set(lastMessage, SetOptions.merge())
                         .addOnSuccessListener(aVoid -> Timber.tag(TAG).d("DocumentSnapshot successfully written!"))
                         .addOnFailureListener(e -> Timber.tag(TAG).w(e, "Error writing document"));
