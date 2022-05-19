@@ -44,7 +44,7 @@ class Statue_Adapter() : androidx.recyclerview.widget.ListAdapter<UserModel, Sta
             myLastStory.text = current.lastStory
 
             try {
-                Glide.with(this).load(current.stories?.last()?.url).into(myStoryImg)
+                Glide.with(context).load(current.stories?.last()?.url).into(myStoryImg)
 
             } catch (e : Exception){
 

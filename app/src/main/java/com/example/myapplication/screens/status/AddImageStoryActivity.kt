@@ -129,7 +129,7 @@ class AddImageStoryActivity : AppCompatActivity() {
                     val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
                     val currentDate = sdf.format(Date())
 
-                    onBackPressed()
+//                    onBackPressed()
 
 
                     realTimeDatabaseRef.child("users").child(uid!!).child(randomKey).setValue(
