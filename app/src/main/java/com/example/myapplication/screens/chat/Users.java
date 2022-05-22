@@ -1,5 +1,6 @@
 package com.example.myapplication.screens.chat;
 
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -30,8 +31,6 @@ import com.example.myapplication.adapters.UserListAdapter;
 import com.example.myapplication.models.UserModel;
 import com.example.myapplication.screens.chatroom.ChatRoom_activity;
 import com.example.myapplication.utils.UsersRecyclerViewClick;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;

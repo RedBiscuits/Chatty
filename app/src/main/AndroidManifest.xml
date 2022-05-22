@@ -46,7 +46,7 @@
         <activity
             android:name="com.example.myapplication.screens.chatroom.ChatRoom_activity"
             android:exported="true"
-            android:launchMode="singleTop" />
+            android:launchMode="standard" />
         <activity
             android:name="com.example.myapplication.screens.chat.AddNewContact"
             android:exported="false"

@@ -29,8 +29,10 @@ import com.google.firebase.firestore.SetOptions;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -78,13 +80,13 @@ public class ChatRoom_activity extends AppCompatActivity {
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-               finish();
+                finish();
             } else {
-               calleeUser = new User(extras.getString("name"), extras.getString("RecPhone"));
-               recName.setText(calleeUser.getName());
-               if (extras.getString("image") != null){
-                   Glide.with(this).load(extras.getString("image")).placeholder(org.jitsi.meet.sdk.R.drawable.images_avatar).into(img);
-               }
+                calleeUser = new User(extras.getString("name"), extras.getString("RecPhone"));
+                recName.setText(calleeUser.getName());
+                if (extras.getString("image") != null){
+                    Glide.with(this).load(extras.getString("image")).placeholder(org.jitsi.meet.sdk.R.drawable.images_avatar).into(img);
+                }
             }
         }
         else {
@@ -104,7 +106,11 @@ public class ChatRoom_activity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Message msg = document.toObject(Message.class);
-                    messageList.add(msg);
+                    messageList.add(new Message(
+                            new String(Base64.getDecoder().decode(msg.getText())),
+                            msg.getTime(),
+                            new String(Base64.getDecoder().decode(msg.getUser()))
+                    ));
                 }
             } else {
                 Timber.tag(TAG).d(task.getException(),"Error getting Messages documents: ");
@@ -132,8 +138,14 @@ public class ChatRoom_activity extends AppCompatActivity {
                         Message msg = dc.getDocument().toObject(Message.class);
                         try {
                             if (!msg.getTime()
-                                    .equals(messageList.get(messageList.size()-1).getTime())){
-                                messageList.add(msg);
+                                    .equals(messageList.get(messageList.size()-1).getTime()))
+                            {
+                                messageList.add(
+                                    new Message(
+                                            new String(Base64.getDecoder().decode(msg.getText())),
+                                            msg.getTime(),
+                                            new String(Base64.getDecoder().decode(msg.getUser()))
+                                ));
                                 updateState();
                             }
                         }
@@ -153,7 +165,7 @@ public class ChatRoom_activity extends AppCompatActivity {
 
         });
 
-       //Enable video calls
+        //Enable video calls
         vidCall.setOnClickListener(view -> {
             if(currentDoc.length() > 0){
                 JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions
@@ -179,11 +191,11 @@ public class ChatRoom_activity extends AppCompatActivity {
                 updateState();
 
                 //Send message to firebase and handle success / failure
-                lastMessage.put("text" , tmp.getText());
+                lastMessage.put("text" , Base64.getEncoder().encodeToString(tmp.getText().getBytes(StandardCharsets.UTF_8)));
                 lastMessage.put("time" , tmp.getTime());
-                lastMessage.put("user" , tmp.getUser());
+                lastMessage.put("user" , Base64.getEncoder().encodeToString(tmp.getUser().getBytes(StandardCharsets.UTF_8)));
                 collRef.document(new Timestamp(System.currentTimeMillis())
-                        .toString().replaceAll("\\s", ""))
+                                .toString().replaceAll("\\s", ""))
                         .set(lastMessage, SetOptions.merge())
                         .addOnSuccessListener(aVoid -> Timber.tag(TAG).d("DocumentSnapshot successfully written!"))
                         .addOnFailureListener(e -> Timber.tag(TAG).w(e, "Error writing document"));
@@ -196,12 +208,23 @@ public class ChatRoom_activity extends AppCompatActivity {
     //to get document reference for current chat
     @NonNull
     private String getDoc(String num1 , String num2){
-            if(num1.compareTo(num2) > 0)
-                    return num1+num2;
-            else return num2+num1;
+        if(num1.compareTo(num2) > 0)
+            return num1+num2;
+        else return num2+num1;
     }
     private void updateState(){
         mMessageAdapter.notifyItemInserted(mMessageAdapter.getItemCount());
         mMessageRecycler.smoothScrollToPosition(mMessageAdapter.getItemCount());
     }
+
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event)
+//    {
+//        if ((keyCode == KeyEvent.KEYCODE_BACK))
+//        {
+//
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
+
 }
