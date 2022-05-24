@@ -1,6 +1,8 @@
 package com.example.myapplication.screens.chatroom;
 
-public class Message {
+import androidx.annotation.NonNull;
+
+public class Message implements  Cloneable {
 
     private String text;
     private String time;
@@ -37,6 +39,21 @@ public class Message {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    @NonNull
+    @Override
+    public Message clone() {
+
+        Message clone;
+        try {
+            clone = (Message) super.clone();
+
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e); //should not happen
+        }
+
+        return clone;
     }
 
 

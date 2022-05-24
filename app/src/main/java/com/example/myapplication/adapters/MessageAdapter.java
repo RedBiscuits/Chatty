@@ -8,25 +8,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.datastructures.chatty.R;
 import com.example.myapplication.screens.chatroom.Message;
+import com.example.myapplication.utils.DiffUtillCall;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Locale;
+import java.util.ArrayList;
 
 
 public class MessageAdapter extends RecyclerView.Adapter {
 
     @NonNull
-    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy" , Locale.ENGLISH); //to handle formatting dates
     private Context mContext;
-    private List<Message> mMessageList;
+    private ArrayList<Message> mMessageList;
     private String currentUser;
-    public MessageAdapter(Context context, List<Message> messageList , String currentUser) {
+    public MessageAdapter(Context context, ArrayList<Message> messageList , String currentUser) {
         mContext = context;
         mMessageList = messageList;
         this.currentUser = currentUser;
@@ -110,6 +108,13 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 message.getTime().length()-7 >0 ?
                         message.getTime().length()-7
                         : message.getTime().length());
+    }
+    public void setData(ArrayList<Message> newData) {
+
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtillCall(newData, mMessageList));
+        diffResult.dispatchUpdatesTo(this);
+        mMessageList.clear();
+        this.mMessageList.addAll(newData);
     }
 
 }

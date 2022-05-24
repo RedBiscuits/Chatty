@@ -140,13 +140,11 @@ public class ChatRoom_activity extends AppCompatActivity {
                             if (!msg.getTime()
                                     .equals(messageList.get(messageList.size()-1).getTime()))
                             {
-                                messageList.add(
-                                    new Message(
-                                            new String(Base64.getDecoder().decode(msg.getText())),
-                                            msg.getTime(),
-                                            new String(Base64.getDecoder().decode(msg.getUser()))
-                                ));
-                                updateState();
+//                                messageList.add();
+                                updateState(new Message(
+                                        new String(Base64.getDecoder().decode(msg.getText())),
+                                        msg.getTime(),
+                                        new String(Base64.getDecoder().decode(msg.getUser()))));
                             }
                         }
                         catch (Exception x){
@@ -187,8 +185,8 @@ public class ChatRoom_activity extends AppCompatActivity {
                 Message tmp = new Message(currentMsg ,
                         new Timestamp(System.currentTimeMillis()).toString()
                         , currentUser.getProfile() );
-                messageList.add(mMessageAdapter.getItemCount(), tmp);
-                updateState();
+//                messageList.add(mMessageAdapter.getItemCount(), tmp);
+                updateState(tmp);
 
                 //Send message to firebase and handle success / failure
                 lastMessage.put("text" , Base64.getEncoder().encodeToString(tmp.getText().getBytes(StandardCharsets.UTF_8)));
@@ -212,8 +210,14 @@ public class ChatRoom_activity extends AppCompatActivity {
             return num1+num2;
         else return num2+num1;
     }
-    private void updateState(){
-        mMessageAdapter.notifyItemInserted(mMessageAdapter.getItemCount());
+    private void updateState(Message msg){
+//      mMessageAdapter.notifyItemInserted(mMessageAdapter.getItemCount());
+        ArrayList<Message> models = new ArrayList<>();
+        for (Message model : messageList) {
+            models.add(model.clone());
+        }
+        models.add(msg);
+        mMessageAdapter.setData(models);
         mMessageRecycler.smoothScrollToPosition(mMessageAdapter.getItemCount());
     }
 
