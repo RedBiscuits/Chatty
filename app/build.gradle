@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 //
 android {
@@ -65,6 +66,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.google.firebase:firebase-storage:20.0.1'
     implementation 'com.google.firebase:firebase-auth:21.0.3'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
 
     //test
     testImplementation 'junit:junit:4.13.2'

@@ -19,4 +19,5 @@
     <string name="goToHome">Home</string>
     <string name="changeLanguage">Language</string>
     <string name="mode">Dark Mode</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

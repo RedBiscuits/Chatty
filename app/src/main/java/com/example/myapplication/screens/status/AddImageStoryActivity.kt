@@ -31,7 +31,7 @@ class AddImageStoryActivity : AppCompatActivity() {
     }
     private fun restorePrefTheme(key : String): String? {
         val pref = this.getSharedPreferences("mypref", AppCompatActivity.MODE_PRIVATE)
-        return  pref.getString(key, "01129293050").toString()
+        return  pref.getString(key, null).toString()
 
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,10 +126,10 @@ class AddImageStoryActivity : AppCompatActivity() {
             .addOnSuccessListener {
 
                 riverRef.downloadUrl.addOnSuccessListener {
-                    val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+                    val sdf = SimpleDateFormat("dd/M/yyyy HH:mm:ss")
                     val currentDate = sdf.format(Date())
 
-//                    onBackPressed()
+                    onBackPressed()
 
 
                     realTimeDatabaseRef.child("users").child(uid!!).child(randomKey).setValue(

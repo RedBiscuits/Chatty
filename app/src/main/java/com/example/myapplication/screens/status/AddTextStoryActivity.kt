@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -33,7 +34,7 @@ class AddTextStoryActivity : AppCompatActivity() {
     }
     private fun restorePrefTheme(key : String): String? {
         val pref = this.getSharedPreferences("mypref", AppCompatActivity.MODE_PRIVATE)
-        return  pref.getString(key, "01129293050").toString()
+        return  pref.getString(key, null).toString()
 
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,8 +108,9 @@ class AddTextStoryActivity : AppCompatActivity() {
 
                     val sdf = SimpleDateFormat("dd/M/yyyy HH:mm:ss")
                     val currentDate = sdf.format(Date())
+                    Log.d("timeeeeeeeeeeeee" , currentDate.toString())
 
-                    this.onBackPressed()
+                    onBackPressed()
 
                     realTimeDatabaseRef.child("users").child(uid.toString()).child(randomKey).setValue(StoryModel(it.toString(), null,  currentDate))
                         .addOnSuccessListener {

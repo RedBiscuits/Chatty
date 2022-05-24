@@ -37,11 +37,9 @@ class Statue_Adapter() : androidx.recyclerview.widget.ListAdapter<UserModel, Sta
             }
 
 
-
-
-
             myStoryTitle.text = current.name
             myLastStory.text = current.lastStory
+
 
             try {
                 Glide.with(context).load(current.stories?.last()?.url).into(myStoryImg)

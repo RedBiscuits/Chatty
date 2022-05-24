@@ -1,5 +1,6 @@
 package com.example.myapplication.screens.status
 import Statue_Adapter
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_stories.*
 import omari.hamza.storyview.StoryView
 import omari.hamza.storyview.model.MyStory
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -35,7 +37,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
     }
     private fun restorePrefTheme(key : String): String? {
         val pref = requireContext().getSharedPreferences("mypref", AppCompatActivity.MODE_PRIVATE)
-        return  pref.getString(key, "01017046725").toString()
+        return  pref.getString(key, null).toString()
 
     }
     private val fireStoreRef by lazy {
@@ -58,6 +60,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
     val adapter = Statue_Adapter()
 
 
+    @SuppressLint("RestrictedApi")
     override fun onResume() {
         super.onResume()
         Log.d("gameeeeeeeeed" , uid.toString())
@@ -65,19 +68,18 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
             .addOnSuccessListener {
 
                 val simpleDateFormat = SimpleDateFormat("dd/M/yyyy HH:mm:ss")
-
                 var friends = it.get("friends") as ArrayList<String>
 
                 if (friends.size != 0) {
                     for (friend in friends) {
-                        Log.d("aaaaaaaaa" , friend)
 
                         fireStoreRef.collection("users").document(friend).get()
                             .addOnSuccessListener {
                                     itFriend->
-                                Log.d("aaaaaaaaa" , friend)
 
-                                if (itFriend.getBoolean("hasStory") == true) {
+
+                                if (itFriend.getBoolean("hasStory") == true) { //
+
 
 
                                     databaseRef.child("users").child(friend)
@@ -85,24 +87,28 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
                                             override fun onDataChange(dataSnapShot: DataSnapshot) {
                                                 storyOfFriends.clear()
-                                                val stories: ArrayList<MyStory> = ArrayList()
-                                                var lastStory = StoryModel( "" , "" , "")
 
-                                                for (snapShot in dataSnapShot.children) {
-
-                                                    val story = snapShot.getValue<StoryModel>()
-                                                    lastStory = story!!
-
-                                                    val currentDate = simpleDateFormat.format(Date())
-                                                    if (currentDate != null) {
+                                                Log.d("ccccccccc" , dataSnapShot.exists().toString())
+                                                Log.d("ccccccccc" , dataSnapShot.ref.toString())
 
 
-                                                        val diff =
-                                                            (simpleDateFormat.parse(
-                                                                currentDate
-                                                            ).time - simpleDateFormat.parse(
-                                                                story!!.date
-                                                            ).time)
+                                                if (!dataSnapShot.exists()){
+                                                    itFriend.reference.update("hasStory" , false)
+                                                    Log.d("bbbbb" , "lol")
+                                                }else {
+                                                    Log.d("bbbbbbb" , "story.toString()")
+                                                    val stories: ArrayList<MyStory> = ArrayList()
+                                                    var lastStory = StoryModel("", "", "")
+
+                                                    for (snapShot in dataSnapShot.children) {
+
+                                                        val story = snapShot.getValue<StoryModel>()
+                                                        lastStory = story!!
+
+                                                        val currentDate = simpleDateFormat.format(Date())
+
+                                                        val diff = (simpleDateFormat.parse(currentDate).time - simpleDateFormat.parse(story!!.date).time)
+
                                                         val seconds = diff / 1000
                                                         val minutes = seconds / 60
                                                         val hours = minutes / 60
@@ -119,18 +125,13 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                                                 story.description
                                                             )
                                                         )
-                                                    } else {
-                                                        fireStoreRef.collection("users").document(it.id).update("hasStory" , false)
-                                                        break
                                                     }
-                                                }
 
 
-                                                val currentDate = simpleDateFormat.format(Date())
-                                                if (currentDate != null) {
+                                                    val currentDate = simpleDateFormat.format(Date())
 
-                                                    Log.d("curr" , currentDate)
-                                                    Log.d("last" , lastStory.date)
+                                                    Log.d("curr", currentDate)
+                                                    Log.d("last", lastStory.date)
                                                     val diff = (simpleDateFormat.parse(currentDate).time - simpleDateFormat.parse(lastStory!!.date).time)
                                                     val seconds = diff / 1000
                                                     val minutes = seconds / 60
@@ -154,14 +155,14 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                                             itFriend.getBoolean("hasStory")!!,
                                                             itFriend.get("friends") as ArrayList<String>,
                                                             itFriend.get("storyUrl").toString(),
-                                                            itFriend.get("profileImageUrl").toString()
+                                                            itFriend.get("profileImageUrl")
+                                                                .toString()
                                                         )
                                                     )
+
+                                                    adapter.submitList(storyOfFriends)
+
                                                 }
-
-                                                adapter.submitList(storyOfFriends)
-
-
 
                                             }
 
@@ -193,54 +194,58 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                     databaseRef.child("users").child(uid!!).orderByChild("date").addValueEventListener(object : ValueEventListener{
                         override fun onDataChange(dataSnapShot: DataSnapshot) {
 
-                            val myStories: ArrayList<MyStory> = ArrayList<MyStory>()
+                            if (!dataSnapShot.exists()){
+                                it.reference.update("hasStory" , false)
+                            } else {
 
-                            var lastStory = StoryModel( "" , "" , "")
-                            for (snapShot in dataSnapShot.children){
-                                val story = snapShot.getValue<StoryModel>()
 
-                                lastStory = story!!
-                                val currentDate = simpleDateFormat.format(Date())
-                                if (currentDate != null) {
-                                    val diff =
-                                        (simpleDateFormat.parse(currentDate).time - simpleDateFormat.parse(
-                                            story!!.date
-                                        ).time)
-                                    val seconds = diff / 1000
-                                    val minutes = seconds / 60
-                                    val hours = minutes / 60
-                                    Log.d("hours", hours.toString())
+                                val myStories: ArrayList<MyStory> = ArrayList<MyStory>()
 
-                                    if (hours >= 24) {
-                                        snapShot.ref.removeValue()
-                                    }else {
-                                        showMyStory()
-                                    }
+                                var lastStory = StoryModel("", "", "")
+                                for (snapShot in dataSnapShot.children) {
+                                    val story = snapShot.getValue<StoryModel>()
 
-                                    myStories.add(
-                                        MyStory(
-                                            story.uri,
-                                            simpleDateFormat.parse(story.date),
-                                            story.description
+                                    lastStory = story!!
+                                    val currentDate = simpleDateFormat.format(Date())
+                                    if (currentDate != null) {
+                                        val diff =
+                                            (simpleDateFormat.parse(currentDate).time - simpleDateFormat.parse(
+                                                story!!.date
+                                            ).time)
+                                        val seconds = diff / 1000
+                                        val minutes = seconds / 60
+                                        val hours = minutes / 60
+                                        Log.d("hours", hours.toString())
+
+                                        if (hours >= 24) {
+                                            snapShot.ref.removeValue()
+                                        } else {
+                                            showMyStory()
+                                        }
+
+                                        myStories.add(
+                                            MyStory(
+                                                story.uri,
+                                                simpleDateFormat.parse(story.date),
+                                                story.description
+                                            )
                                         )
-                                    )
-                                } else {
-                                    fireStoreRef.collection("users").document(uid!!).update("hasStory" , false)
-                                    hideMyStory()
+                                    } else {
+                                        fireStoreRef.collection("users").document(uid!!)
+                                            .update("hasStory", false)
+                                        hideMyStory()
+                                    }
                                 }
-                            }
 
-                            var hastStory = myStories.size > 0
 
-                            if (hastStory) {
+
+                            if (it.getBoolean("hasStory") == true) {
 
 
                                 val currentDate = simpleDateFormat.format(Date())
                                 Log.d("current", currentDate)
                                 val diff =
-                                    (simpleDateFormat.parse(currentDate).time - simpleDateFormat.parse(
-                                        lastStory!!.date
-                                    ).time)
+                                    (simpleDateFormat.parse(currentDate).time - simpleDateFormat.parse(lastStory!!.date).time)
                                 val seconds = diff / 1000
                                 val minutes = seconds / 60
                                 val hours = minutes / 60
@@ -297,7 +302,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                     myStories,
                                     it.get("name").toString(),
                                     lastStoryTime,
-                                    hastStory,
+                                    it.getBoolean("hasStory") as Boolean,
                                     friends,
                                     it.get("storyUrl").toString(),
                                     it.get("profileImageUrl").toString()
@@ -307,7 +312,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                     myStories,
                                     it.get("name").toString(),
                                     "",
-                                    hastStory,
+                                    it.getBoolean("hasStory") as Boolean,
                                     friends,
                                     it.get("storyUrl").toString(),
                                     it.get("profileImageUrl").toString()
@@ -320,7 +325,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                             Glide.with(requireContext()).load(myUser.storyUrl).into(myStoryImg)
 
 
-
+                            }
 
                         }
 
@@ -328,11 +333,14 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                             Toast.makeText(requireContext() , error.message , Toast.LENGTH_LONG).show()
                         }
 
+
                     })
 
 
 
                 } else {
+                    myUser = UserModel(null, "", "", false, null, null, null)
+
                     hideMyStory()
                 }
             }
@@ -370,6 +378,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
         adapter.setOnItemClickListner {
             myLastStory.text = myUser.lastStory
+
             StoryView.Builder(parentFragmentManager)
                 .setStoriesList(it.stories)
                 .setStoryDuration(5000)
@@ -408,6 +417,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
         myStoryImg.visibility = View.GONE
         myStoryTitle.visibility = View.GONE
         lineView.visibility = View.GONE
+        day.visibility = View.GONE
     }
 
 
@@ -418,5 +428,6 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
         myStoryImg.visibility = View.VISIBLE
         myStoryTitle.visibility = View.VISIBLE
         lineView.visibility = View.VISIBLE
+        day.visibility = View.VISIBLE
     }
 }
