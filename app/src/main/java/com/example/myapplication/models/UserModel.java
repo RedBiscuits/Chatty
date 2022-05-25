@@ -1,12 +1,9 @@
 package com.example.myapplication.models;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 
 import omari.hamza.storyview.model.MyStory;
-
-public class UserModel {
+public class UserModel  {
     private String name;
     private String imageUri;
     private String phone;

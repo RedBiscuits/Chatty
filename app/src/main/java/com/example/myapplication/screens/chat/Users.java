@@ -54,11 +54,13 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     private FloatingActionButton addFab ;
     private FloatingActionButton addExisting ;
     private FloatingActionButton addNew ;
+    private FloatingActionButton addGroup ;
     private UserListAdapter userListAdapter;
     private String phone;
     private SharedPreferences sharedPreferences;
     private ArrayList<String> friends ;
     private final CollectionReference usersReference = FirebaseFirestore.getInstance().collection("users");
+    private ArrayList<String> friendsNumbers;
 
 
 
@@ -86,6 +88,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         addFab =  view.findViewById(R.id.add_fab);
         addExisting =  view.findViewById(R.id.add_existing);
         addNew =  view.findViewById(R.id.add_new);
+        addGroup = view.findViewById(R.id.add_new_group);
 
         sharedPreferences = this.getActivity().getSharedPreferences("mypref", Context.MODE_PRIVATE);
         phone = sharedPreferences.getString("phone", null);
@@ -101,9 +104,17 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         addNew.setOnClickListener(view12 -> addNewContact());
         //FAB of addition
         addFab.setOnClickListener(view13 -> onAddButtonClicked());
+        addGroup.setOnClickListener(view14 -> OnNewGroupPressed());
 
 
         return view;
+    }
+
+    private void OnNewGroupPressed() {
+        Intent intent = new Intent(this.getActivity() , AddGroupActivity.class);
+        intent.putExtra("phones" ,friendsNumbers);
+
+        startActivity(intent);
     }
 
     //waiting for result from contacts
@@ -252,14 +263,16 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     //animation setters
     private void setAnimation( boolean clicked) {
         if(!clicked) {
-             addExisting.startAnimation(fromBottom);
-             addNew.startAnimation(fromBottom);
+            addExisting.startAnimation(fromBottom);
+            addGroup.startAnimation(fromBottom);
+            addNew.startAnimation(fromBottom);
              addFab.startAnimation(rotOpen);
         }else{
 
-             addExisting.startAnimation(toBottom);
-             addNew.startAnimation(toBottom);
-             addFab.startAnimation(rotClose);
+            addExisting.startAnimation(toBottom);
+            addNew.startAnimation(toBottom);
+            addGroup.startAnimation(toBottom);
+            addFab.startAnimation(rotClose);
 
         }
     }
@@ -268,9 +281,11 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         if(!clicked){
             addExisting.setVisibility(View.VISIBLE);
             addNew.setVisibility(View.VISIBLE);
+            addGroup.setVisibility(View.VISIBLE);
         }else {
             addExisting.setVisibility(View.INVISIBLE);
             addNew.setVisibility(View.INVISIBLE);
+            addGroup.setVisibility(View.INVISIBLE);
         }
     }
     //clickability setter
@@ -278,9 +293,12 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         if (!clicked){
             addExisting.setClickable(true);
             addNew.setClickable(true);
+            addGroup.setClickable(true);
+
         }else {
             addExisting.setClickable(false);
             addNew.setClickable(false);
+            addGroup.setClickable(false);
 
         }
 
@@ -293,7 +311,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                 if(task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     if(doc.exists()){
-                        ArrayList<String> friendsNumbers = (ArrayList<String>) doc.get("friends");
+                        friendsNumbers = (ArrayList<String>) doc.get("friends");
                         for (int i = 0 ; i< friendsNumbers.size();i++){
                             getUserData(friendsNumbers.get(i));
                         }
