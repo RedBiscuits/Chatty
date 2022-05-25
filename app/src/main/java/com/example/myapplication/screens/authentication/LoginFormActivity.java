@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.datastructures.chatty.R;
 import com.example.myapplication.ui.main.Home;
 import com.example.myapplication.utils.SharedPreferenceClass;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -105,13 +107,17 @@ public class LoginFormActivity extends AppCompatActivity {
 
     public void checkUser(String phoneNumber) {
         documentReference = firestore.collection("users").document(phoneNumber);
-        documentReference.addSnapshotListener(this, (value, error) -> {
-            String name = value.getString("name");
-            if(name != null) {
-                sendVerificationCode(phoneNumber); //to sent verification code to user
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "Invalid Username Or Password", Toast.LENGTH_SHORT).show();
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot doc = task.getResult();
+                    if(doc.exists()){
+                        sendVerificationCode(phoneNumber); //to sent verification code to user
+                    }else{
+                        Toast.makeText(getApplicationContext(), "User doesn't exist , try signup first", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }

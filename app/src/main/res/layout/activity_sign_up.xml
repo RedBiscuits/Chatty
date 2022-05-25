@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="@+id/description"
         app:layout_constraintStart_toStartOf="@+id/description"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintVertical_bias="0.245"
         tools:ignore="MissingClass,MissingConstraints" />
 
     <EditText
@@ -100,19 +100,6 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/ChangePhoto"
-        android:layout_width="36dp"
-        android:layout_height="31dp"
-        android:clickable="true"
-        app:fabSize="auto"
-        app:layout_constraintBottom_toBottomOf="@+id/current_user_profile_image"
-        app:layout_constraintEnd_toEndOf="@+id/current_user_profile_image"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/current_user_profile_image"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.937"
-        app:rippleColor="#FFFFFF"
-        app:srcCompat="@android:drawable/ic_input_add" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

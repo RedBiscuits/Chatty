@@ -10,8 +10,9 @@
         android:layout_width="@dimen/_55sdp"
         android:layout_height="@dimen/_55sdp"
         android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
+        android:src="@drawable/user_img_foreground"
         app:civ_border_color="#00FF00"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

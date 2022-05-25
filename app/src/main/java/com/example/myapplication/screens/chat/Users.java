@@ -32,6 +32,7 @@ import com.example.myapplication.models.UserModel;
 import com.example.myapplication.screens.chatroom.ChatRoom_activity;
 import com.example.myapplication.utils.UsersRecyclerViewClick;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -57,7 +58,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     private String phone;
     private SharedPreferences sharedPreferences;
     private ArrayList<String> friends ;
-
+    private final CollectionReference usersReference = FirebaseFirestore.getInstance().collection("users");
 
 
 
@@ -144,12 +145,12 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
 
     private void addToFriends(String friendPhone) {
         try {
-            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phone);
+            DocumentReference docRef = usersReference.document(phone);
             docRef.get().addOnCompleteListener(task -> {
                 if(task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     if(doc.exists()){
-                        DocumentReference friendReference = FirebaseFirestore.getInstance().collection("users").document(friendPhone);
+                        DocumentReference friendReference = usersReference.document(friendPhone);
                         friends = (ArrayList<String>) doc.get("friends");
                         friendReference.get().addOnCompleteListener(task1 -> {
                             DocumentSnapshot doc2 = task1.getResult();
@@ -182,7 +183,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
 
     private void getUserData(String phone ) {
         try {
-            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phone);
+            DocumentReference docRef = usersReference.document(phone);
 
             docRef.get().addOnCompleteListener(task -> {
                 if(task.isSuccessful()) {
@@ -287,7 +288,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
 
     private void buildList(){
         try {
-            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phone);
+            DocumentReference docRef = usersReference.document(phone);
             docRef.get().addOnCompleteListener(task -> {
                 if(task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();

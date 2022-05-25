@@ -156,7 +156,7 @@ public class SignUp extends AppCompatActivity {
             profileImageUri = data.getData();
             ProfilePhoto.setImageURI(profileImageUri);
         }else{
-            Toast.makeText(this, "Error occurred -1", Toast.LENGTH_LONG).show();
+            profileImageUri = Uri.parse("https://10play.com.au/ip/s3/2022/01/28/a9333564010931a07b777e8c32f2ce8c-1123582.png?image-profile=image_max&io=landscape");
         }
 
     }

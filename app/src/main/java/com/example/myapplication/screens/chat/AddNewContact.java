@@ -26,25 +26,20 @@ public class AddNewContact extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_add_phone_contact);
-        setTitle("dev2qa.com - Android Add Phone Contact Example.");
-        displayNameEditor = (EditText)findViewById(R.id.add_phone_contact_display_name);
-        phoneNumberEditor = (EditText)findViewById(R.id.add_phone_contact_number);
-        // Initialize phone type dropdown spinner.
-        final Spinner phoneTypeSpinner = (Spinner)findViewById(R.id.add_phone_contact_type);
+        setTitle("Create new contact");
+
+        displayNameEditor = findViewById(R.id.add_phone_contact_display_name);
+        phoneNumberEditor = findViewById(R.id.add_phone_contact_number);
+        final Spinner phoneTypeSpinner = findViewById(R.id.add_phone_contact_type);
         String[] phoneTypeArr = {"Mobile", "Home", "Work"};
         ArrayAdapter<String> phoneTypeSpinnerAdaptor = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, phoneTypeArr);
         phoneTypeSpinner.setAdapter(phoneTypeSpinnerAdaptor);
-        // Click this button to save user input phone contact info.
-        Button savePhoneContactButton = (Button)findViewById(R.id.add_phone_contact_save_button);
+        Button savePhoneContactButton = findViewById(R.id.add_phone_contact_save_button);
+
         savePhoneContactButton.setOnClickListener(view -> {
-            // Get android phone contact content provider uri.
-            //Uri addContactsUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-            // Below uri can avoid java.lang.UnsupportedOperationException: URI: content://com.android.contacts/data/phones error.
             Uri addContactsUri = ContactsContract.Data.CONTENT_URI;
             // Add an empty contact and get the generated id.
             long rowContactId = getRawContactId();
@@ -59,8 +54,7 @@ public class AddNewContact extends AppCompatActivity {
             finish();
         });
     }
-    // This method will only insert an empty data to RawContacts.CONTENT_URI
-    // The purpose is to get a system generated raw contact id.
+
     private long getRawContactId()
     {
         // Insert an empty contact.
@@ -69,7 +63,6 @@ public class AddNewContact extends AppCompatActivity {
         // Get the newly created contact raw id.
         return ContentUris.parseId(rawContactUri);
     }
-    // Insert newly created contact display name.
     private void insertContactDisplayName(Uri addContactsUri, long rawContactId, String displayName)
     {
         ContentValues contentValues = new ContentValues();
