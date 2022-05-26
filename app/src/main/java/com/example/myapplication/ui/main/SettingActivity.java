@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.datastructures.chatty.R;
 import com.example.myapplication.screens.authentication.LoginFormActivity;
+import com.example.myapplication.screens.security.Password_setting;
 import com.example.myapplication.utils.SharedPreferenceClass;
 
 import java.util.Locale;
@@ -32,6 +33,7 @@ public class SettingActivity extends AppCompatActivity {
     SharedPreferences sharedPreferencesHome;
     private static final String SHARED_PREFERENCES_NAME = "mypref";
     Button logout_btn;
+    Button appLock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +56,10 @@ public class SettingActivity extends AppCompatActivity {
         loadLocale();
         setContentView(R.layout.activity_setting);
         changeActionBarLanguage();
-
         initWidgets();
+        appLock.setOnClickListener(view -> {
+            startActivity(new Intent(SettingActivity.this , Password_setting.class));
+        });
         changeSwitchToLoadModeState();
 
     }
@@ -81,6 +85,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private void initWidgets() {
         SwitchTheme = findViewById(R.id.switch1);
+        appLock = findViewById(R.id.app_lock);
     }
 
     private void changeSwitchToLoadModeState() {

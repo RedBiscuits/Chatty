@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.datastructures.chatty.databinding.ActivitySplashScreenBinding;
 import com.example.myapplication.screens.authentication.LoginFormActivity;
+import com.example.myapplication.screens.security.Pattern;
+
+import io.paperdb.Paper;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -24,13 +27,20 @@ public class SplashScreen extends AppCompatActivity {
         ActivitySplashScreenBinding binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        String Save_Pattern_Key = "Pattern Code";
         Handler handler = new Handler();
-
+        Paper.init(this);
+        String SavePattern = Paper.book().read(Save_Pattern_Key);
         handler.postDelayed(() -> {
-            //Do something after delay
-            finish();
-            startActivity(new Intent(SplashScreen.this, LoginFormActivity.class));
-        }, 3000);
+                if (SavePattern != null && !SavePattern.equals("null")) {
+                    startActivity(new Intent(SplashScreen.this, Pattern.class));
+                }
+                else{
+                //Do something after delay
+                    finish();
+                    startActivity(new Intent(SplashScreen.this, LoginFormActivity.class));
+                }
+            }, 3000);
     }
 }
 

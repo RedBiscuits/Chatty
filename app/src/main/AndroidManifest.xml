@@ -80,6 +80,18 @@
             android:name="com.example.myapplication.screens.authentication.SignUp"
             android:exported="true"
             android:launchMode="singleTop" />
+        <activity
+            android:name="com.example.myapplication.screens.security.Fingerprint"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.example.myapplication.screens.security.Password_setting"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.example.myapplication.screens.security.Pattern"
+            android:exported="false"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

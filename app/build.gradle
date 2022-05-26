@@ -105,6 +105,14 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.0'
 
 
+    //security
+    implementation "androidx.biometric:biometric:1.1.0"
+    implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
+    implementation 'io.github.pilgr:paperdb:2.7.2'
+    implementation 'com.hanks:passcodeview:0.1.2'
+    implementation 'com.airbnb.android:lottie:5.0.3'
+
+
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
@@ -116,7 +124,7 @@ dependencies {
     implementation 'com.github.Drjacky:ImagePicker:1.8.4'
 
     //jitsi
-    implementation ('org.jitsi.react:jitsi-meet-sdk:2.9.0') { transitive = true }
+    implementation ('org.jitsi.react:jitsi-meet-sdk:3.+') { transitive = true }
 
     //lottie
     implementation "com.airbnb.android:lottie:5.0.3"

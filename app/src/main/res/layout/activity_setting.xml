@@ -31,7 +31,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="34sp" />
+                android:minWidth="48dp"
+                android:textSize="46sp" />
         </LinearLayout>
 
         <Button
@@ -47,13 +48,19 @@
             android:layout_height="wrap_content"
             android:onClick="goToHome"
             android:text="@string/goToHome" />
+        <Button
+            android:id="@+id/app_lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="logout"
+            android:text="@string/app_lock" />
 
         <Button
             android:id="@+id/logout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="logout"
-            android:text="sign out" />
+            android:text="@string/sign_out" />
 
     </LinearLayout>
 

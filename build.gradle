@@ -2,7 +2,10 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-
+        jcenter()
+        maven {
+            url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
+        }
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.10'

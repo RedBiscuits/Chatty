@@ -20,4 +20,8 @@
     <string name="changeLanguage">Language</string>
     <string name="mode">Dark Mode</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="app_lock">App Lock</string>
+    <string name="sign_out">sign out</string>
+    <string name="cancel">Cancel</string>
+    <string name="use_fingerprint">Use fingerprint</string>
 </resources>

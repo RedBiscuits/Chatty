@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="set_pattern"
+        android:textSize="25sp"
+        android:layout_gravity="center_horizontal" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingClass">
+
+
+        <com.andrognito.patternlockview.PatternLockView
+            android:id="@+id/pattern_LockView"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@color/black"
+            android:contentDescription="@string/app_name" />
+
+        <Button
+            android:id="@+id/btnSetPattern"
+            android:layout_width="200dp"
+            android:layout_height="69dp"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="30dp"
+            android:text="Set Pattern" />
+
+
+        <Button
+            android:id="@+id/Delete_lock_App"
+            android:layout_width="200dp"
+            android:layout_height="69dp"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="30dp"
+            android:text="Unlock" />
+
+
+
+
+    </LinearLayout>
+
+
+
+</FrameLayout>
