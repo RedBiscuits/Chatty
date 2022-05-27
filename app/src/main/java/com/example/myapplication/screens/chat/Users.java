@@ -173,7 +173,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                                             docRef.update("friends", friends);
                                             getUserData(friendPhone);
                                         }else{
-                                            Toast.makeText(getActivity(), "Battal 3bt yasta ", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), "Error ", Toast.LENGTH_SHORT).show();
                                         }
                                     }else{
                                         Toast.makeText(getActivity(), "User Already Exists !!", Toast.LENGTH_SHORT).show();
