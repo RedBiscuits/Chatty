@@ -8,12 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.datastructures.chatty.R;
 import com.example.myapplication.screens.chatroom.Message;
-import com.example.myapplication.utils.DiffUtillCall;
 
 import java.util.ArrayList;
 
@@ -109,13 +107,5 @@ public class MessageAdapter extends RecyclerView.Adapter {
                         message.getTime().length()-7
                         : message.getTime().length());
     }
-    public void setData(ArrayList<Message> newData) {
-
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtillCall(newData, mMessageList));
-        diffResult.dispatchUpdatesTo(this);
-        mMessageList.clear();
-        this.mMessageList.addAll(newData);
-    }
-
 }
 

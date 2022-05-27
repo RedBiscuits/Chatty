@@ -3,9 +3,9 @@ package com.example.myapplication.screens.authentication;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +47,7 @@ public class SignUp extends AppCompatActivity {
         registerUserNameEditText = findViewById(R.id.registering_user_name);
         registerPhoneEditText = findViewById(R.id.registering_user_phone);
         ProfilePhoto=findViewById(R.id.current_user_profile_image);
+        Button regbtn = findViewById(R.id.rigester_button);
         TextView toLogin = findViewById(R.id.to_login_text);
 
         toLogin.setOnClickListener(view -> {
@@ -56,7 +57,7 @@ public class SignUp extends AppCompatActivity {
             startActivity(intent);
         });
 
-        binding.rigesterButton.setOnClickListener(view -> {
+        regbtn.setOnClickListener(view -> {
             // Performing Validation by calling validation functions
             if(!validateUsername() || !validateName() || ! validatePhoneNo() ){
                 Toast.makeText(this, "Make sure everything is ok and try again :)", Toast.LENGTH_SHORT).show();
@@ -92,12 +93,7 @@ public class SignUp extends AppCompatActivity {
 
 
         });
-        binding.currentUserProfileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pickImg();
-            }
-        });
+        binding.currentUserProfileImage.setOnClickListener(view -> pickImg());
 
     }
     public final void pickImg() {

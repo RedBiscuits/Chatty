@@ -14,11 +14,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.datastructures.chatty.R;
 import com.datastructures.chatty.databinding.ActivityMainBinding;
+import com.example.myapplication.screens.chatroom.Message;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -26,6 +28,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Home extends AppCompatActivity {
 
     private CircleImageView currentUserProfileImage;
+    public static boolean hasRetrieved = false;
+    public static ArrayList<Message> oldData = new ArrayList<Message>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

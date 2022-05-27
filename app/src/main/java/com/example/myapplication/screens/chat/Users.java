@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.datastructures.chatty.R;
 import com.example.myapplication.adapters.UserListAdapter;
 import com.example.myapplication.models.UserModel;
-import com.example.myapplication.screens.chatroom.ChatRoom_activity;
+import com.example.myapplication.screens.chatroom.ChatRoom;
 import com.example.myapplication.utils.UsersRecyclerViewClick;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
@@ -330,11 +330,12 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
 
     @Override
     public void onUserClickListener(int position) {
-        Intent intent = new Intent(getContext() , ChatRoom_activity.class);
+        Intent intent = new Intent(getContext() , ChatRoom.class);
         intent.putExtra("name", userModels.get(position).getName());
         intent.putExtra("phone", phone);
         intent.putExtra("RecPhone", userModels.get(position).getPhone());
         intent.putExtra("image", userModels.get(position).getImageUri());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 }

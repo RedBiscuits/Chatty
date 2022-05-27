@@ -1,234 +1,258 @@
-package com.example.myapplication.screens.chatroom;
+package com.example.myapplication.screens.chatroom
 
-import static android.content.ContentValues.TAG;
+import android.content.ContentValues
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.datastructures.chatty.R
+import com.example.myapplication.adapters.MessageAdapter
+import com.example.myapplication.ui.main.Home
+import com.example.myapplication.ui.main.Home.oldData
+import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.*
+import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_chat_room.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.jitsi.meet.sdk.JitsiMeetActivity
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
+import timber.log.Timber
+import java.nio.charset.StandardCharsets
+import java.sql.Timestamp
+import java.util.*
 
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.datastructures.chatty.R;
-import com.example.myapplication.adapters.MessageAdapter;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.SetOptions;
-
-import org.jitsi.meet.sdk.JitsiMeetActivity;
-import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
-
-import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-import timber.log.Timber;
-
-
-public class ChatRoom_activity extends AppCompatActivity {
-
-    //references to activity view items
-    private RecyclerView mMessageRecycler;
-    private MessageAdapter mMessageAdapter;
-    private EditText msgTxt;
+class ChatRoom : AppCompatActivity() {
 
     //local state and current user handle
-    private User calleeUser ;
-    private String currentMsg;
+    private var calleeUser: User? = null
+    private var currentMsg: String? = null
 
     //required data structures
-    private ArrayList<Message> messageList = new ArrayList<>();
-    private Map<String,String> lastMessage = new HashMap<>();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private var messageList = ArrayList<Message>()
+    private val lastMessage: MutableMap<String, String> = HashMap()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         //to hide action bar
-        Objects.requireNonNull(getSupportActionBar()).hide();
-        setContentView(R.layout.activity_chat_room);
+        supportActionBar?.hide()
+        setContentView(R.layout.activity_chat_room)
 
         //initializing data
-        SharedPreferences sharedPreferences = getSharedPreferences("mypref",MODE_PRIVATE);
-        String phone = sharedPreferences.getString("phone",null);
-        String name = sharedPreferences.getString("name",null);
-        User currentUser = new User(name , phone);
+        val sharedPreferences = getSharedPreferences("mypref", MODE_PRIVATE)
+        val phone = sharedPreferences.getString("phone", null)
+        val name = sharedPreferences.getString("name", null)
+        val currentUser = User(name, phone)
 
         //get UI references
-        CircleImageView img = findViewById(R.id.recImg);
-        TextView recName = findViewById(R.id.TVname);
-        Button sendBtn = findViewById(R.id.sendBtn);
-        msgTxt = findViewById(R.id.msgTxt);
-        ImageButton vidCall = findViewById(R.id.vidCall);
+        val img = findViewById<CircleImageView>(R.id.recImg)
+        val recName = findViewById<TextView>(R.id.TVname)
+        val sendBtn = findViewById<Button>(R.id.sendBtn)
+        val vidCall = findViewById<ImageButton>(R.id.vidCall)
+        var notDone = false
 
         //Getting intent or saved instance data
         if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                finish();
+            val extras = intent.extras
+            if (extras == null) {
+                finish()
             } else {
-                calleeUser = new User(extras.getString("name"), extras.getString("RecPhone"));
-                recName.setText(calleeUser.getName());
-                if (extras.getString("image") != null){
-                    Glide.with(this).load(extras.getString("image")).placeholder(org.jitsi.meet.sdk.R.drawable.images_avatar).into(img);
+                calleeUser = User(extras.getString("name"), extras.getString("RecPhone"))
+                recName.text = calleeUser!!.name
+                if (extras.getString("image") != null) {
+                    Glide.with(this).load(extras.getString("image"))
+                        .placeholder(org.jitsi.meet.sdk.R.drawable.images_avatar).into(img)
                 }
             }
+        } else {
+            calleeUser = User(
+                savedInstanceState.getSerializable("name") as String?,
+                savedInstanceState.getSerializable("RecPhone") as String?
+            )
         }
-        else {
-            calleeUser = new User((String) savedInstanceState.getSerializable("name"),
-                    (String) savedInstanceState.getSerializable("RecPhone"));
-        }
-        Timber.tag(TAG).d("Users : >> "+calleeUser.getProfile()+" "+ calleeUser.getName());
+        Timber.tag(ContentValues.TAG)
+            .d("%s%s", "Users : >> " + calleeUser!!.profile + " ", calleeUser!!.name)
 
         //database references
-        String currentDoc = getDoc(currentUser.getProfile(), calleeUser.getProfile());
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final DocumentReference docRef = db.collection("chatRooms").document(currentDoc);
-        CollectionReference collRef = docRef.collection("Messages");
+        val currentDoc = getDoc(currentUser.profile, calleeUser!!.profile)
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection("chatRooms").document(currentDoc)
+        val collRef = docRef.collection("Messages")
+
+        recycler_chat.layoutManager = LinearLayoutManager(this)
 
         //get old messages
-        collRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Message msg = document.toObject(Message.class);
-                    messageList.add(new Message(
-                            new String(Base64.getDecoder().decode(msg.getText())),
-                            msg.getTime(),
-                            new String(Base64.getDecoder().decode(msg.getUser()))
-                    ));
+        messageList.clear()
+        runBlocking {
+            val getting = launch {
+                if (phone != null && !Home.hasRetrieved) {
+                    getOldMsg(collRef , phone)
                 }
-            } else {
-                Timber.tag(TAG).d(task.getException(),"Error getting Messages documents: ");
+                else{
+                    notDone =true
+                }
             }
-        });
+            getting.join()
+            println(
+                "@@@@@@@@@@@@@@@@@@@@@@@@@@@ Getting Old Messages, count: " + messageList.size +
+                        " , Has ret = " + Home.hasRetrieved
+            )
+        }
+        if (notDone){
+            messageList = ArrayList<Message>() //Home.oldData.clone() as ArrayList<Message>
+            recycler_chat.adapter = MessageAdapter(this , messageList , phone )
 
-        //resolving messages list and passing it to the view adapter
-        mMessageRecycler = findViewById(R.id.recycler_chat);
-        mMessageAdapter = new MessageAdapter(this, messageList ,phone);
-        mMessageRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mMessageRecycler.setAdapter(mMessageAdapter);
-        RecyclerView rv_messages = this.mMessageRecycler;
-        rv_messages.setAdapter(this.mMessageAdapter);
+            for (i in 0 until (oldData.size/ oldData.size)){
+                messageList.add(oldData[i])
+                recycler_chat.adapter!!.notifyItemInserted(i)
+            }
+        }
 
         //listen to chat
-        collRef.addSnapshotListener((snapshots, e) -> {
-            if (e != null) {
-                Timber.tag(TAG).w(e, "listen:error");
-                return;
-            }
-
-            for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                switch (dc.getType()) {
-                    case ADDED:
-                        Message msg = dc.getDocument().toObject(Message.class);
-                        try {
-                            if (!msg.getTime()
-                                    .equals(messageList.get(messageList.size()-1).getTime()))
-                            {
-//                                messageList.add();
-                                updateState(new Message(
-                                        new String(Base64.getDecoder().decode(msg.getText())),
-                                        msg.getTime(),
-                                        new String(Base64.getDecoder().decode(msg.getUser()))));
-                            }
-                        }
-                        catch (Exception x){
-                            Timber.tag(TAG).d("Empty messages");
-                        }
-                        Timber.tag(TAG).d("New Message: %s", dc.getDocument().getData());
-                        break;
-                    case MODIFIED:
-                        Timber.tag(TAG).d("Modified Message: %s", dc.getDocument().getData());
-                        break;
-                    case REMOVED:
-                        Timber.tag(TAG).d("Removed Message: %s", dc.getDocument().getData());
-                        break;
-                }
-            }
-
-        });
+        listenToChat(collRef)
 
         //Enable video calls
-        vidCall.setOnClickListener(view -> {
-            if(currentDoc.length() > 0){
-                JitsiMeetConferenceOptions options = new JitsiMeetConferenceOptions
-                        .Builder()
-                        .setRoom("CarbonVideoCall" + currentDoc)
-                        .build();
-                JitsiMeetActivity.launch(this,options);
-            }
-            else Snackbar.make(view , "Invalid Room ID" , BaseTransientBottomBar.LENGTH_SHORT).show();
-        });
+        vidCall.setOnClickListener { view: View? ->
+            if (currentDoc.isNotEmpty()) {
+                val options = JitsiMeetConferenceOptions.Builder()
+                    .setRoom("CarbonVideoCall$currentDoc")
+                    .build()
+                JitsiMeetActivity.launch(this, options)
+            } else Snackbar.make(view!!, "Invalid Room ID", BaseTransientBottomBar.LENGTH_SHORT)
+                .show()
+        }
 
         //Send button action
-        sendBtn.setOnClickListener(view -> {
+        sendBtn.setOnClickListener { view: View? ->
             //Remove extra spaces and break lines
-            currentMsg = msgTxt.getText().toString().trim();
-            if (!currentMsg.equals(""))
-            {
+            currentMsg = msgTxt.getText().toString().trim { it <= ' ' }
+            if (currentMsg != "") {
                 // Add a new message object to the end of messages arraylist
-                Message tmp = new Message(currentMsg ,
-                        new Timestamp(System.currentTimeMillis()).toString()
-                        , currentUser.getProfile() );
-//                messageList.add(mMessageAdapter.getItemCount(), tmp);
-                updateState(tmp);
+                val tmp = Message(
+                    currentMsg,
+                    Timestamp(System.currentTimeMillis()).toString(), currentUser.profile
+                )
+                updateState(tmp)
+                //serialize encrypted message in the hashmap
+                lastMessage["text"] = encryptMsg(tmp.text)
+                lastMessage["time"] = tmp.time
+                lastMessage["user"] = encryptMsg(tmp.user)
 
-                //Send message to firebase and handle success / failure
-                lastMessage.put("text" , Base64.getEncoder().encodeToString(tmp.getText().getBytes(StandardCharsets.UTF_8)));
-                lastMessage.put("time" , tmp.getTime());
-                lastMessage.put("user" , Base64.getEncoder().encodeToString(tmp.getUser().getBytes(StandardCharsets.UTF_8)));
-                collRef.document(new Timestamp(System.currentTimeMillis())
-                                .toString().replaceAll("\\s", ""))
-                        .set(lastMessage, SetOptions.merge())
-                        .addOnSuccessListener(aVoid -> Timber.tag(TAG).d("DocumentSnapshot successfully written!"))
-                        .addOnFailureListener(e -> Timber.tag(TAG).w(e, "Error writing document"));
+                //Send message hashmap to fireStore and handle success / failure
+                val msgDoc: String = Timestamp(System.currentTimeMillis())
+                    .toString().replace("\\s".toRegex(), "")
+                collRef.document(msgDoc)
+                    .set(lastMessage, SetOptions.merge())
+                    .addOnSuccessListener { aVoid: Void? ->
+                        Timber.tag(ContentValues.TAG).d("DocumentSnapshot successfully written!")
+                    }
+                    .addOnFailureListener { e: Exception? ->
+                        Timber.tag(ContentValues.TAG).w(e, "Error writing document")
+                    }
                 //empty the message holder to receive the next message
-                msgTxt.setText("");
+                msgTxt.setText("")
             }
-        });
-    }
-
-    //to get document reference for current chat
-    @NonNull
-    private String getDoc(String num1 , String num2){
-        if(num1.compareTo(num2) > 0)
-            return num1+num2;
-        else return num2+num1;
-    }
-    private void updateState(Message msg){
-//      mMessageAdapter.notifyItemInserted(mMessageAdapter.getItemCount());
-        ArrayList<Message> models = new ArrayList<>();
-        for (Message model : messageList) {
-            models.add(model.clone());
         }
-        models.add(msg);
-        mMessageAdapter.setData(models);
-        mMessageRecycler.smoothScrollToPosition(mMessageAdapter.getItemCount());
     }
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event)
-//    {
-//        if ((keyCode == KeyEvent.KEYCODE_BACK))
-//        {
-//
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
+
+
+    private fun getDoc(num1: String, num2: String): String {
+        return if (num1.compareTo(num2) > 0) num1 + num2 else num2 + num1
+    }
+
+    private fun updateState(msg: Message) {
+        messageList.add(msg)
+        recycler_chat.adapter!!.notifyItemInserted(messageList.size)
+        recycler_chat!!.smoothScrollToPosition(recycler_chat.adapter!!.itemCount)
+    }
+
+    private fun encryptMsg(msg: String): String {
+        return Base64.getEncoder()
+            .encodeToString(msg.toByteArray(StandardCharsets.UTF_8))
+    }
+
+    private fun listenToChat(collRef: CollectionReference) {
+        collRef.addSnapshotListener { snapshots: QuerySnapshot?, e: FirebaseFirestoreException? ->
+            if (e != null) {
+                Timber.tag(ContentValues.TAG).w(e, "listen:error")
+                return@addSnapshotListener
+            }
+            if (snapshots != null) for (dc in snapshots.documentChanges) {
+                when (dc.type) {
+                    DocumentChange.Type.ADDED -> {
+                        val msg = dc.document.toObject(
+                            Message::class.java
+                        )
+                        try {
+                            if (msg.time != messageList[messageList.size - 1].time) {
+                                updateState(
+                                    Message(
+                                        String(Base64.getDecoder().decode(msg.text)),
+                                        msg.time,
+                                        String(Base64.getDecoder().decode(msg.user))
+                                    )
+                                )
+                            }
+                        } catch (x: Exception) {
+                            Timber.tag(ContentValues.TAG).d("Empty messages")
+                        }
+                        Timber.tag(ContentValues.TAG).d("New Message: %s", dc.document.data)
+                    }
+                    DocumentChange.Type.MODIFIED -> Timber.tag(ContentValues.TAG)
+                        .d("Modified Message: %s", dc.document.data)
+                    DocumentChange.Type.REMOVED -> Timber.tag(ContentValues.TAG)
+                        .d("Removed Message: %s", dc.document.data)
+                }
+            }
+        }
+    }
+
+    private fun getOldMsg(collRef: CollectionReference , phone: String) {
+        Home.hasRetrieved = true;
+        messageList = ArrayList<Message>()
+        recycler_chat.adapter = MessageAdapter(this , messageList , phone )
+        recycler_chat.adapter!!.notifyDataSetChanged()
+        println("Item Count ${recycler_chat.adapter!!.itemCount}")
+        for ( i in 0 until recycler_chat.adapter!!.itemCount){
+            recycler_chat.adapter!!.notifyItemRemoved(i)
+        }
+
+        var count = 1
+        collRef.get().addOnCompleteListener { task: Task<QuerySnapshot> ->
+            if (task.isSuccessful) {
+                for (document in task.result) {
+                    println("Count $count")
+                    count++
+                    val msg = document.toObject(
+                        Message::class.java
+                    )
+                    messageList.add(
+                        Message(
+                            String(Base64.getDecoder().decode(msg.text)),
+                            msg.time,
+                            String(Base64.getDecoder().decode(msg.user))
+                        )
+                    )
+                    oldData.add(
+                        Message(
+                            String(Base64.getDecoder().decode(msg.text)),
+                            msg.time,
+                            String(Base64.getDecoder().decode(msg.user))
+                        )
+                    )
+                    recycler_chat.adapter!!.notifyItemInserted(messageList.size)
+                }
+            } else {
+                Timber.tag(ContentValues.TAG)
+                    .d(task.exception, "Error getting Messages documents: ")
+            }
+        }
+    }
 
 }
