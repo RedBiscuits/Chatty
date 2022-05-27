@@ -3,7 +3,6 @@ package com.example.myapplication.screens.chatroom
 import android.content.ContentValues
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -52,7 +51,6 @@ class ChatRoom : AppCompatActivity() {
         //get UI references
         val img = findViewById<CircleImageView>(R.id.recImg)
         val recName = findViewById<TextView>(R.id.TVname)
-        val sendBtn = findViewById<Button>(R.id.sendBtn)
         val vidCall = findViewById<ImageButton>(R.id.vidCall)
         var notDone = false
 

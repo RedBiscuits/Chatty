@@ -87,7 +87,8 @@
             android:id="@+id/recycler_chat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constrainedHeight="true" />
+            app:layout_constrainedHeight="true"
+            android:elevation="0dp" />
     </FrameLayout>
 
     <TextView
@@ -110,35 +111,49 @@
         android:id="@+id/ETchatbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="0dp">
 
 
         <EditText
             android:id="@+id/msgTxt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="4dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="13dp"
             android:layout_toStartOf="@+id/sendBtn"
-            android:background="@android:color/transparent"
-            android:hint="Enter Message"
+            android:background="@drawable/grey_btn"
+            android:ems="10"
+            android:hint="@string/send_message"
             android:inputType="text"
             android:maxLines="6"
             android:minHeight="50dp"
-            android:textColor="#333333"
+            android:paddingLeft="@dimen/_12sdp"
+            android:paddingRight="@dimen/_12sdp"
+            android:textColor="@color/black"
             android:textColorHint="#757575"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             tools:ignore="Autofill" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/sendBtn"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:background="?attr/selectableItemBackground"
-            android:text="Send"
-            android:textColor="#00838F" />
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/ic_baseline_send_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/design_default_color_on_primary" />
 
     </RelativeLayout>
 

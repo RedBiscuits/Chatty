@@ -21,5 +21,8 @@
     <string name="sign_out">تسجيل الخروج</string>
     <string name="cancel">الغاء</string>
     <string name="use_fingerprint">استخدم البصمة</string>
-    <string name="settings">الصفحة الرئيسية</string>
+    <string name="settings">الأعدادات</string>
+    <string name="verify_otp">تأكيد OTP</string>
+    <string name="verification_code">رقم التأكيد</string>
+    <string name="send_message">أرسل رسالة</string>
 </resources>
