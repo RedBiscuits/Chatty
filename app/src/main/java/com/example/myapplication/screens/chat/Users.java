@@ -84,7 +84,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         rotClose = AnimationUtils.loadAnimation(getContext() , R.anim.rotate_close_anim);
         toBottom = AnimationUtils.loadAnimation(getContext() , R.anim.to_bottom_anim);
         fromBottom = AnimationUtils.loadAnimation(getContext() , R.anim.from_bottom_anim);
-        
+
         addFab =  view.findViewById(R.id.add_fab);
         addExisting =  view.findViewById(R.id.add_existing);
         addNew =  view.findViewById(R.id.add_new);
@@ -266,7 +266,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
             addExisting.startAnimation(fromBottom);
             addGroup.startAnimation(fromBottom);
             addNew.startAnimation(fromBottom);
-             addFab.startAnimation(rotOpen);
+            addFab.startAnimation(rotOpen);
         }else{
 
             addExisting.startAnimation(toBottom);
@@ -315,7 +315,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                         for (int i = 0 ; i< friendsNumbers.size();i++){
                             getUserData(friendsNumbers.get(i));
                         }
-                        }
+                    }
                     else {
                         Toast.makeText(this.getActivity(),
                                 "User doesn't exist !",
