@@ -14,11 +14,12 @@
     <string name="verifyOTP">تأكيد رمز OTP</string>
     <string name="home">المنزل</string>
     <string name="logout">تسجيل الخروج</string>
-    <string name="goToHome">العوده الي المنزل</string>
+    <string name="goToHome">خروج</string>
     <string name="changeLanguage">تغيير اللغه</string>
     <string name="mode">الوضع الداكن</string>
     <string name="app_lock">قفل التطبيق</string>
-    <string name="sign_out">تسجيل الدخول</string>
+    <string name="sign_out">تسجيل الخروج</string>
     <string name="cancel">الغاء</string>
     <string name="use_fingerprint">استخدم البصمة</string>
+    <string name="settings">الصفحة الرئيسية</string>
 </resources>

@@ -42,12 +42,7 @@
             android:onClick="changeLanguage"
             android:text="@string/changeLanguage" />
 
-        <Button
-            android:id="@+id/buttonHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="goToHome"
-            android:text="@string/goToHome" />
+
         <Button
             android:id="@+id/app_lock"
             android:layout_width="wrap_content"
@@ -61,7 +56,12 @@
             android:layout_height="wrap_content"
             android:onClick="logout"
             android:text="@string/sign_out" />
-
+        <Button
+            android:id="@+id/buttonHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="goToHome"
+            android:text="@string/goToHome" />
     </LinearLayout>
 
 </RelativeLayout>

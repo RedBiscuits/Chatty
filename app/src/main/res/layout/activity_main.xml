@@ -14,15 +14,17 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/current_user_profile_image"
-                android:layout_margin="@dimen/_8sdp"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
+                android:layout_margin="@dimen/_8sdp"
                 android:onClick="goToProfile"
                 android:src="@mipmap/logo"
+                app:civ_border_color="#FF000000"
                 app:civ_border_width="@dimen/_1sdp"
-                app:civ_border_color="#FF000000"/>
+                tools:ignore="SpeakableTextPresentCheck" />
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
@@ -33,21 +35,25 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:text="@string/app_name"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:id="@+id/settings_button"
-                    android:onClick="goToSettings"
-                    android:text="settings"
-                    android:layout_marginStart="@dimen/_80sdp"
-                    />
+
+            <Button
+                android:id="@+id/settings_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:onClick="goToSettings"
+                android:textAllCaps="false"
+                android:text="@string/settings"
+                android:textColor="@color/white" />
 
         </LinearLayout>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
@@ -55,6 +61,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
