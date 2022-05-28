@@ -105,7 +105,7 @@ class ChatRoom : AppCompatActivity() {
             messageList = ArrayList<Message>() //Home.oldData.clone() as ArrayList<Message>
             recycler_chat.adapter = MessageAdapter(this , messageList , phone )
 
-            for (i in 0 until (oldData.size/ oldData.size)){
+            for (i in 0 until (oldData.size/ if(oldData.size !=0) oldData.size else 1)){
                 messageList.add(oldData[i])
                 recycler_chat.adapter!!.notifyItemInserted(i)
             }
