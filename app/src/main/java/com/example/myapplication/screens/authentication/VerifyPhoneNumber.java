@@ -69,7 +69,6 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         phoneNo = getIntent().getStringExtra("phoneNo");
         name = getIntent().getStringExtra("name");
         description = getIntent().getStringExtra("description");
-        if(activityDeterminant.equals("signup"))
             imageUri = Uri.parse(getIntent().getStringExtra("imageUri"));
 
         sendVerificationCodeToUser(phoneNo);
@@ -176,35 +175,28 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     }
 
     private void saveInfo() {
+        String determinant = getIntent().getStringExtra("isImage");
+        Map<String,Object> map = new HashMap<>();
+        map.put("name",name);
+        map.put("description",description);
+        map.put("friends",new ArrayList<String>());
+        map.put("hasStory",false);
+        map.put("lastStory",null);
+        map.put("storyUrl",null);
 
         String randomKey = UUID.randomUUID().toString();
         final StorageReference storageReference = FirebaseStorage.getInstance().getReference()
                 .child("profiles/"+System.currentTimeMillis()+randomKey);
-       storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-           @Override
-           public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-               Toast.makeText(VerifyPhoneNumber.this, "file put success", Toast.LENGTH_SHORT).show();
-               storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                   @Override
-                   public void onSuccess(Uri uri) {
-                       downloadUrl = uri.toString();
-                       Map<String,Object> map = new HashMap<>();
-                       map.put("name",name);
-                       map.put("description",description);
-                       map.put("profileImageUrl",downloadUrl);
-                       map.put("friends",new ArrayList<String>());
-                       map.put("hasStory",false);
-                       map.put("lastStory",null);
-                       map.put("storyUrl",null);
-
-                       db.collection("users").document(phoneNo).set(map).addOnCompleteListener(task -> {
-                           Toast.makeText(VerifyPhoneNumber.this , "Access granted " , Toast.LENGTH_SHORT).show();
-                       });
-                   }
-               });
-           }
-       });
-
+        if(determinant.equals("img")) {
+            storageReference.putFile(imageUri).addOnCompleteListener(task ->
+                    storageReference.getDownloadUrl().addOnSuccessListener(uri ->
+                            map.put("profileImageUrl", uri.toString())));
+        }else{
+            map.put("profileImageUrl",imageUri);
+        }
+        db.collection("users").document(phoneNo).set(map).addOnCompleteListener(task1 -> {
+            Toast.makeText(VerifyPhoneNumber.this , "Access granted " , Toast.LENGTH_SHORT).show();
+        });
 
     }
 }

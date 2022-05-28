@@ -3,6 +3,7 @@ package com.example.myapplication.screens.authentication;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -28,6 +29,7 @@ public class SignUp extends AppCompatActivity {
     private CircleImageView ProfilePhoto;
     private String phone;
     private Uri profileImageUri;
+    private final String DEFAULT_IMAGE = "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg";
 
     //Chek if The username is Valid or not
 
@@ -82,7 +84,14 @@ public class SignUp extends AppCompatActivity {
                             intent.putExtra("name", name);
                             intent.putExtra("description", descriptionStr);
                             intent.putExtra("determinant", "signup");
-                            intent.putExtra("imageUri", profileImageUri.toString());
+                            if(profileImageUri != null) {
+                                intent.putExtra("imageUri", profileImageUri.toString());
+                                intent.putExtra("isImage", "img");
+                            }else{
+                                intent.putExtra("imageUri", DEFAULT_IMAGE);
+                                intent.putExtra("isImage", "url");
+
+                            }
                             startActivity(intent);
                         }
                     }
