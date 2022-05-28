@@ -80,21 +80,15 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
                                 if (itFriend.getBoolean("hasStory") == true) { //
 
-                                    databaseRef.child("users").child(friend)
+                                    databaseRef.child("users").child(friend).orderByChild("date")
                                         .addValueEventListener(object : ValueEventListener {
 
                                             override fun onDataChange(dataSnapShot: DataSnapshot) {
                                                 storyOfFriends.clear()
 
-                                                Log.d("ccccccccc" , dataSnapShot.exists().toString())
-                                                Log.d("ccccccccc" , dataSnapShot.ref.toString())
-
-
                                                 if (!dataSnapShot.exists()){
                                                     itFriend.reference.update("hasStory" , false)
-                                                    Log.d("bbbbb" , "lol")
                                                 }else {
-                                                    Log.d("bbbbbbb" , "story.toString()")
                                                     val stories: ArrayList<MyStory> = ArrayList()
                                                     var lastStory = StoryModel("", "", "")
 
@@ -112,18 +106,24 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                                         val hours = minutes / 60
                                                         if (hours >= 24) {
                                                             snapShot.ref.removeValue()
+                                                            continue
+                                                        } else {
+                                                            Log.d("gaaaaaaaned" , story.date)
+                                                            stories.add(
+                                                                MyStory(
+                                                                    story!!.uri,
+                                                                    simpleDateFormat.parse(
+                                                                        story.date
+                                                                    ),
+                                                                    story.description
+                                                                )
+                                                            )
                                                         }
 
-                                                        stories.add(
-                                                            MyStory(
-                                                                story!!.uri,
-                                                                simpleDateFormat.parse(
-                                                                    story.date
-                                                                ),
-                                                                story.description
-                                                            )
-                                                        )
+
                                                     }
+
+
 
 
                                                     val currentDate = simpleDateFormat.format(Date())
@@ -197,9 +197,12 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                                         )
                                                     )
 
-                                                    adapter.submitList(storyOfFriends)
+
 
                                                 }
+                                                Log.d("dataChanged" , "SUIIIIIIIIIIIIIIIII")
+                                                adapter.submitList(storyOfFriends)
+                                                rvStatus.adapter = adapter
 
                                             }
 
@@ -252,17 +255,22 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
                                     if (hours >= 24) {
                                         snapShot.ref.removeValue()
+                                        continue
                                     } else {
-                                        showMyStory()
+                                        myStories.add(
+                                            MyStory(
+                                                story.uri,
+                                                simpleDateFormat.parse(story.date),
+                                                story.description
+                                            )
+                                        )
                                     }
 
-                                    myStories.add(
-                                        MyStory(
-                                            story.uri,
-                                            simpleDateFormat.parse(story.date),
-                                            story.description
-                                        )
-                                    )
+
+                                }
+
+                                if (myStories.size > 0 ){
+                                    showMyStory()
                                 }
 
 
@@ -406,8 +414,10 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
         }
 
-        rvStatus.adapter = adapter
         rvStatus.layoutManager = LinearLayoutManager(requireContext())
+
+
+
 
         adapter.setOnItemClickListner {
             myLastStory.text = myUser.lastStory

@@ -32,11 +32,7 @@ class AddTextStoryActivity : AppCompatActivity() {
     val uid : String? by lazy {
         restorePrefTheme("phone")
     }
-    private fun restorePrefTheme(key : String): String? {
-        val pref = this.getSharedPreferences("mypref", AppCompatActivity.MODE_PRIVATE)
-        return  pref.getString(key, null).toString()
 
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         this.window.setFlags(
@@ -87,6 +83,11 @@ class AddTextStoryActivity : AppCompatActivity() {
         return Uri.parse(path)
     }
 
+    private fun restorePrefTheme(key : String): String? {
+        val pref = this.getSharedPreferences("mypref", AppCompatActivity.MODE_PRIVATE)
+        return  pref.getString(key, null).toString()
+
+    }
 
 
     private fun sendToFireBase() {
