@@ -64,14 +64,12 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
 
 
 
-    public Users() {
-    }
+    public Users() {}
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable

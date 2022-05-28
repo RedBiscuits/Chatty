@@ -161,7 +161,7 @@ class ChatRoom : AppCompatActivity() {
 
 
     private fun getDoc(num1: String, num2: String): String {
-        return if (num1.compareTo(num2) > 0) num1 + num2 else num2 + num1
+        return if (num1 > num2) num1 + num2 else num2 + num1
     }
 
     private fun updateState(msg: Message) {
@@ -215,7 +215,7 @@ class ChatRoom : AppCompatActivity() {
         Home.hasRetrieved = true;
         messageList = ArrayList<Message>()
         recycler_chat.adapter = MessageAdapter(this , messageList , phone )
-        recycler_chat.adapter!!.notifyDataSetChanged()
+//        recycler_chat.adapter!!.notifyDataSetChanged()
         println("Item Count ${recycler_chat.adapter!!.itemCount}")
         for ( i in 0 until recycler_chat.adapter!!.itemCount){
             recycler_chat.adapter!!.notifyItemRemoved(i)
