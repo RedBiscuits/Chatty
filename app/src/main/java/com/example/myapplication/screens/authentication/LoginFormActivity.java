@@ -39,6 +39,9 @@ public class LoginFormActivity extends AppCompatActivity {
     public static final String SHARED_PREFERENCES_NAME = "mypref";
     public static final String KEY_PHONE_NUMBER = "phone";
     private static final String KEY_CURRENT_USER = "name";
+    private static final String KEY_PROFILE_IMAGE = "image";
+    private static final String KEY_BIO = "bio";
+
 
     SharedPreferenceClass sharedPreferenceClass;
     EditText phone, OTP;
@@ -50,7 +53,7 @@ public class LoginFormActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     private DocumentReference documentReference;
     private FirebaseFirestore firestore;
-    String phoneNumber;
+    String phoneNumber, image, username, bio;
 
 
     @Override
@@ -111,6 +114,9 @@ public class LoginFormActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     DocumentSnapshot doc = task.getResult();
                     if(doc.exists()){
+                        image = doc.getString("profileImageUrl");
+                        username = doc.getString("name");
+                        bio = doc.getString("bio");
                         sendVerificationCode(phoneNumber); //to sent verification code to user
                     }else{
                         Intent signUp = new Intent(LoginFormActivity.this,SignUp.class);
@@ -151,25 +157,10 @@ public class LoginFormActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         verifyCode(OTPCode); //to check if OTP code entered by user is true or not
         SharedPreferences.Editor editor = sharedPreferences.edit(); //store data in shared preferences
-        try {
-            DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phoneNumber);
-            docRef.get().addOnCompleteListener(task -> {
-                if(task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
-                    if(doc.exists()){
-                        editor.putString(KEY_CURRENT_USER, doc.getString("name") );
-
-                    }else {
-                        Toast.makeText(this,
-                                "User doesn't exist !",
-                                Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+        editor.putString(KEY_PHONE_NUMBER, bio);
         editor.putString(KEY_PHONE_NUMBER, phoneNumber);
+        editor.putString(KEY_CURRENT_USER, username);
+        editor.putString(KEY_PROFILE_IMAGE, image);
         editor.apply();
     } //on click in verify OTP button
 

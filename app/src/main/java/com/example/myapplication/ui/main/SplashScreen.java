@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.datastructures.chatty.databinding.ActivitySplashScreenBinding;
+import com.example.myapplication.screens.authentication.LoginActivity;
 import com.example.myapplication.screens.authentication.LoginFormActivity;
 import com.example.myapplication.screens.security.Pattern;
 
@@ -39,6 +40,8 @@ public class SplashScreen extends AppCompatActivity {
                 //Do something after delay
                     finish();
                     startActivity(new Intent(SplashScreen.this, LoginFormActivity.class));
+//                    startActivity(new Intent(SplashScreen.this, LoginActivity.class));
+
                 }
             }, 3000);
     }
