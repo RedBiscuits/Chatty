@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_10sdp">
@@ -15,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/group_image"
             android:layout_width="@dimen/_75sdp"
             android:layout_height="@dimen/_75sdp"
             android:src="@drawable/user_img_foreground"
@@ -47,8 +49,8 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/list_view_1"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/create_button"

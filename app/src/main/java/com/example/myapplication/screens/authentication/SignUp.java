@@ -1,18 +1,12 @@
 package com.example.myapplication.screens.authentication;
 
-import static com.example.myapplication.screens.authentication.LoginFormActivity.KEY_PHONE_NUMBER;
-
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -20,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.datastructures.chatty.R;
 import com.datastructures.chatty.databinding.ActivitySignUpBinding;
-import com.example.myapplication.ui.main.Home;
 import com.example.myapplication.utils.SharedPreferenceClass;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,7 +21,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -90,7 +82,7 @@ public class SignUp extends AppCompatActivity {
                             user.put("name", name);
                             user.put("description", descriptionStr);
                             user.put("profileImageUrl", profileImageUri.toString() != null ?
-                                    profileImageUri.toString() : "" );
+                                    profileImageUri.toString() : DEFAULT_IMAGE );
                             user.put("hasStory" , false);
                             user.put("friends" , arr);
                             user.put("lastStory" , "");
@@ -110,7 +102,7 @@ public class SignUp extends AppCompatActivity {
         });
         binding.currentUserProfileImage.setOnClickListener(view -> pickImg());
     }
-    public final void pickImg() {
+    private void pickImg() {
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
         intent.setType("image/*");
         this.startActivityForResult(intent, 3);
