@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.datastructures.chatty.R;
 import com.example.myapplication.screens.chatroom.Message;
+import com.example.myapplication.screens.security.Pattern;
 
 import java.util.ArrayList;
 

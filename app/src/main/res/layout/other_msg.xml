@@ -7,65 +7,79 @@
     android:layout_marginTop="16dp">
 
     <!--suppress AndroidUnresolvableTag -->
-    <TextView
-        android:id="@+id/TVsender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="John Grady Cole"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card_msgOther"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:cardBackgroundColor="#eef1f6"
-        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="#DCF6FA"
+        app:cardCornerRadius="18dp"
+        android:padding="@dimen/_15sdp"
         app:cardElevation="0dp"
-        style="@style/Widget.Material3.CardView.Elevated"
-        app:cardPreventCornerOverlap="false"
+        style="@style/Widget.Material3.CardView.Filled"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TVsender">
-        <!--        app:layout_constraintStart_toEndOf="@+id/sender_img"-->
+        app:layout_constraintTop_toTopOf="parent">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/layout_gchat_container_other"
+    <LinearLayout
+        android:id="@+id/layout_gchat_container_other"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/TVsender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_7ssp"
+            android:text="John Grady Cole"
+            android:textColor="#78AAAE"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <!--suppress AndroidUnresolvableTag -->
-            <TextView
-                android:id="@+id/TVrec_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:maxWidth="260dp"
-                android:paddingLeft="12dp"
-                android:paddingTop="8dp"
-                android:paddingRight="12dp"
-                android:text="Message"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-        </LinearLayout>
+        <!--suppress AndroidUnresolvableTag -->
+        <TextView
+            android:id="@+id/TVrec_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:maxWidth="260dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="8dp"
+            android:paddingRight="12dp"
+            android:text="Message"
+            android:textColor="@color/md_theme_dark_onSecondary"
+            android:textSize="16sp" />
+    </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-
-    <!--suppress AndroidUnresolvableTag -->
     <TextView
         android:id="@+id/TVrec_timeStamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_11sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
         android:text="8:00"
-        android:textColor="#C0C0C0"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/card_msgOther"
-        app:layout_constraintStart_toEndOf="@+id/card_msgOther" />
+        android:textColor="#779CAC"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_gchat_container_other" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <!--suppress AndroidUnresolvableTag -->
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

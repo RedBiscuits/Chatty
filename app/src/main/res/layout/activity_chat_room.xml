@@ -106,7 +106,7 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#e0e0e0"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/ETchatbox" />
 
     <RelativeLayout
@@ -121,6 +121,7 @@
 
         <EditText
             android:id="@+id/msgTxt"
+            android:elevation="@dimen/_7ssp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -151,11 +152,13 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
+            android:contentDescription="Send message"
+            android:backgroundTint="@color/md_theme_dark_secondary"
+            style="@style/Widget.Material3.FloatingActionButton.Secondary"
             android:src="@drawable/ic_baseline_send_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/design_default_color_on_primary"
-            android:contentDescription="TODO" />
+            app:tint="@color/design_default_color_on_primary" />
 
     </RelativeLayout>
 

@@ -67,7 +67,7 @@
                 android:layout_marginTop="@dimen/_3ssp"
                 android:text="10:00"
                 android:textColor="@color/md_theme_light_secondary"
-                android:textSize="11sp"
+                android:textSize="@dimen/_11sdp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/layout_container_user" />
         </androidx.constraintlayout.widget.ConstraintLayout>
