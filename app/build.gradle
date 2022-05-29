@@ -112,7 +112,8 @@ dependencies {
     implementation 'com.hanks:passcodeview:0.1.2'
     implementation 'com.airbnb.android:lottie:5.0.3'
 
-
+    //splash
+    implementation 'com.github.sarnavakonar:TextWriter:v1.0'
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'

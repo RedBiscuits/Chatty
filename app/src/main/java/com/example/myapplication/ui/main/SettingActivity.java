@@ -147,7 +147,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void goToHome(View view) {
-        startActivity(new Intent(getApplicationContext(), Home.class));
+        finish();
     }
 
     public void logout(View view) {
