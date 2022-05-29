@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,15 @@ import java.util.Queue;
 public class Users extends Fragment implements UsersRecyclerViewClick {
 
     static final int PICK_CONTACT=1;
-    private boolean clicked = false;
     private ArrayList<UserModel> userModels;
+    private ArrayList<String> friendsNumbers;
+    private UserListAdapter userListAdapter;
+    private String phone;
+    private SharedPreferences sharedPreferences;
+    private ArrayList<String> friends ;
+    private final CollectionReference usersReference = FirebaseFirestore.getInstance().collection("users");
+
+    private boolean clicked = false;
     private Animation rotOpen;
     private Animation rotClose;
     private Animation toBottom;
@@ -55,12 +63,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     private FloatingActionButton addExisting ;
     private FloatingActionButton addNew ;
     private FloatingActionButton addGroup ;
-    private UserListAdapter userListAdapter;
-    private String phone;
-    private SharedPreferences sharedPreferences;
-    private ArrayList<String> friends ;
-    private final CollectionReference usersReference = FirebaseFirestore.getInstance().collection("users");
-    private ArrayList<String> friendsNumbers;
+
 
 
 
@@ -75,7 +78,9 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view= LayoutInflater.from(getContext()).inflate(R.layout.fragment_users,container,false);
+
         RecyclerView recyclerView = view.findViewById(R.id.users_RV);
         //Animation initialization
         rotOpen = AnimationUtils.loadAnimation(getContext() , R.anim.rotate_open_anim);
@@ -96,6 +101,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         userListAdapter = new UserListAdapter(userModels, this);
         recyclerView.setAdapter(userListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         //Adding Existing user
         addExisting.setOnClickListener(view1 -> openContacts());
         //Adding new user
@@ -109,9 +115,14 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     }
 
     private void OnNewGroupPressed() {
+        ArrayList<String> filteredNumbers = new ArrayList<>();
         Intent intent = new Intent(this.getActivity() , AddGroupActivity.class);
-        intent.putExtra("phones" ,friendsNumbers);
-
+        for (String num : friendsNumbers){
+            if (num.length() == 11){
+                filteredNumbers.add(num);
+            }
+        }
+        intent.putExtra("phones" ,filteredNumbers);
         startActivity(intent);
     }
 
@@ -146,7 +157,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
                 String selectedContactNumber = phones.getString(phones.getColumnIndexOrThrow("data1"));
                 selectedContactNumber = processPhone(selectedContactNumber);
                 phones.close();
-
+                Log.d("user :::::" , selectedContactNumber);
                 addToFriends(selectedContactNumber);
             }
         }
@@ -219,16 +230,14 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     }
 
     private String processPhone(String selectedContactNumber) {
-        Queue<Character> phone =  new PriorityQueue<>();
         StringBuilder str = new StringBuilder();
 
         for (int i = 0 ; i < selectedContactNumber.length();i++){
-            if(selectedContactNumber.charAt(i) != ' ' ||selectedContactNumber.charAt(i) != '+' )
-                phone.add(selectedContactNumber.charAt(i));
-            str.append(phone.peek());
-            phone.poll();
+            if(selectedContactNumber.charAt(i) != ' ' ||selectedContactNumber.charAt(i) != '+')
+                str.append(selectedContactNumber.charAt(i));
         }
-        return str.toString();
+        Log.d("user ::::::::::::::" ,str.toString().trim().substring(str.length()-11,str.length()) );
+        return str.toString().trim().substring(str.length()-11,str.length());
 
     }
 
