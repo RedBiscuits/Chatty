@@ -1,7 +1,7 @@
 package com.example.myapplication.screens.chatroom
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.graphics.ColorSpace
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
@@ -27,6 +27,7 @@ import timber.log.Timber
 import java.nio.charset.StandardCharsets
 import java.sql.Timestamp
 import java.util.*
+import kotlin.math.abs
 
 class ChatRoom : AppCompatActivity() {
 
@@ -37,11 +38,14 @@ class ChatRoom : AppCompatActivity() {
     //required data structures
     private var messageList = ArrayList<Message>()
     private val lastMessage: MutableMap<String, String> = HashMap()
+    private val db = FirebaseFirestore.getInstance()
+    private val userRef = db.collection("users")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //to hide action bar
         supportActionBar?.hide()
-        window.statusBarColor = getColor(R.color.statusbar);
+        window.statusBarColor = getColor(R.color.statusbar)
         setContentView(R.layout.activity_chat_room)
 
         //initializing data
@@ -75,14 +79,14 @@ class ChatRoom : AppCompatActivity() {
                 savedInstanceState.getSerializable("RecPhone") as String?
             )
         }
-        Timber.tag(ContentValues.TAG)
-            .d("%s%s", "Users : >> " + calleeUser!!.profile + " ", calleeUser!!.name)
 
         //database references
         val currentDoc = getDoc(currentUser.profile, calleeUser!!.profile)
-        val db = FirebaseFirestore.getInstance()
         val docRef = db.collection("chatRooms").document(currentDoc)
         val collRef = docRef.collection("Messages")
+
+        updateLastSeen(currentUser.profile)
+        getLastSeen(calleeUser!!.profile)
 
         recycler_chat.layoutManager = LinearLayoutManager(this)
 
@@ -123,9 +127,10 @@ class ChatRoom : AppCompatActivity() {
         }
 
         //Send button action
-        sendBtn.setOnClickListener { view: View? ->
+        sendBtn.setOnClickListener {
             //Remove extra spaces and break lines
-            currentMsg = msgTxt.getText().toString().trim { it <= ' ' }
+            updateLastSeen(currentUser.profile)
+            currentMsg = msgTxt.text.toString().trim { it <= ' ' }
             if (currentMsg != "") {
                 // Add a new message object to the end of messages arraylist
                 val tmp = Message(
@@ -143,7 +148,7 @@ class ChatRoom : AppCompatActivity() {
                     .toString().replace("\\s".toRegex(), "")
                 collRef.document(msgDoc)
                     .set(lastMessage, SetOptions.merge())
-                    .addOnSuccessListener { aVoid: Void? ->
+                    .addOnSuccessListener {
                         Timber.tag(ContentValues.TAG).d("DocumentSnapshot successfully written!")
                     }
                     .addOnFailureListener { e: Exception? ->
@@ -209,10 +214,9 @@ class ChatRoom : AppCompatActivity() {
     }
 
     private fun getOldMsg(collRef: CollectionReference , phone: String) {
-        Home.hasRetrieved = true;
+        Home.hasRetrieved = true
         messageList = ArrayList<Message>()
         recycler_chat.adapter = MessageAdapter(this , messageList , phone )
-//        recycler_chat.adapter!!.notifyDataSetChanged()
         println("Item Count ${recycler_chat.adapter!!.itemCount}")
         for ( i in 0 until recycler_chat.adapter!!.itemCount){
             recycler_chat.adapter!!.notifyItemRemoved(i)
@@ -250,4 +254,29 @@ class ChatRoom : AppCompatActivity() {
         }
     }
 
+    private fun updateLastSeen(user:String){
+        val time = mutableMapOf<String , String>()
+        time["lastSeen"] = System.currentTimeMillis().toString()
+        userRef.document(user).set(time , SetOptions.merge())
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun getLastSeen(user:String){
+        try {
+            userRef.document(user).get().addOnCompleteListener {
+                val result:Long? = it.result.get("lastSeen").toString().toLongOrNull()
+                 if(result == null){
+                    lastSeen.text =  "Offline"
+                }
+                else {
+                    val newRes = Timestamp(result).toString()
+                        .substring(10 ,Timestamp(result).toString().length-7)
+                    if (abs(System.currentTimeMillis() - result) <= 60)
+                        lastSeen.text ="Active now"
+                    else lastSeen.text = "Last seen : $newRes"
+            }}
+        }
+        catch (e : Exception){
+        }
+    }
 }

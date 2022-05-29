@@ -44,8 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
                 android:foregroundGravity="center_vertical"
                 android:gravity="center_vertical"
                 android:text="TextView"
@@ -70,6 +70,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/presence_video_online" />
+
+            <TextView
+                android:id="@+id/lastSeen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintStart_toEndOf="@+id/recImg"
+                app:layout_constraintTop_toBottomOf="@+id/TVname"
+                tools:text="Last seen" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -106,7 +117,7 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#e0e0e0"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/ETchatbox" />
 
     <RelativeLayout
@@ -121,6 +132,7 @@
 
         <EditText
             android:id="@+id/msgTxt"
+            android:elevation="@dimen/_7ssp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -151,11 +163,13 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
+            android:contentDescription="Send message"
+            android:backgroundTint="@color/md_theme_dark_secondary"
+            style="@style/Widget.Material3.FloatingActionButton.Secondary"
             android:src="@drawable/ic_baseline_send_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/design_default_color_on_primary"
-            android:contentDescription="TODO" />
+            app:tint="@color/design_default_color_on_primary" />
 
     </RelativeLayout>
 

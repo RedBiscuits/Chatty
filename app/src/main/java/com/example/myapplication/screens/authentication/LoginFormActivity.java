@@ -59,6 +59,13 @@ public class LoginFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPreferenceClass = new SharedPreferenceClass(this);
+        sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        String phoneNumber = sharedPreferences.getString(KEY_PHONE_NUMBER, null);
+        if(phoneNumber != null) {
+            Intent intent = new Intent(LoginFormActivity.this, Home.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
         if(sharedPreferenceClass.loadNightModeState()) {
             setTheme(R.style.dark_theme);
         }
@@ -74,12 +81,6 @@ public class LoginFormActivity extends AppCompatActivity {
 
         initWidgets();
 
-        String phoneNumber = sharedPreferences.getString(KEY_PHONE_NUMBER, null);
-        if(phoneNumber != null) {
-            Intent intent = new Intent(LoginFormActivity.this, Home.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
     }
 
     public void initWidgets() {
@@ -91,7 +92,6 @@ public class LoginFormActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firestore = FirebaseFirestore.getInstance();
-        sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
 
     }
 
