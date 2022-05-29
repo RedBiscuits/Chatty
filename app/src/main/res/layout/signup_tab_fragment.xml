@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/current_user_profile_image"
+            android:layout_width="@dimen/_75sdp"
+            android:layout_height="@dimen/_75sdp"
+            android:layout_gravity="center"
+            android:src="@drawable/user_icon"
+            tools:ignore="MissingClass,MissingConstraints" />
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_120sdp"
+            android:layout_margin="20dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:ems="10"
+            android:hint="Description"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:orientation="vertical"
+            android:background="@drawable/custom_edit_text"/>
+
+        <EditText
+            android:id="@+id/registering_user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_50sdp"
+            android:paddingLeft="20dp"
+            android:ems="10"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:layout_margin="20dp"
+            android:paddingTop="20dp"
+            android:background="@drawable/custom_edit_text"/>
+
+        <EditText
+            android:id="@+id/registering_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:paddingLeft="20dp"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:layout_margin="20dp"
+            android:paddingTop="20dp"
+            android:background="@drawable/custom_edit_text"/>
+
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register"
+            android:layout_margin="20dp"
+            android:background="@drawable/round_back_secondary"/>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
