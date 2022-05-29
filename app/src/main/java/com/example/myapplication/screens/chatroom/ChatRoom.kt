@@ -1,6 +1,7 @@
 package com.example.myapplication.screens.chatroom
 
 import android.content.ContentValues
+import android.graphics.ColorSpace
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
@@ -40,6 +41,7 @@ class ChatRoom : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //to hide action bar
         supportActionBar?.hide()
+        window.statusBarColor = getColor(R.color.statusbar);
         setContentView(R.layout.activity_chat_room)
 
         //initializing data
@@ -87,7 +89,7 @@ class ChatRoom : AppCompatActivity() {
         //get old messages
         messageList.clear()
         runBlocking {
-            val getting = launch {
+            launch {
                 if (phone != null && !Home.hasRetrieved) {
                     getOldMsg(collRef , phone)
                 }
@@ -95,11 +97,6 @@ class ChatRoom : AppCompatActivity() {
                     notDone =true
                 }
             }
-            getting.join()
-            println(
-                "@@@@@@@@@@@@@@@@@@@@@@@@@@@ Getting Old Messages, count: " + messageList.size +
-                        " , Has ret = " + Home.hasRetrieved
-            )
         }
         if (notDone){
             messageList = ArrayList<Message>() //Home.oldData.clone() as ArrayList<Message>

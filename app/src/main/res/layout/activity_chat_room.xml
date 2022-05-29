@@ -8,15 +8,17 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:clickable="true"
-    style="@style/AppTheme">
+    style="@style/chat_room">
 
     <com.google.android.material.appbar.AppBarLayout
+        app:statusBarForeground="#47617a"
         android:id="@+id/chatBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorPrimary">
+        style="@style/ThemeOverlay.Material3.BottomAppBar"
+        android:background="@color/md_theme_dark_secondary">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,7 +49,7 @@
                 android:foregroundGravity="center_vertical"
                 android:gravity="center_vertical"
                 android:text="TextView"
-                android:textColor="#B8BCD6"
+                android:textColor="@color/md_theme_dark_onPrimary"
                 android:textSize="22sp"
                 app:layout_constraintStart_toEndOf="@+id/recImg"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +61,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
-                android:background="#354AC1"
+                android:background="#99B7C5"
                 android:contentDescription="video call"
                 android:foregroundGravity="center_vertical"
                 android:minWidth="48dp"
@@ -152,7 +154,8 @@
             android:src="@drawable/ic_baseline_send_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/design_default_color_on_primary" />
+            app:tint="@color/design_default_color_on_primary"
+            android:contentDescription="TODO" />
 
     </RelativeLayout>
 

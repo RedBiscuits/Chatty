@@ -25,6 +25,7 @@
         app:cardBackgroundColor="#eef1f6"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
+        style="@style/Widget.Material3.CardView.Elevated"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"

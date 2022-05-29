@@ -56,7 +56,8 @@
         <activity
             android:name="com.example.myapplication.screens.chatroom.ChatRoom"
             android:exported="true"
-            android:launchMode="standard" />
+            android:launchMode="standard"
+            android:theme="@style/Theme.Material3.DayNight"/>
         <activity
             android:name="com.example.myapplication.screens.chat.AddNewContact"
             android:exported="false"

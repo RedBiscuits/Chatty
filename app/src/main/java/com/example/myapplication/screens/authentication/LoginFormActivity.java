@@ -1,5 +1,6 @@
 package com.example.myapplication.screens.authentication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,8 +8,6 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -40,6 +39,7 @@ public class LoginFormActivity extends AppCompatActivity {
     public static final String SHARED_PREFERENCES_NAME = "mypref";
     public static final String KEY_PHONE_NUMBER = "phone";
     private static final String KEY_CURRENT_USER = "name";
+
     SharedPreferenceClass sharedPreferenceClass;
     EditText phone, OTP;
     Button verifyOTPBtn;
@@ -48,8 +48,9 @@ public class LoginFormActivity extends AppCompatActivity {
     String mVerificationId;
     SharedPreferences sharedPreferences;
     DatabaseReference databaseReference;
-    DocumentReference documentReference;
-    FirebaseFirestore firestore;
+    private DocumentReference documentReference;
+    private FirebaseFirestore firestore;
+    String phoneNumber;
 
 
     @Override
@@ -64,8 +65,6 @@ public class LoginFormActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //to hide title bar
         getSupportActionBar().hide(); //to hide action bar
 
         setContentView(R.layout.activity_login);
@@ -95,13 +94,12 @@ public class LoginFormActivity extends AppCompatActivity {
 
     public void generateOTP(View view) { //on click in generate OTP button to generate OTP code to sent it to user
 
-        String phoneNumber = phone.getText().toString();
+        phoneNumber = phone.getText().toString();
         if (TextUtils.isEmpty(phoneNumber)) { //check if user doesn't entered his phone number
             phone.setError("Please Enter Your Phone Number.");
             phone.requestFocus();
             return;
         }
-
         checkUser(phoneNumber); //check if is a user or not by phone number
     }
 
@@ -115,16 +113,35 @@ public class LoginFormActivity extends AppCompatActivity {
                     if(doc.exists()){
                         sendVerificationCode(phoneNumber); //to sent verification code to user
                     }else{
-                        Toast.makeText(getApplicationContext(), "User doesn't exist , try signup first", Toast.LENGTH_SHORT).show();
+                        Intent signUp = new Intent(LoginFormActivity.this,SignUp.class);
+                        signUp.putExtra("phone" , phoneNumber);
+                        startActivityForResult(signUp ,1);
                     }
                 }
             }
         });
     }
 
+
     public void verifyOTP(View view) { //on click in verify OTP button to check if OTP code entered by user is true or not
         String OTPCode = OTP.getText().toString();
+        boolean[] found = new boolean[1];
         String phoneNumber = phone.getText().toString();
+        documentReference = firestore.collection("users").document(phoneNumber);
+        documentReference.get().addOnCompleteListener(
+            new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        DocumentSnapshot doc = task.getResult();
+                       found[0] =doc.exists();
+                    }
+                }
+            }
+        );
+        if (!found[0]){
+            Toast.makeText(this , "aaaaaaaaaaaaaa" , Toast.LENGTH_LONG);
+        }
 
         if(TextUtils.isEmpty(OTPCode)) { //to check if user entered OTP code or not
             OTP.setError("Please Enter Your OTP Code.");
@@ -219,6 +236,17 @@ public class LoginFormActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                sendVerificationCode(phoneNumber);
+            }
+            else Toast.makeText(this , "User not reggistered" , Toast.LENGTH_LONG).show();
+        }
+    } //onActivityResult
 
     public void toSignup(View view) {
         startActivity(new Intent(LoginFormActivity.this , SignUp.class));

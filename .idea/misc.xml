@@ -50,7 +50,7 @@
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_add_phone_contact.xml" value="0.24230072463768115" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_add_text_story.xml" value="0.24230072463768115" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_chat.xml" value="0.2056159420289855" />
-        <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_chat_room.xml" value="0.136" />
+        <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_chat_room.xml" value="0.264" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_create_group.xml" value="0.24230072463768115" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_fingerprint.xml" value="0.264" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_login.xml" value="0.2" />
@@ -69,7 +69,7 @@
         <entry key="..\:/github/Chatty/app/src/main/res/layout/other_msg.xml" value="0.2056159420289855" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/raw_item.xml" value="0.24230072463768115" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/story_list_item.xml" value="0.2056159420289855" />
-        <entry key="..\:/github/Chatty/app/src/main/res/layout/user_list_item.xml" value="0.2056159420289855" />
+        <entry key="..\:/github/Chatty/app/src/main/res/layout/user_list_item.xml" value="0.44015444015444016" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/user_msg.xml" value="0.24230072463768115" />
       </map>
     </option>
