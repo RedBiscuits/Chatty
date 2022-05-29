@@ -20,6 +20,16 @@ class ProfileActivity : AppCompatActivity() {
     private val phone : String? by lazy {
         prefUser("phone")
     }
+    private val username : String? by lazy {
+        prefUser("name")
+    }
+    private val profileImage : String? by lazy {
+        prefUser("image")
+    }
+
+    private val bio : String? by lazy {
+        prefUser("bio")
+    }
 
 
 
@@ -30,26 +40,17 @@ class ProfileActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_profile)
 
-        fireStoreRef.collection("users").document(phone.toString()).get().addOnSuccessListener {
-            var image = it.get("profileImageUrl").toString()
-            var name = it.get("name").toString()
-            var bio = it.get("description").toString()
+        Glide.with(this).load(profileImage).diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(profileImageView)
+        nameText.text = username
+        phoneText.text = phone
+        bioText.text = bio
 
-            Glide.with(this).load(image).diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(profileImageView)
-            nameText.text = name
-            phoneText.text = phone
-            bioText.text = bio
-        }
-
-            .addOnFailureListener {
-                Toast.makeText(this , it.message , Toast.LENGTH_LONG).show()
-            }
     }
 
 
     fun prefUser(key : String): String? {
         val pref = this.getSharedPreferences("mypref", AppCompatActivity.MODE_PRIVATE)
-        return pref.getString(key , "012345678")
+        return pref.getString(key , null)
     }
 }

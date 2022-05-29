@@ -18,12 +18,13 @@
         android:roundIcon="@mipmap/logo_img_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-
+        <activity
+            android:name="com.example.myapplication.screens.authentication.LoginActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="YOUR_API_KEY" />
-
 
         <activity
             android:name="com.example.myapplication.ui.main.ProfileActivity"
@@ -57,7 +58,7 @@
             android:name="com.example.myapplication.screens.chatroom.ChatRoom"
             android:exported="true"
             android:launchMode="standard"
-            android:theme="@style/Theme.Material3.DayNight"/>
+            android:theme="@style/Theme.Material3.DayNight" />
         <activity
             android:name="com.example.myapplication.screens.chat.AddNewContact"
             android:exported="false"
