@@ -103,7 +103,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         }
     }
     private String formateTime(Message message){
-        return message.getTime().substring(0 ,
+        return message.getTime().substring(5 ,
                 message.getTime().length()-7 >0 ?
                         message.getTime().length()-7
                         : message.getTime().length());

@@ -29,9 +29,9 @@ public class SignUp extends AppCompatActivity {
 
     private EditText descriptionEditText, registerUserNameEditText;
     private CircleImageView ProfilePhoto;
-    private Uri profileImageUri = Uri.parse("https://10play.com.au/ip/s3/2022/01/28/a9333564010931a07b777e8c32f2ce8c-1123582.png?image-profile=image_max&io=landscape");
-    SharedPreferenceClass sharedPreferenceClass;
     private final String DEFAULT_IMAGE = "https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg";
+    private Uri profileImageUri = Uri.parse(DEFAULT_IMAGE);
+    SharedPreferenceClass sharedPreferenceClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
