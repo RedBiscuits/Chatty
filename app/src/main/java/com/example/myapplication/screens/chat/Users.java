@@ -3,12 +3,18 @@ package com.example.myapplication.screens.chat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -25,6 +31,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,7 +70,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     private FloatingActionButton addExisting ;
     private FloatingActionButton addNew ;
     private FloatingActionButton addGroup ;
-
+    private RecyclerView recyclerView;
 
     public Users() {}
 
@@ -79,7 +86,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
 
         View view= LayoutInflater.from(getContext()).inflate(R.layout.fragment_users,container,false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.users_RV);
+        recyclerView = view.findViewById(R.id.users_RV);
         //Animation initialization
         rotOpen = AnimationUtils.loadAnimation(getContext() , R.anim.rotate_open_anim);
         rotClose = AnimationUtils.loadAnimation(getContext() , R.anim.rotate_close_anim);
@@ -104,6 +111,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         } else {
             userListAdapter = new UserListAdapter(userModels, this , false);
         }
+        new ItemTouchHelper(itemTouchHelper).attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(userListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -350,4 +358,54 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
+
+    ItemTouchHelper.SimpleCallback itemTouchHelper = new ItemTouchHelper.SimpleCallback(0 , ItemTouchHelper.RIGHT) {
+        @Override
+        public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            Drawable icon = ContextCompat.getDrawable(getContext(),R.drawable.delete);
+            ColorDrawable background = new ColorDrawable(Color.RED);
+            View itemView = viewHolder.itemView;
+
+            int backgroundCornerOffset =21;
+            int iconMargin = (itemView.getHeight() - icon.getIntrinsicHeight())/2;
+            int iconTop = itemView.getTop() + (itemView.getHeight() - icon.getIntrinsicHeight())/2;
+            int iconBottom = iconTop + icon.getIntrinsicHeight();
+
+            if(dX>0){//right
+                int iconLeft = itemView.getLeft() + iconMargin;
+                int iconRight = itemView.getLeft() + iconMargin + icon.getIntrinsicWidth();
+                icon.setBounds(iconLeft,iconTop,iconRight,iconBottom);
+                background.setBounds(itemView.getLeft(),itemView.getTop()
+                        , itemView.getLeft() + ((int)dX) + backgroundCornerOffset,itemView.getBottom());
+            }else{
+                background.setBounds(0,0,0,0);
+            }
+            background.draw(c);
+            icon.draw(c);
+        }
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Delete task");
+            builder.setMessage("Are you sure you want do delete this ?");
+            builder.setPositiveButton("Confirm", (dialogInterface, i) -> {
+                String removedPhone = userModels.get(viewHolder.getAdapterPosition()).getPhone();
+                userModels.remove(viewHolder.getAdapterPosition());
+                friendsNumbers.remove(removedPhone);
+                usersReference.document(phone).update("friends" , friendsNumbers);
+                userListAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            });
+            builder.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> userListAdapter.notifyItemChanged(viewHolder.getAdapterPosition()));
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    };
 }

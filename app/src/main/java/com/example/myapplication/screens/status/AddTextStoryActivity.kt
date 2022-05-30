@@ -46,6 +46,7 @@ class AddTextStoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_text_story)
 
+        Log.d("Text" , uid!!)
         addTextStoryToFireBase.setOnClickListener {
             if (descriptionText.text.isNotEmpty()) {
                 sendToFireBase()
@@ -104,17 +105,18 @@ class AddTextStoryActivity : AppCompatActivity() {
         riverRef.putFile(selectedImgUri)
             .addOnSuccessListener {
 
-                riverRef.downloadUrl.addOnSuccessListener {
+                riverRef.downloadUrl.addOnSuccessListener {uri ->
 
                     val sdf = SimpleDateFormat("dd/M/yyyy HH:mm:ss")
                     val currentDate = sdf.format(Date())
 
                     onBackPressed()
 
-                    realTimeDatabaseRef.child("users").child(uid.toString()).child(randomKey).setValue(StoryModel(it.toString(), null,  currentDate))
+                    realTimeDatabaseRef.child("users").child(uid!!).child(randomKey).setValue(StoryModel(uri.toString(), null,  currentDate))
                         .addOnSuccessListener {
                             fireStoreRef.collection("users").document(uid!!).update("hasStory" , true)
                             fireStoreRef.collection("users").document(uid!!).update("lastStory" , currentDate)
+                            fireStoreRef.collection("users").document(uid!!).update("storyUrl" , uri)
                         }
                         .addOnFailureListener {
                             Toast.makeText(

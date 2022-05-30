@@ -128,7 +128,7 @@ class AddImageStoryActivity : AppCompatActivity() {
 
             .addOnSuccessListener {
 
-                riverRef.downloadUrl.addOnSuccessListener {
+                riverRef.downloadUrl.addOnSuccessListener {uri ->
                     val sdf = SimpleDateFormat("dd/M/yyyy HH:mm:ss")
                     val currentDate = sdf.format(Date())
 
@@ -136,10 +136,11 @@ class AddImageStoryActivity : AppCompatActivity() {
 
 
                     realTimeDatabaseRef.child("users").child(uid!!).child(randomKey).setValue(
-                        StoryModel(it.toString() ,Idescription.text.toString()  , currentDate) )
+                        StoryModel(uri.toString() ,Idescription.text.toString()  , currentDate) )
                         .addOnSuccessListener {
                             fireStoreRef.collection("users").document(uid!!).update("hasStory" , true)
                             fireStoreRef.collection("users").document(uid!!).update("lastStory" , currentDate)
+                            fireStoreRef.collection("users").document(uid!!).update("storyUrl" , uri)
 
                         }
                         .addOnFailureListener {
