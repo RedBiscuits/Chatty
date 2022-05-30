@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import kotlin.collections.ArrayList
 import kotlin.jvm.internal.Intrinsics
 
-class MainActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity() {
 
     private lateinit var selectedImgUri : Uri
 
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
                         return true
 
                     } else {
-                        Toast.makeText(this@MainActivity , "Please Enter Valid Name" , Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProfileActivity , "Please Enter Valid Name" , Toast.LENGTH_SHORT).show()
                     }
 
                 }
@@ -162,7 +162,7 @@ class MainActivity : AppCompatActivity() {
                         return true
 
                     } else {
-                        Toast.makeText(this@MainActivity , "Please Enter Valid Bio" , Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProfileActivity , "Please Enter Valid Bio" , Toast.LENGTH_SHORT).show()
                     }
 
                 }
