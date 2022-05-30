@@ -53,6 +53,7 @@ public class Pattern extends AppCompatActivity {
         setContentView(R.layout.mainpattern);
         FingerprintLogin = findViewById(R.id.Use_finger_print);
 
+
         if (SavePattern != null && !SavePattern.equals("null")) {
 
             if(Integer.parseInt(android.os.Build.VERSION.SDK) >= 28) {
