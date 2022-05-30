@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +8,15 @@
     android:background="#03000000"
     tools:context="com.example.myapplication.ui.main.ProfileActivity">
 
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:translationZ="90dp"
+        android:indeterminate="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="296dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -18,17 +28,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileImageView"
+            android:id="@+id/profileImagee"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
-            app:shapeAppearanceOverlay="@style/roundImageView"
+            android:src="@drawable/noimg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_launcher_background" />
+            app:shapeAppearanceOverlay="@style/roundImageView"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -44,18 +54,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-        <TextView
+        <EditText
             android:id="@+id/nameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:gravity="center"
-
-            android:text="Omar Shrief"
+            android:text=""
+            android:maxLength="25"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:enabled="false"
+            android:background="@android:color/transparent"
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,13 +76,37 @@
             android:id="@+id/phoneText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="0123648962"
+            android:text=""
             android:textSize="17dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameText" />
+
+        <ImageButton
+            android:id="@+id/enableDisableEditName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/cancelEditName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_close_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -85,26 +122,53 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Bio"
+            android:visibility="gone"
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <EditText
             android:id="@+id/bioText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Heeeey"
+            android:background="@android:color/transparent"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:text=""
             android:textSize="17dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <ImageButton
+            android:id="@+id/enableDisableEditBio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/cancelEditBio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_close_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
