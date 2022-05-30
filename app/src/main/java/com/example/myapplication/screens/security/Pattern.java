@@ -20,7 +20,7 @@ import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.datastructures.chatty.R;
-import com.example.myapplication.screens.authentication.LoginFormActivity;
+import com.example.myapplication.screens.authentication.LoginActivity;
 
 import java.util.List;
 import java.util.Objects;
@@ -94,7 +94,7 @@ public class Pattern extends AppCompatActivity {
                     public void onAuthenticationSucceeded(
                             @NonNull BiometricPrompt.AuthenticationResult result) {
                         super.onAuthenticationSucceeded(result);
-                        startActivity(new Intent(Pattern.this, LoginFormActivity.class));
+                        startActivity(new Intent(Pattern.this, LoginActivity.class));
                         Toast.makeText(getApplicationContext(), " succeeded!", Toast.LENGTH_SHORT).show();
                     }
 
@@ -143,7 +143,7 @@ public class Pattern extends AppCompatActivity {
                     if (final_Pattern.equals(SavePattern)) {
                         Toast.makeText(Pattern.this, "Correct!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Pattern.this,
-                                LoginFormActivity.class));
+                                LoginActivity.class));
                     } else
                         Toast.makeText(Pattern.this, "Incorrect!", Toast.LENGTH_SHORT).show();
                 }

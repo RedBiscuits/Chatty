@@ -101,9 +101,9 @@
                     android:id="@+id/nightModeIcon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:background="@drawable/round_background_button"
                     android:padding="12dp"
-                    android:src="@drawable/night"
-                    android:background="@drawable/round_background_button"/>
+                    android:src="@drawable/night" />
 
                 <TextView
                     android:layout_width="wrap_content"

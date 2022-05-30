@@ -26,4 +26,6 @@
     <string name="verification_code">رقم التأكيد</string>
     <string name="send_message">أرسل رسالة</string>
     <string name="register">التسجيل</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="description">الوصف</string>
 </resources>

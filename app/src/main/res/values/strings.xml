@@ -29,4 +29,6 @@
     <string name="verification_code">Verification code</string>
     <string name="send_message">Send Message</string>
     <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="description">Description</string>
 </resources>

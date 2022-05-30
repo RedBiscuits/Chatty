@@ -38,10 +38,7 @@
             android:name="com.example.myapplication.screens.chat.AddGroupActivity"
             android:exported="true"
             android:launchMode="singleTop" />
-        <activity
-            android:name="com.example.myapplication.screens.authentication.LoginFormActivity"
-            android:exported="false"
-            android:launchMode="singleTop" />
+
         <activity
             android:name="com.example.myapplication.screens.status.AddTextStoryActivity"
             android:exported="false"
@@ -74,14 +71,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.example.myapplication.screens.authentication.VerifyPhoneNumber"
-            android:exported="true"
-            android:launchMode="singleTop" />
-        <activity
-            android:name="com.example.myapplication.screens.authentication.SignUp"
-            android:exported="true"
-            android:launchMode="singleTop" />
+
         <activity
             android:name="com.example.myapplication.screens.security.Password_setting"
             android:exported="false"

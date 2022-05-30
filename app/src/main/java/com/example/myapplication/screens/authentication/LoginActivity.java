@@ -1,6 +1,7 @@
 package com.example.myapplication.screens.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -19,19 +20,20 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide(); //to hide action bar
+
         setContentView(R.layout.new_activity_login);
 
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager_login);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Login"));
-        tabLayout.addTab(tabLayout.newTab().setText("Signup"));
+        tabLayout.setupWithViewPager(viewPager);
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        LoginAdapter loginAdapter = new LoginAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        loginAdapter.addFragment(new LoginTapFragment(), "Login");
+        loginAdapter.addFragment(new SignupTapFragment(), "Register");
+        viewPager.setAdapter(loginAdapter);
 
-        final LoginAdapter adapter = new LoginAdapter(getSupportFragmentManager(), getApplicationContext(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         tabLayout.setTranslationY(300);
         tabLayout.setAlpha(v);

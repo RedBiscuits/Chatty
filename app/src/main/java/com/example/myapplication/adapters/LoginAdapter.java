@@ -9,28 +9,34 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.myapplication.screens.authentication.LoginTapFragment;
 import com.example.myapplication.screens.authentication.SignupTapFragment;
 
-public class LoginAdapter extends FragmentPagerAdapter {
-    Context context;
-    int totalTabs;
+import java.util.ArrayList;
 
-    public LoginAdapter(FragmentManager fragmentManager, Context context, int totalTabs) {
-        super(fragmentManager);
-        this.context = context;
-        this.totalTabs = totalTabs;
+public class LoginAdapter extends FragmentPagerAdapter {
+
+    private final ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
+    private final ArrayList<String> fragmentTitle = new ArrayList<>();
+
+    public LoginAdapter(FragmentManager fragmentManager, int behavior) {
+        super(fragmentManager, behavior);
+
     }
 
     public Fragment getItem(int position) {
-        switch (position){
-            case 0:
-                return new LoginTapFragment();
-            case 1:
-                return new SignupTapFragment();
-        }
-        return null;
+        return fragmentArrayList.get(position);
     }
 
     @Override
     public int getCount() {
-        return totalTabs;
+        return fragmentArrayList.size();
+    }
+
+    public void addFragment(Fragment fragment, String title) {
+        fragmentArrayList.add(fragment);
+        fragmentTitle.add(title);
+    }
+
+    public CharSequence getPageTitle(int position) {
+
+        return fragmentTitle.get(position);
     }
 }

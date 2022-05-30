@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.datastructures.chatty.R;
-import com.example.myapplication.screens.authentication.LoginFormActivity;
+import com.example.myapplication.screens.authentication.LoginActivity;
 import com.example.myapplication.screens.security.Password_setting;
 import com.example.myapplication.utils.SharedPreferenceClass;
 
@@ -175,7 +175,7 @@ public class SettingActivity extends AppCompatActivity {
         editor.clear();
         editor.apply();
         Toast.makeText(getApplicationContext(), "Log out successfully", Toast.LENGTH_SHORT).show();
-        Intent intent =new Intent(SettingActivity.this, LoginFormActivity.class);
+        Intent intent =new Intent(SettingActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

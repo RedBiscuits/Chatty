@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.MyApplicationTheme">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,51 +25,63 @@
             tools:ignore="MissingClass,MissingConstraints" />
 
         <EditText
-            android:id="@+id/description"
+            android:id="@+id/registering_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_120sdp"
-            android:layout_margin="20dp"
             android:paddingLeft="20dp"
-            android:paddingTop="20dp"
-            android:ems="10"
-            android:hint="Description"
+            android:paddingRight="20dp"
+            android:hint="@string/name"
             android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:orientation="vertical"
-            android:background="@drawable/custom_edit_text"/>
+            android:layout_margin="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/round_back_white"/>
+
 
         <EditText
             android:id="@+id/registering_user_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_50sdp"
             android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:ems="10"
             android:hint="@string/phone"
             android:inputType="phone"
-            android:layout_margin="20dp"
-            android:paddingTop="20dp"
-            android:background="@drawable/custom_edit_text"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/round_back_white"/>
 
         <EditText
-            android:id="@+id/registering_user_name"
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_30sdp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:paddingLeft="20dp"
-            android:hint="Name"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:hint="@string/description"
             android:inputType="textPersonName"
-            android:layout_margin="20dp"
-            android:paddingTop="20dp"
-            android:background="@drawable/custom_edit_text"/>
+            android:orientation="vertical"
+            android:background="@drawable/round_back_white"/>
+
+
 
         <Button
             android:id="@+id/register_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/register"
-            android:layout_margin="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/round_back_secondary"/>
     </LinearLayout>
 
