@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +23,7 @@ import com.example.myapplication.screens.security.Password_setting;
 import com.example.myapplication.utils.SharedPreferenceClass;
 
 import java.util.Locale;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -53,7 +51,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //to hide title bar
-        getSupportActionBar().hide(); //to hide action bar
+        Objects.requireNonNull(getSupportActionBar()).hide(); //to hide action bar
 
         loadLocale();
         setContentView(R.layout.activity_setting);
@@ -102,6 +100,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private void changeActionBarLanguage() {
         ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
         actionBar.setTitle(getResources().getString(R.string.app_name));
     }
 

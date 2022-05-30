@@ -63,7 +63,6 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
     @SuppressLint("RestrictedApi")
     override fun onResume() {
         super.onResume()
-        Log.d("gameeeeeeeeed" , uid.toString())
         fireStoreRef.collection("users").document(uid!!).get()
             .addOnSuccessListener {
 
@@ -108,10 +107,9 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                                             snapShot.ref.removeValue()
                                                             continue
                                                         } else {
-                                                            Log.d("gaaaaaaaned" , story.date)
                                                             stories.add(
                                                                 MyStory(
-                                                                    story!!.uri,
+                                                                    story.uri,
                                                                     simpleDateFormat.parse(
                                                                         story.date
                                                                     ),
@@ -128,9 +126,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
                                                     val currentDate = simpleDateFormat.format(Date())
 
-                                                    Log.d("curr", currentDate)
-                                                    Log.d("last", lastStory.date)
-                                                    val diff = (simpleDateFormat.parse(currentDate).time - simpleDateFormat.parse(lastStory!!.date).time)
+                                                    val diff = (simpleDateFormat.parse(currentDate)!!.time - simpleDateFormat.parse(lastStory.date)!!.time)
                                                     val seconds = diff / 1000
                                                     val minutes = seconds / 60
                                                     val hours = minutes / 60
@@ -150,33 +146,18 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                                         }
 
                                                         if (lastStory.date.substring(10, 12).toInt() > 12) {
-                                                            if ((lastStory.date.substring(10, 12).toInt() - 12) >= 10) {
-                                                                lastStoryTime = "$lastStoryTime${
-                                                                    (lastStory.date.substring(10, 12).toInt() - 12)
-                                                                }:${lastStory.date.substring(13, 15)} PM"
 
-                                                            } else {
-                                                                lastStoryTime = "$lastStoryTime${
-                                                                    (lastStory.date.substring(11, 12).toInt() - 12)
-                                                                }:${lastStory.date.substring(13, 15)} PM"
+                                                            lastStoryTime = "$lastStoryTime${
+                                                                (lastStory.date.substring(10, 12).toInt() - 12)
+                                                            }:${lastStory.date.substring(13, 15)} PM"
 
-                                                            }
                                                         } else if (lastStory.date.substring(10, 12).toInt() < 12) {
-                                                            if ((lastStory.date.substring(10, 12).toInt() >= 10)) {
-                                                                lastStoryTime = "$lastStoryTime${
-                                                                    (lastStory.date.substring(
-                                                                        10,
-                                                                        12
-                                                                    ))
-                                                                }:${lastStory.date.substring(13, 15)} AM"
-                                                            } else {
-                                                                lastStoryTime = "$lastStoryTime${
-                                                                    (lastStory.date.substring(
-                                                                        11,
-                                                                        12
-                                                                    ))
-                                                                }:${lastStory.date.substring(13, 15)} AM"
-                                                            }
+                                                            lastStoryTime = "$lastStoryTime${
+                                                                (lastStory.date.substring(
+                                                                    10,
+                                                                    12
+                                                                ))
+                                                            }:${lastStory.date.substring(13, 15)} AM"
                                                         }
 
                                                     }
@@ -200,7 +181,6 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
 
                                                 }
-                                                Log.d("dataChanged" , "SUIIIIIIIIIIIIIIIII")
                                                 adapter.submitList(storyOfFriends)
                                                 rvStatus.adapter = adapter
 
@@ -248,7 +228,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
                                     lastStory = story!!
                                     val currentDate = simpleDateFormat.format(Date())
-                                    val diff = (simpleDateFormat.parse(currentDate).time - simpleDateFormat.parse(story!!.date).time)
+                                    val diff = (simpleDateFormat.parse(currentDate)!!.time - simpleDateFormat.parse(story.date)!!.time)
                                     val seconds = diff / 1000
                                     val minutes = seconds / 60
                                     val hours = minutes / 60
@@ -264,14 +244,16 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                                 story.description
                                             )
                                         )
+
                                     }
 
+                                    if (myStories.size > 0 ){
+                                        showMyStory()
+                                    }
 
                                 }
 
-                                if (myStories.size > 0 ){
-                                    showMyStory()
-                                }
+
 
 
 
@@ -279,9 +261,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
 
                                 val currentDate = simpleDateFormat.format(Date())
-                                Log.d("current", currentDate)
-                                Log.d("last" , lastStory.date)
-                                val diff = (simpleDateFormat.parse(currentDate).time - simpleDateFormat.parse(lastStory!!.date).time)
+                                val diff = (simpleDateFormat.parse(currentDate)!!.time - simpleDateFormat.parse(lastStory.date)!!.time)
                                 val seconds = diff / 1000
                                 val minutes = seconds / 60
                                 val hours = minutes / 60
@@ -303,35 +283,26 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                     day.visibility = View.VISIBLE
 
                                     if (lastStory.date.substring(10, 12).toInt() > 12) {
-                                        if ((lastStory.date.substring(10, 12).toInt() - 12) >= 10) {
-                                            lastStoryTime = "${
-                                                (lastStory.date.substring(10, 12).toInt() - 12)
-                                            }:${lastStory.date.substring(13, 15)} PM"
 
-                                        } else {
-                                            lastStoryTime = "${
-                                                (lastStory.date.substring(11, 12).toInt() - 12)
-                                            }:${lastStory.date.substring(13, 15)} PM"
+                                        lastStoryTime = "${
+                                            (lastStory.date.substring(10, 12).toInt() - 12)
+                                        }:${lastStory.date.substring(13, 15)} PM"
 
-                                        }
                                     } else if (lastStory.date.substring(10, 12).toInt() < 12) {
+
+
                                         if ((lastStory.date.substring(10, 12).toInt() >= 10)) {
+
                                             lastStoryTime = "${
                                                 (lastStory.date.substring(
                                                     10,
                                                     12
                                                 ))
                                             }:${lastStory.date.substring(13, 15)} AM"
-                                        } else {
-                                            lastStoryTime = "${
-                                                (lastStory.date.substring(
-                                                    11,
-                                                    12
-                                                ))
-                                            }:${lastStory.date.substring(13, 15)} AM"
-                                        }
-                                    }
 
+                                        }
+
+                                     }
                                 }
 
                                 if (lastStoryTime.get(0) == '-'){
