@@ -5,11 +5,12 @@
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorPrimary">@color/md_theme_light_primaryInverse</item>
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
         <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorAccent">#03dac5</item>
         <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
         <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
         <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>

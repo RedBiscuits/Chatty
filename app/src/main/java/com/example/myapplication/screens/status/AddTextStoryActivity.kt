@@ -104,12 +104,10 @@ class AddTextStoryActivity : AppCompatActivity() {
         riverRef.putFile(selectedImgUri)
             .addOnSuccessListener {
 
-
                 riverRef.downloadUrl.addOnSuccessListener {
 
                     val sdf = SimpleDateFormat("dd/M/yyyy HH:mm:ss")
                     val currentDate = sdf.format(Date())
-                    Log.d("timeeeeeeeeeeeee" , currentDate.toString())
 
                     onBackPressed()
 

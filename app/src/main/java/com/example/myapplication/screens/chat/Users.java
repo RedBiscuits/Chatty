@@ -40,8 +40,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class Users extends Fragment implements UsersRecyclerViewClick {
 
@@ -64,11 +62,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     private FloatingActionButton addNew ;
     private FloatingActionButton addGroup ;
 
-
-
-
     public Users() {}
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
