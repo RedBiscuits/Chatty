@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.datastructures.chatty.R;
 import com.example.myapplication.adapters.UserListAdapter;
 import com.example.myapplication.models.UserModel;
 import com.example.myapplication.screens.chatroom.ChatRoom;
+import com.example.myapplication.utils.SharedPreferenceClass;
 import com.example.myapplication.utils.UsersRecyclerViewClick;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
@@ -62,6 +64,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     private FloatingActionButton addNew ;
     private FloatingActionButton addGroup ;
 
+
     public Users() {}
 
     @Override
@@ -72,6 +75,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
 
         View view= LayoutInflater.from(getContext()).inflate(R.layout.fragment_users,container,false);
 
@@ -92,7 +96,14 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
 
         userModels = new ArrayList<>();
         buildList();
-        userListAdapter = new UserListAdapter(userModels, this);
+        int nightModeFlags =
+                this.getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            userListAdapter = new UserListAdapter(userModels, this , true);
+        } else {
+            userListAdapter = new UserListAdapter(userModels, this , false);
+        }
         recyclerView.setAdapter(userListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

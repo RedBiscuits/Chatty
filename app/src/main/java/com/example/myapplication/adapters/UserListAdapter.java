@@ -27,12 +27,14 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
     private ArrayList<UserModel> usersList ;
     private final UsersRecyclerViewClick usersRecyclerViewClick;
+    private boolean dark = false;
 
 
     public  UserListAdapter(ArrayList<UserModel> arrayList,
-                           UsersRecyclerViewClick usersRecyclerViewClick) {
+                           UsersRecyclerViewClick usersRecyclerViewClick , boolean dark) {
         usersList = arrayList;
         this.usersRecyclerViewClick = usersRecyclerViewClick;
+        this.dark = dark;
     }
 
 
@@ -40,7 +42,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list_item,parent,false);
+        View view;
+        if (dark)
+          view  = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list_item_dark,parent,false);
+        else
+          view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list_item,parent,false);
 
         return new UserViewHolder(view,usersRecyclerViewClick);
     }
