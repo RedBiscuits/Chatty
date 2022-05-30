@@ -59,6 +59,8 @@ public class Home extends AppCompatActivity {
         String phone = sharedPreferences.getString("phone" , null);
 
 
+        binding.currentUserProfileImage.setOnClickListener(view -> goToProfile(phone));
+
         try {
             DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phone);
             docRef.get().addOnCompleteListener(task -> {
@@ -87,8 +89,10 @@ public class Home extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), SettingActivity.class));
     }
 
-    public void goToProfile(View view) {
-        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+    public void goToProfile( String phone) {
+        Intent intent =new Intent(getApplicationContext(), ProfileActivity.class);
+        intent.putExtra("phone" , phone);
+        startActivity(intent);
     }
 
 }

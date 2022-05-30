@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import kotlin.collections.ArrayList
 import kotlin.jvm.internal.Intrinsics
 
-class MainActivity : AppCompatActivity() {
+public class ProfileActivity : AppCompatActivity() {
 
     private lateinit var selectedImgUri : Uri
 
@@ -39,20 +39,20 @@ class MainActivity : AppCompatActivity() {
         prefUser("image")
     }
 
-    private val bio : String by lazy {
-        prefUser("bio")
+    private lateinit var bio : String
+
+
+
+    val profId by lazy {
+        intent.getStringExtra("phone")
     }
-
-
-
-    var profId = "01017046725"
     var me = false
     var isFriend = false
     var privacy= false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_profile)
 
         me = profId == phone
         checkStoragePermission()
@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         // Get My Data
         fireStoreRef.collection("users").document(phone).get().addOnSuccessListener {
 
+            bio = it.get("description").toString()
             val friends = it.get("friends") as ArrayList<String>
 
             if (!me){
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
                 // check if im a friend for him
                 if (isFriend){
-                    fireStoreRef.collection("users").document(profId).get().addOnSuccessListener {
+                    fireStoreRef.collection("users").document(profId!!).get().addOnSuccessListener {
                         val hisFriends = it.get("friends") as ArrayList<String>
                         privacy = it.getBoolean("privacy")!!
                         isFriend = phone in hisFriends
@@ -118,7 +119,7 @@ class MainActivity : AppCompatActivity() {
                         return true
 
                     } else {
-                        Toast.makeText(this@MainActivity , "Please Enter Valid Name" , Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProfileActivity , "Please Enter Valid Name" , Toast.LENGTH_SHORT).show()
                     }
 
                 }
@@ -162,7 +163,7 @@ class MainActivity : AppCompatActivity() {
                         return true
 
                     } else {
-                        Toast.makeText(this@MainActivity , "Please Enter Valid Bio" , Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ProfileActivity , "Please Enter Valid Bio" , Toast.LENGTH_SHORT).show()
                     }
 
                 }
@@ -200,7 +201,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateBio(bio: String) {
 
-        fireStoreRef.collection("users").document(phone).update("bio" , bio).addOnSuccessListener {
+        fireStoreRef.collection("users").document(phone).update("description" , bio).addOnSuccessListener {
             bioText.isEnabled = false
             enableDisableEditBio.isVisible = true
             cancelEditBio.isVisible = false
@@ -217,7 +218,7 @@ class MainActivity : AppCompatActivity() {
     // get my user phone number
     private fun prefUser(key : String) : String {
         val pref = this.getSharedPreferences("mypref", MODE_PRIVATE)
-        return pref.getString(key , "012345678")!!
+        return pref.getString(key , "error")!!
     }
 
     private fun updateName(name : String) {
