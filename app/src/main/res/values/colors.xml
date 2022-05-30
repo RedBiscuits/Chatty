@@ -73,5 +73,6 @@
     <color name="md_theme_dark_inversePrimary">#006783</color>
     <color name="md_theme_dark_shadow">#000000</color>
     <color name="md_theme_dark_primaryInverse">#006783</color>
+    <color name="text_shadow">#7F000000</color>
 
 </resources>
