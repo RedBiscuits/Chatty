@@ -264,14 +264,17 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                                                 story.description
                                             )
                                         )
+                                        Log.d("ahhhhhhhhhhhhhhhhhhhh" , story.uri)
+
                                     }
 
+                                    if (myStories.size > 0 ){
+                                        showMyStory()
+                                    }
 
                                 }
 
-                                if (myStories.size > 0 ){
-                                    showMyStory()
-                                }
+
 
 
 
