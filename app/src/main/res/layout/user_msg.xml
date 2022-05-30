@@ -37,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:maxWidth="260dp"
+                    android:textColor="@color/black"
                     android:paddingLeft="12dp"
                     android:paddingTop="@dimen/_3sdp"
                     android:paddingRight="12dp"

@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/md_theme_light_secondaryContainer">
+        android:background="@color/md_theme_dark_secondaryContainer">
 <!--        android:background="#F2FDFF"-->
 
         <de.hdodenhof.circleimageview.CircleImageView

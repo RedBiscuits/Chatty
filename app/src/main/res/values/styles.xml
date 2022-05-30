@@ -2,23 +2,23 @@
 <resources>
 
     <style name="dark_theme" parent="Theme.Material3.Dark">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="actionModeBackground">@color/colorPrimary</item>
-        <item name="cardBackgroundColor">#292929</item>
-        <item name="titleTextColor">@color/white</item>
-        <item name="buttonTint">@color/main_purple</item>
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--        <item name="actionModeBackground">@color/colorPrimary</item>-->
+<!--        <item name="cardBackgroundColor">#292929</item>-->
+<!--        <item name="titleTextColor">@color/white</item>-->
+<!--        <item name="buttonTint">@color/main_purple</item>-->
     </style>
 
     <style name="app_theme" parent="Theme.Material3.Light">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="cardBackgroundColor">@color/gray</item>
-        <item name="actionModeBackground">@color/black</item>
-        <item name="titleTextColor">@color/black</item>
-        <item name="buttonTint">@color/main_pink</item>
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--        <item name="cardBackgroundColor">@color/gray</item>-->
+<!--        <item name="actionModeBackground">@color/black</item>-->
+<!--        <item name="titleTextColor">@color/black</item>-->
+<!--        <item name="buttonTint">@color/main_pink</item>-->
 
     </style>
     <style name="chat_room" parent="Theme.Material3.DynamicColors.DayNight">
