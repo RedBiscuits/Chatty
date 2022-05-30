@@ -162,9 +162,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
                         }
 
-                        if (lastStoryTime.get(0) == '-'){
-                            lastStoryTime = lastStoryTime.substring(1 , lastStoryTime.lastIndex + 1)
-                        }
+                        lastStoryTime.replace("-" , "")
 
                         storyOfFriends.add(
                             UserModel(
@@ -304,9 +302,8 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                              }
                         }
 
-                        if (lastStoryTime.get(0) == '-'){
-                            lastStoryTime = lastStoryTime.substring(1 , lastStoryTime.lastIndex + 1)
-                        }
+                        lastStoryTime.replace("-" , "")
+
 
 
                         myUser = UserModel(
