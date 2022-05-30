@@ -182,7 +182,6 @@ public class SettingActivity extends AppCompatActivity {
 
     public void app_lock(View view) {
         Intent intent =new Intent(SettingActivity.this,  Password_setting.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }

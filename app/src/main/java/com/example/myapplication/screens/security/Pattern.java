@@ -158,11 +158,15 @@ public class Pattern extends AppCompatActivity {
 
             });
             btnCancel = findViewById(R.id.cancel_button);
-            btnCancel.setOnClickListener(v -> finish());
+            btnCancel.setOnClickListener(v -> {
+                finishAndRemoveTask();
+                finishAffinity();
+                System.exit(0);
+            });
             textWriter=findViewById(R.id.textwriter);
             textWriter.setWidth(8)
                     .setDelay(30)
-                    .setColor(R.color.md_theme_light_onPrimaryContainer)
+                    .setColor(R.color.md_theme_dark_onSecondaryContainer)
                     .setConfig(TextWriter.Configuration.INTERMEDIATE)
                     .setSizeFactor(50f)
                     .setLetterSpacing(20f)

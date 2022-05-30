@@ -33,15 +33,13 @@ public class SplashScreen extends AppCompatActivity {
         Paper.init(this);
         String SavePattern = Paper.book().read(Save_Pattern_Key);
         handler.postDelayed(() -> {
-                if (SavePattern != null && !SavePattern.equals("null")) {
+                if (SavePattern != null && !SavePattern.equals("")) {
                     startActivity(new Intent(SplashScreen.this, Pattern.class));
                 }
                 else{
                 //Do something after delay
                     finish();
                     startActivity(new Intent(SplashScreen.this, LoginFormActivity.class));
-//                    startActivity(new Intent(SplashScreen.this, LoginActivity.class));
-
                 }
             }, 3000);
     }

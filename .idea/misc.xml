@@ -59,7 +59,7 @@
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_fingerprint.xml" value="0.264" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_main.xml" value="0.25271739130434784" />
-        <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_pattern.xml" value="0.176" />
+        <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_pattern.xml" value="0.264" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_setting.xml" value="0.24230072463768115" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_sign_up.xml" value="0.24230072463768115" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_splach_screen.xml" value="0.15" />
@@ -68,8 +68,8 @@
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_video.xml" value="0.2056159420289855" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/fragment_main.xml" value="0.16" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/fragment_stories.xml" value="0.152" />
-        <entry key="..\:/github/Chatty/app/src/main/res/layout/fragment_users.xml" value="0.2056159420289855" />
-        <entry key="..\:/github/Chatty/app/src/main/res/layout/mainpattern.xml" value="0.35728952772073924" />
+        <entry key="..\:/github/Chatty/app/src/main/res/layout/fragment_users.xml" value="0.46647230320699706" />
+        <entry key="..\:/github/Chatty/app/src/main/res/layout/mainpattern.xml" value="0.2" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/other_msg.xml" value="0.6" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/raw_item.xml" value="0.24230072463768115" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/story_list_item.xml" value="0.2056159420289855" />

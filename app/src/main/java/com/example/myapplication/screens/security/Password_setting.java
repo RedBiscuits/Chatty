@@ -2,6 +2,7 @@ package com.example.myapplication.screens.security;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -71,11 +72,13 @@ public class Password_setting extends AppCompatActivity {
 
             }else if(event.getAction()==MotionEvent.ACTION_DOWN){
                 btnSetUp.startAnimation(scaleDown);
-
             }
-            Paper.book().write(Save_Pattern_Key, final_Pattern);
-            Toast.makeText(Password_setting.this, "Pattern saved Successfully", Toast.LENGTH_SHORT).show();
-            finish();
+            if (!final_Pattern.equals("")) {
+                Paper.book().write(Save_Pattern_Key, final_Pattern);
+                Toast.makeText(Password_setting.this, "Pattern saved Successfully", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            else Toast.makeText(Password_setting.this, "Please insert a pattern", Toast.LENGTH_SHORT).show();
             return true;
         });
         btnDelete = findViewById(R.id.Delete_lock_App);
@@ -88,22 +91,26 @@ public class Password_setting extends AppCompatActivity {
             finish();
         });
         imageback=findViewById(R.id.imageBack);
-        imageback.setOnTouchListener(new  View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction()==MotionEvent.ACTION_UP){
-                    imageback.startAnimation(scaleUp);
-                    imageback.setOnClickListener(view->onBackPressed());
+        imageback.setOnTouchListener((v, event) -> {
+            if(event.getAction()==MotionEvent.ACTION_UP){
+                imageback.startAnimation(scaleUp);
+                imageback.setOnClickListener(view->onBackPressed());
 
-                }else if(event.getAction()==MotionEvent.ACTION_DOWN){
-                    imageback.startAnimation(scaleDown);
-                    startActivity(new Intent(Password_setting.this, SettingActivity.class));
-                }
-
-                return true;
+            }else if(event.getAction()==MotionEvent.ACTION_DOWN){
+                imageback.startAnimation(scaleDown);
+                startActivity(new Intent(Password_setting.this, SettingActivity.class));
             }
-        });
 
+            return true;
+        });
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }
 

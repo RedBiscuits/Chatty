@@ -136,19 +136,21 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="49dp"
+        android:layout_width="210dp"
+        android:layout_height="32dp"
         android:layout_below="@+id/patternLockView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="122dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="22dp"
         android:background="@drawable/custtom_button"
         android:fontFamily="serif"
+        android:maxHeight="@dimen/_20sdp"
+        android:minWidth="@dimen/_100sdp"
         android:shadowColor="@color/text_shadow"
         android:shadowDx="-2"
         android:shadowDy="-2"
@@ -194,7 +196,7 @@
         android:layout_marginEnd="120dp"
         android:layout_marginBottom="359dp"
         android:text="@string/use_fingerprint"
-        android:textColor="@color/md_theme_dark_surfaceVariant"
+        android:textColor="@color/md_theme_light_onSecondaryContainer"
         android:textSize="@dimen/_12sdp" />
 
     <com.sarnava.textwriter.TextWriter
