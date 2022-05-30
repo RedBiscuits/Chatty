@@ -92,7 +92,7 @@ class AddImageStoryActivity : AppCompatActivity() {
         Intrinsics.checkNotNullParameter(grantResults, "grantResults")
         super.onRequestPermissionsResult(requestCode, permissions!!, grantResults)
         if (requestCode == 101) {
-            if (grantResults.size != 0 && grantResults[0] == 0) {
+            if (grantResults.isNotEmpty() && grantResults[0] == 0) {
                 Toast.makeText(this, "Storage Permission Granted", Toast.LENGTH_LONG).show()
             } else {
                 onBackPressed()
