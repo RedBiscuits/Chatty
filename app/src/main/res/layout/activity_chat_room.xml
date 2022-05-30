@@ -6,7 +6,6 @@
     android:id="@+id/activity_chat_room"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
     android:clickable="true"
     style="@style/chat_room">
 
@@ -75,6 +74,7 @@
                 android:id="@+id/lastSeen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorOnPrimary"
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="5dp"
                 android:textSize="@dimen/_10ssp"
@@ -93,8 +93,7 @@
         app:layout_constraintBottom_toTopOf="@id/ETchatbox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chatBar"
-        app:layout_constraintVertical_bias="0.0"
-        android:background="@color/white">
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_chat"
@@ -116,9 +115,9 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/ETchatbox" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/ETchatbox"
+        android:visibility="invisible"/>
 
     <RelativeLayout
         android:id="@+id/ETchatbox"
@@ -132,7 +131,6 @@
 
         <EditText
             android:id="@+id/msgTxt"
-            android:elevation="@dimen/_7ssp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -140,6 +138,7 @@
             android:layout_marginEnd="13dp"
             android:layout_toStartOf="@+id/sendBtn"
             android:background="@drawable/grey_btn"
+            android:elevation="@dimen/_7ssp"
             android:ems="10"
             android:hint="@string/send_message"
             android:maxLines="6"

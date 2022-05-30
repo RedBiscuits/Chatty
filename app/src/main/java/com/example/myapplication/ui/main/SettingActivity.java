@@ -31,7 +31,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingActivity extends AppCompatActivity {
 
-    private Switch SwitchTheme;
     private static SharedPreferenceClass sharedPreferenceClass;
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREFERENCES_NAME = "mypref";
@@ -61,12 +60,9 @@ public class SettingActivity extends AppCompatActivity {
         changeActionBarLanguage();
         initWidgets();
         getUserData();
-        changeSwitchToLoadModeState();
-
     }
 
     private void initWidgets() {
-        SwitchTheme = findViewById(R.id.switch1);
         sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME,Activity.MODE_PRIVATE);
         usernameTextView = findViewById(R.id.usernameSetting);
         phoneTextView = findViewById(R.id.phoneSetting);
@@ -84,7 +80,7 @@ public class SettingActivity extends AppCompatActivity {
                     diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(userImage);
         }
-        userImage.setImageURI(Uri.parse(imageURL));
+//        userImage.setImageURI(Uri.parse(imageURL));
         usernameTextView.setText(username);
         phoneTextView.setText(phone);
         bioTextView.setText(bio);
@@ -109,26 +105,6 @@ public class SettingActivity extends AppCompatActivity {
         actionBar.setTitle(getResources().getString(R.string.app_name));
     }
 
-
-    private void changeSwitchToLoadModeState() {
-        if(sharedPreferenceClass.loadNightModeState()) {
-            SwitchTheme.setChecked(true);
-        }
-        SwitchTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    sharedPreferenceClass.setNightModeState(true);
-//                    themeTextView.setText(R..textMode);
-                }
-                else {
-                    sharedPreferenceClass.setNightModeState(false);
-//                    themeTextView.setText("Light");
-                }
-                recreate();
-            }
-        });
-    }
 
     public void changeLanguage(View view) {
         showChangeLanguageDialog();

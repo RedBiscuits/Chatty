@@ -2,19 +2,22 @@ package com.example.myapplication.ui.main;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.datastructures.chatty.R;
-import com.datastructures.chatty.databinding.ActivityMainBinding;
 import com.example.myapplication.screens.chatroom.Message;
+import com.example.myapplication.utils.SharedPreferenceClass;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -30,6 +33,9 @@ public class Home extends AppCompatActivity {
     private CircleImageView currentUserProfileImage;
     public static boolean hasRetrieved = false;
     public static ArrayList<Message> oldData = new ArrayList<Message>();
+    private static SharedPreferenceClass sharedPreferenceClass;
+    SharedPreferences sharedPreferences;
+    boolean dark = false;
 
 
     @Override
@@ -37,16 +43,21 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(getSupportActionBar()).hide(); //hide the title bar
 
-
         //Binding and drawing layout
-        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
+        int nightModeFlags =
+                this.getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            setContentView(R.layout.activity_main_dark);
+        } else {
+            setContentView(R.layout.activity_main);
+        }
         //Tab layout setup
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = binding.viewPager;
+        ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = binding.tabs;
+        TabLayout tabs = findViewById(R.id.tabs);
+
         tabs.setupWithViewPager(viewPager);
 
         //Views
@@ -95,4 +106,19 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        int currentNightMode = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (currentNightMode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                // Night mode is not active, we're using the light theme
+                dark = false;
+                break;
+            case Configuration.UI_MODE_NIGHT_YES:
+                // Night mode is active, we're using dark theme
+                dark=true;
+                break;
+        }
+    }
 }

@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.myapplication.ui.main.Home"
-    style="@style/Theme.Material3.DayNight">
+    style="@style/Theme.Material3.DayNight"
+    android:statusBarColor="@color/md_theme_dark_onPrimary">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.Material3.BottomAppBar"
-        android:background="@color/md_theme_dark_secondary">
+        android:background="@color/md_theme_light_secondary">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -25,6 +26,7 @@
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_gravity="center"
+                    android:onClick="goToProfile"
                     android:src="@mipmap/logo"
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="@dimen/_1sdp"
@@ -61,7 +63,9 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:theme="@style/Widget.Material3.Button"
+                    android:backgroundTint="@color/md_theme_dark_onSecondary"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
@@ -69,10 +73,9 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabSelectedTextColor="@color/md_theme_light_primary"
-            app:tabTextColor="@color/md_theme_light_onSecondaryContainer"
+            app:tabSelectedTextColor="@color/md_theme_dark_onPrimary"
             tools:ignore="SpeakableTextPresentCheck"
-            android:background="@color/md_theme_dark_secondary"/>
+            android:background="@color/md_theme_light_secondary"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager

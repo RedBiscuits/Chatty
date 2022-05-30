@@ -50,7 +50,8 @@
         <activity
             android:name="com.example.myapplication.ui.main.Home"
             android:exported="true"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:configChanges="uiMode"/>
         <activity
             android:name="com.example.myapplication.screens.chatroom.ChatRoom"
             android:exported="true"
