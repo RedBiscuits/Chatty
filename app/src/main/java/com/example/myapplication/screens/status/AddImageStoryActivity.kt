@@ -1,6 +1,7 @@
 package com.example.myapplication.screens.status
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -90,7 +91,7 @@ class AddImageStoryActivity : AppCompatActivity() {
 
         Intrinsics.checkNotNullParameter(permissions, "permissions")
         Intrinsics.checkNotNullParameter(grantResults, "grantResults")
-        super.onRequestPermissionsResult(requestCode, permissions!!, grantResults)
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 101) {
             if (grantResults.isNotEmpty() && grantResults[0] == 0) {
                 Toast.makeText(this, "Storage Permission Granted", Toast.LENGTH_LONG).show()
@@ -116,6 +117,7 @@ class AddImageStoryActivity : AppCompatActivity() {
 
 
 
+    @SuppressLint("SimpleDateFormat")
     private fun sendToFireBase() {
 
         val storageRef = FirebaseStorage.getInstance().reference
@@ -162,7 +164,7 @@ class AddImageStoryActivity : AppCompatActivity() {
     }
 
     private fun hideKeyboard(activity : Activity) {
-        var imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         //Find the currently focused view, so we can grab the correct window token from it.
         var view = activity.currentFocus
         //If no view currently has focus, create a new one, just so we can grab a window token from it
