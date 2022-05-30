@@ -135,7 +135,8 @@ class ChatRoom : AppCompatActivity() {
                 // Add a new message object to the end of messages arraylist
                 val tmp = Message(
                     currentMsg,
-                    Timestamp(System.currentTimeMillis()).toString(), currentUser.profile
+                    Timestamp(System.currentTimeMillis()).toString()
+                    , currentUser.profile
                 )
                 updateState(tmp)
                 //serialize encrypted message in the hashmap
@@ -270,7 +271,7 @@ class ChatRoom : AppCompatActivity() {
                 }
                 else {
                     val newRes = Timestamp(result).toString()
-                        .substring(10 ,Timestamp(result).toString().length-7)
+                        .substring(11 ,16)
                     if (abs(System.currentTimeMillis() - result) <= 60)
                         lastSeen.text ="Active now"
                     else lastSeen.text = "Last seen : $newRes"
