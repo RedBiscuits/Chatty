@@ -25,7 +25,6 @@
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_gravity="center"
-                    android:onClick="goToProfile"
                     android:src="@mipmap/logo"
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="@dimen/_1sdp"

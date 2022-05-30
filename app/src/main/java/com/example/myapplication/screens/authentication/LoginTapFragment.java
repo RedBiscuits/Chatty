@@ -163,7 +163,7 @@ public class LoginTapFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         verifyCode(OTPCode); //to check if OTP code entered by user is true or not
         SharedPreferences.Editor editor = sharedPreferences.edit(); //store data in shared preferences
-        editor.putString(KEY_PHONE_NUMBER, bio);
+        editor.putString(KEY_BIO, bio);
         editor.putString(KEY_PHONE_NUMBER, phoneNumber);
         editor.putString(KEY_CURRENT_USER, username);
         editor.putString(KEY_PROFILE_IMAGE, image);

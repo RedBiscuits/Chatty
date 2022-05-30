@@ -75,6 +75,8 @@ public class SignupTapFragment extends Fragment {
                             user.put("friends", arr);
                             user.put("lastStory", "");
                             user.put("storyUrl", "");
+                            user.put("privacy", true);
+
                             docRef.set(user);
                             Toast.makeText(getActivity(), "Successfully Registered", Toast.LENGTH_LONG).show();
                             startActivity(new Intent(getActivity(), LoginActivity.class));
