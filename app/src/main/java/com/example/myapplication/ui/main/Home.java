@@ -34,7 +34,7 @@ public class Home extends AppCompatActivity {
     public static boolean hasRetrieved = false;
     public static ArrayList<Message> oldData = new ArrayList<Message>();
     private static SharedPreferenceClass sharedPreferenceClass;
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
     boolean dark = false;
 
 
@@ -69,8 +69,8 @@ public class Home extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("mypref", MODE_PRIVATE);
         String phone = sharedPreferences.getString("phone" , null);
 
-
-        binding.currentUserProfileImage.setOnClickListener(view -> goToProfile(phone));
+        CircleImageView meow = findViewById(R.id.current_user_profile_image);
+        meow.setOnClickListener(view -> goToProfile(phone));
 
         try {
             DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phone);
