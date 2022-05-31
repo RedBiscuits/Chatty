@@ -9,12 +9,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
+            android:id="@+id/backButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/back_button"
+            android:onClick="goToHome"
             android:padding="14dp"
-            android:onClick="goToHome"/>
+            android:src="@drawable/back_button" />
 
         <TextView
             android:layout_width="wrap_content"
