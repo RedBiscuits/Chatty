@@ -19,17 +19,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.datastructures.chatty.R;
 
+import java.util.Objects;
+
 
 public class AddNewContact extends AppCompatActivity {
     private EditText displayNameEditor;
     private EditText phoneNumberEditor;
+    float v = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_phone_contact);
-        setTitle("Create new contact");
+        Objects.requireNonNull(getSupportActionBar()).hide(); //to hide action bar
 
         displayNameEditor = findViewById(R.id.add_phone_contact_display_name);
         phoneNumberEditor = findViewById(R.id.add_phone_contact_number);
@@ -53,6 +56,22 @@ public class AddNewContact extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Added Successfully" , Toast.LENGTH_LONG).show();
             finish();
         });
+
+        displayNameEditor.setTranslationY(800);
+        phoneNumberEditor.setTranslationY(800);
+        phoneTypeSpinner.setTranslationY(800);
+        savePhoneContactButton.setTranslationY(800);
+
+        displayNameEditor.setAlpha(v);
+        phoneNumberEditor.setAlpha(v);
+        phoneTypeSpinner.setAlpha(v);
+        savePhoneContactButton.setAlpha(v);
+
+        displayNameEditor.animate().translationY(0).alpha(1).setDuration(800).setStartDelay(300).start();
+        phoneNumberEditor.animate().translationY(0).alpha(1).setDuration(800).setStartDelay(500).start();
+        phoneTypeSpinner.animate().translationY(0).alpha(1).setDuration(800).setStartDelay(500).start();
+        savePhoneContactButton.animate().translationY(0).alpha(1).setDuration(800).setStartDelay(700).start();
+
     }
 
     private long getRawContactId()

@@ -18,7 +18,6 @@ import com.datastructures.chatty.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_edit_profile.*
-import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.login_tab_fragment.*
 import kotlin.collections.ArrayList
 import kotlin.jvm.internal.Intrinsics
