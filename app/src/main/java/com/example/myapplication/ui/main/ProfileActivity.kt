@@ -66,6 +66,9 @@ public class ProfileActivity : AppCompatActivity() {
 
         me = profId == phone
         checkStoragePermission()
+        backButton.setOnClickListener {
+            finish()
+        }
 
         // Get My Data
         fireStoreRef.collection("users").document(phone).get().addOnSuccessListener {
