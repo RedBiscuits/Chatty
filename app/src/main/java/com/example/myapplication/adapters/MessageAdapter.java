@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.datastructures.chatty.R;
 import com.example.myapplication.screens.chatroom.Message;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,12 +55,21 @@ public class MessageAdapter extends RecyclerView.Adapter {
         else if(viewType == 3){
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.record_item, parent, false);
+<<<<<<< Updated upstream
             return new SentRecordHolder(view);
         }
         else if(viewType == 4){
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.othr_record_item, parent, false);
             return new ReceivedRecordHolder(view);
+=======
+            return new ReceivedMessageHolder(view);
+        }
+        else if(viewType == 4){
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.record_item, parent, false);
+            return new ReceivedMessageHolder(view);
+>>>>>>> Stashed changes
         }
         return null;
     }
@@ -107,6 +117,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     }
     public int getItemViewType(int position) {
         Message message = (Message) mMessageList.get(position);
+<<<<<<< Updated upstream
         if (message.getUser().equals(currentUser) && !message.getIsRecord()) {
             return 1;
         }
@@ -114,6 +125,15 @@ public class MessageAdapter extends RecyclerView.Adapter {
             return 2;
         }
         else if (message.getUser().equals(currentUser) && message.getIsRecord()) {
+=======
+        if (message.getUser().equals(currentUser) && !message.isRecord()) {
+            return 1;
+        }
+        else if (!message.getUser().equals(currentUser) && !message.isRecord()) {
+            return 2;
+        }
+        else if (message.getUser().equals(currentUser) && message.isRecord()) {
+>>>>>>> Stashed changes
             return 3;
         }
         else{return 4;}
@@ -135,7 +155,11 @@ public class MessageAdapter extends RecyclerView.Adapter {
     }
     private class ReceivedRecordHolder extends RecyclerView.ViewHolder {
 
+<<<<<<< Updated upstream
         Button fab;
+=======
+        FloatingActionButton fab;
+>>>>>>> Stashed changes
         SeekBar seekBar;
         TextView nameText;
         ReceivedRecordHolder(View itemView) {
@@ -196,12 +220,18 @@ public class MessageAdapter extends RecyclerView.Adapter {
         }
     }
     private class SentRecordHolder extends RecyclerView.ViewHolder {
+<<<<<<< Updated upstream
         Button fab;
         SeekBar seekBar;
+=======
+        FloatingActionButton fab;
+        SeekBar sb;
+>>>>>>> Stashed changes
         TextView nameText;
         SentRecordHolder(View itemView) {
             super(itemView);
             fab = itemView.findViewById(R.id.play);
+<<<<<<< Updated upstream
             seekBar =  itemView.findViewById(R.id.seekBar);
             nameText =  itemView.findViewById(R.id.recordUser);
         }
@@ -250,6 +280,14 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 });
                 mediaPlayer.start();
             });
+=======
+            sb =  itemView.findViewById(R.id.seekBar);
+            nameText =  itemView.findViewById(R.id.recordUser);
+        }
+        void bind(@NonNull Message message) {
+
+            nameText.setText(message.getUser());
+>>>>>>> Stashed changes
         }
     }
 

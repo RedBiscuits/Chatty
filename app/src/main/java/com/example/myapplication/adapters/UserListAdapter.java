@@ -30,7 +30,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     private boolean dark = false;
 
 
-    public  UserListAdapter(ArrayList<UserModel> arrayList,
+    public UserListAdapter(ArrayList<UserModel> arrayList,
                            UsersRecyclerViewClick usersRecyclerViewClick , boolean dark) {
         usersList = arrayList;
         this.usersRecyclerViewClick = usersRecyclerViewClick;
