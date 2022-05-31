@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
@@ -22,6 +23,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.sarnava.textwriter.TextWriter;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -36,13 +38,14 @@ public class Home extends AppCompatActivity {
     private static SharedPreferenceClass sharedPreferenceClass;
     private SharedPreferences sharedPreferences;
     boolean dark = false;
+    TextWriter textWriter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(getSupportActionBar()).hide(); //hide the title bar
-
+    
         //Binding and drawing layout
         int nightModeFlags =
                 this.getResources().getConfiguration().uiMode &
@@ -61,7 +64,7 @@ public class Home extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
         //Views
-        Button settingsButton = findViewById(R.id.settings_button);
+        AppCompatImageView settingsButton = findViewById(R.id.settings_button);
         settingsButton.setOnClickListener(this::goToSettings);
         currentUserProfileImage = findViewById(R.id.current_user_profile_image);
 
@@ -93,6 +96,15 @@ public class Home extends AppCompatActivity {
             System.out.println(e.getMessage());
         }
 
+
+        textWriter=findViewById(R.id.title);
+        textWriter.setWidth(8)
+                .setDelay(30)
+                .setConfig(TextWriter.Configuration.INTERMEDIATE)
+                .setSizeFactor(20f)
+                .setLetterSpacing(20f)
+                .setText("CARBON")
+                .startAnimation();
     }
 
 

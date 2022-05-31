@@ -2,7 +2,6 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,7 +12,6 @@
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:scaleType="centerCrop"
-        app:civ_border_color="#00FF00"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,11 +19,13 @@
         android:id="@+id/myStoryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
+        android:textStyle="italic"
+        android:textColor="@color/lightgray"
         android:gravity="center_vertical"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toEndOf="@+id/myStoryImg"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,13 +33,14 @@
         android:id="@+id/myLastStory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-
+        android:layout_marginTop="@dimen/_46sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
+        android:textColor="@color/lightgray"
         android:gravity="center_vertical"
-        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toEndOf="@+id/myStoryImg"
-        app:layout_constraintTop_toBottomOf="@+id/myStoryTitle" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
