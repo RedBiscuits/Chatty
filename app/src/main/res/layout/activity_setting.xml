@@ -78,7 +78,7 @@
             android:paddingEnd="30dp"
             android:layout_gravity="center"
             android:background="@drawable/round_back_secondary"
-            android:text="Edit Profile"
+            android:text="View Profile"
             android:textColor="@color/statusbar"
             android:textAllCaps="false"
             android:onClick="goToEditProfile"/>

@@ -134,30 +134,24 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
 
 
 
+
                         if (hours == 0L && minutes == 0L) {
                             lastStoryTime = "now"
                         } else if (hours == 0L) {
                             lastStoryTime = "${(minutes % 60)} minutes ago"
                         } else {
                             if (currentDate.substring(0, 2) == lastStory.date.substring(0, 2)) {
-                                lastStoryTime = "Today "
+                                lastStoryTime = "Today   "
                             } else {
-                                lastStoryTime = "YesterDay "
+                                lastStoryTime = "YesterDay   "
                             }
 
                             if (lastStory.date.substring(10, 12).toInt() > 12) {
 
-                                lastStoryTime = "$lastStoryTime${
-                                    (lastStory.date.substring(10, 12).toInt() - 12)
-                                }:${lastStory.date.substring(13, 15)} PM"
+                                lastStoryTime = "$lastStoryTime${(lastStory.date.substring(10, 12).toInt() - 12)}:${lastStory.date.substring(13, 15)} PM"
 
                             } else if (lastStory.date.substring(10, 12).toInt() < 12) {
-                                lastStoryTime = "$lastStoryTime${
-                                    (lastStory.date.substring(
-                                        10,
-                                        12
-                                    ))
-                                }:${lastStory.date.substring(13, 15)} AM"
+                                lastStoryTime = "$lastStoryTime${(lastStory.date.substring(10, 12))}:${lastStory.date.substring(13, 15)} AM"
                             }
 
                         }
@@ -271,40 +265,30 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                         }
 
                         if (hours == 0L && minutes == 0L) {
+
                             lastStoryTime = "now"
                             day.visibility = View.GONE
+
                         } else if (hours == 0L) {
+
                             day.visibility = View.GONE
                             lastStoryTime = "${(minutes % 60)} minutes ago"
                         } else {
+
                             day.visibility = View.VISIBLE
 
-                            if (lastStory.date.substring(10, 12).toInt() > 12) {
 
-                                lastStoryTime = "${
-                                    (lastStory.date.substring(10, 12).toInt() - 12)
-                                }:${lastStory.date.substring(13, 15)} PM"
+                        if (lastStory.date.substring(10, 12).toInt() > 12) {
 
-                            } else if (lastStory.date.substring(10, 12).toInt() < 12) {
+                            lastStoryTime =
+                                "${lastStory.date.substring(10, 12).toInt() - 12} : ${lastStory.date.substring(13, 15)} PM"
 
-
-                                if ((lastStory.date.substring(10, 12).toInt() >= 10)) {
-
-                                    lastStoryTime = "${
-                                        (lastStory.date.substring(
-                                            10,
-                                            12
-                                        ))
-                                    }:${lastStory.date.substring(13, 15)} AM"
-
-                                }
-
-                             }
+                        } else if (lastStory.date.substring(10, 12).toInt() < 12) {
+                            lastStoryTime = "${(lastStory.date.substring(10, 12))}:${lastStory.date.substring(13, 15)} AM"
+                        }
                         }
 
                         lastStoryTime.replace("-" , "")
-
-
 
                         myUser = UserModel(
                             myStories,
@@ -326,6 +310,7 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                             it.get("profileImageUrl").toString()
                         )
                     }
+
 
 
                     myLastStory.text = myUser.lastStory
