@@ -140,7 +140,7 @@ public class SettingActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void goToHome(View view) {
+    public void goBack(View view) {
         finish();
     }
 

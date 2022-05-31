@@ -3,8 +3,8 @@
     android:shape="oval">
     <solid android:color="@color/statusbar"/>
 
-    <size android:width="15dp"
-        android:height="15dp"/>
+    <size android:width="@dimen/_15sdp"
+        android:height="@dimen/_15sdp"/>
 
 
 
