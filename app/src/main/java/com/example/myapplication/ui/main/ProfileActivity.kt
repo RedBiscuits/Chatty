@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -50,6 +51,7 @@ public class ProfileActivity : AppCompatActivity() {
     val profId by lazy {
         intent.getStringExtra("phone")
     }
+
     var me = false
     var isFriend = false
     var privacy= false
@@ -58,6 +60,8 @@ public class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
+        Log.d("aaaaaaaaaaaa" , phone)
+        Log.d("aaaaaaaaaaaa" , profId.toString())
         try {
             this.supportActionBar!!.hide();
         }catch (e : Exception){
