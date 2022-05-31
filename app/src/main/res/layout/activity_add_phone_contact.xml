@@ -14,7 +14,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:background="@drawable/round_back_white"
+        android:layout_margin="20dp">
 
         <EditText
             android:id="@+id/add_phone_contact_display_name"
@@ -27,7 +29,7 @@
             android:autofillHints="name"
             android:inputType="textAutoComplete"
             tools:ignore="TextFields"
-            android:background="@drawable/round_back_white"
+            android:background="@drawable/round_background_button"
             android:padding="10dp"/>
         <EditText
             android:id="@+id/add_phone_contact_number"
@@ -38,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="phone"
-            android:background="@drawable/round_back_white"
+            android:background="@drawable/round_background_button"
             android:padding="10dp"/>
 
         <Spinner
@@ -49,7 +51,9 @@
             android:layout_marginEnd="@dimen/_46sdp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:spinnerMode="dropdown"/>
+            android:spinnerMode="dropdown"
+            android:background="@drawable/round_background_button"
+            android:padding="10dp"/>
         <Button
             android:id="@+id/add_phone_contact_save_button"
             android:layout_width="wrap_content"
