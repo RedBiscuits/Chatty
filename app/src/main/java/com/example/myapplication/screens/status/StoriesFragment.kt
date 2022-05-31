@@ -258,8 +258,6 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                         val hours = minutes / 60
                         var lastStoryTime = ""
 
-                        Log.d("aaaaaaa" , hours.toString())
-                        Log.d("aaaaaaa" , minutes.toString())
                         if (currentDate.substring(0, 2) == lastStory.date.substring(0, 2)) {
                             day.text = "Today"
                         } else {
@@ -267,18 +265,15 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
                         }
 
                         if (hours == 0L && minutes == 0L) {
-                            Log.d("bbbbbbb" , hours.toString())
 
                             lastStoryTime = "now"
                             day.visibility = View.GONE
 
                         } else if (hours == 0L) {
-                            Log.d("ahhhhhhhhh" , minutes.toString())
 
                             day.visibility = View.GONE
                             lastStoryTime = "${(minutes % 60)} minutes ago"
                         } else {
-                            Log.d("d7k" , hours.toString())
 
                             day.visibility = View.VISIBLE
 

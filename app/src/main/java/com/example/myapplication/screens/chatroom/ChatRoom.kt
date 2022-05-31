@@ -1,8 +1,10 @@
 package com.example.myapplication.screens.chatroom
 
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Bundle
@@ -10,7 +12,10 @@ import android.os.SystemClock
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.datastructures.chatty.R
@@ -55,6 +60,8 @@ class ChatRoom : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        checkPermission(Manifest.permission.RECORD_AUDIO, 202)
         //to hide action bar
         var recordFile = ""
         var recordPath = this.getExternalFilesDir("/")!!.absolutePath
@@ -359,5 +366,56 @@ class ChatRoom : AppCompatActivity() {
         }
         catch (e : Exception){
         }
+    }
+
+
+    private fun checkPermission(permission: String, requestCode: Int) {
+        if (ContextCompat.checkSelfPermission(
+                this@ChatRoom,
+                permission
+            ) == PackageManager.PERMISSION_DENIED
+        ) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(
+                this@ChatRoom,
+                arrayOf(permission),
+                requestCode
+            )
+        } else {
+            Toast.makeText(this@ChatRoom, "Permission already granted", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == 101) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(
+                    this@ChatRoom,
+                    "Storage Permission Granted",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(this@ChatRoom, "Please Accept Permission" , Toast.LENGTH_SHORT).show()
+            }
+        } else if (requestCode == 202) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(
+                    this@ChatRoom,
+                    "Microphone Permission Granted",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                onBackPressed()
+            }
+        }
+
     }
 }
