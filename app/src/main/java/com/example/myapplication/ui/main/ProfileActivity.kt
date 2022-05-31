@@ -37,14 +37,9 @@ public class ProfileActivity : AppCompatActivity() {
     private val phone : String by lazy {
         prefUser("phone")
     }
-    private val username : String by lazy {
-        prefUser("name")
-    }
-    private val profileImage : String by lazy {
-        prefUser("image")
-    }
 
-    private lateinit var bio : String
+
+
 
 
 
@@ -56,19 +51,27 @@ public class ProfileActivity : AppCompatActivity() {
     var isFriend = false
     var privacy= false
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
-        Log.d("aaaaaaaaaaaa" , phone)
-        Log.d("aaaaaaaaaaaa" , profId.toString())
         try {
             this.supportActionBar!!.hide();
         }catch (e : Exception){
             e.printStackTrace()
         }
 
+        var profImage = ""
+        var profBio = ""
+        var profName = ""
+
+
+
         me = profId == phone
+
+
         checkStoragePermission()
         backButton.setOnClickListener {
             finish()
@@ -77,8 +80,11 @@ public class ProfileActivity : AppCompatActivity() {
         // Get My Data
         fireStoreRef.collection("users").document(phone).get().addOnSuccessListener {
 
-            bio = it.get("description").toString()
             val friends = it.get("friends") as ArrayList<String>
+            var bio = it.get("description").toString()
+            var profileImage = it.get("profileImageUrl").toString()
+            Log.d("LOOOOOL" , profileImage)
+            var username = it.get("name").toString()
 
             if (!me){
                 hideEditable()
@@ -92,23 +98,32 @@ public class ProfileActivity : AppCompatActivity() {
                         val hisFriends = it.get("friends") as ArrayList<String>
                         privacy = it.getBoolean("privacy")!!
                         isFriend = phone in hisFriends
+
+                        profImage = it.get("profileImageUrl").toString()
+
+                        profBio = it.get("description").toString()
+
+                        profName = it.get("name").toString()
+
+
+                        if (isFriend){
+                            showProfile(profName , profBio , profImage)
+                            progressBarSetting.isVisible = false
+                        } else {
+                            if (privacy){
+                                hideProfile(profBio)
+                                progressBarSetting.isVisible = false
+                            } else{
+                                showProfile(profName , profBio , profImage)
+                                progressBarSetting.isVisible = false
+                            }
+                        }
+
                     }
                 }
 
 
 
-                if (isFriend){
-                    showProfile(username , bio , profileImage)
-                    progressBarSetting.isVisible = false
-                } else {
-                    if (privacy){
-                        hideProfile(bio)
-                        progressBarSetting.isVisible = false
-                    } else{
-                        showProfile(username , bio , profileImage)
-                        progressBarSetting.isVisible = false
-                    }
-                }
 
 
             } else {
@@ -165,7 +180,7 @@ public class ProfileActivity : AppCompatActivity() {
 
         }
 
-       profileImagee.setOnClickListener {
+        profileImagee.setOnClickListener {
            pickImg()
        }
 
@@ -369,6 +384,7 @@ public class ProfileActivity : AppCompatActivity() {
     }
 
     private fun showProfile(name: String , bio: String , image : String) {
+        Log.d("mmmmm" , name)
         nameText.setText(name)
         phoneText.text = profId
         bioText.setText(bio)
