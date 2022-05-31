@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +9,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/backButton"
@@ -21,141 +25,156 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/profile"
             android:layout_centerInParent="true"
+            android:text="@string/profile"
             android:textColor="#ffff"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImagee"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="@dimen/_250sdp"
+            android:layout_height="@dimen/_250sdp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/user_icon" />
+            android:layout_marginTop="@dimen/_50sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/user_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/nameText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/_38sdp"
+            android:background="@drawable/custom_edit_profile"
+            android:enabled="false"
+            android:hint="This Account Is Private"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLength="25"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_25ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toBottomOf="@+id/profileImagee" />
 
-            <EditText
-                android:id="@+id/nameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:hint="User Name"
-                android:maxLength="25"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:textColor="#ffffff"
-                android:textSize="44sp"
-                android:textStyle="bold"
-                android:background="@drawable/custom_edit_profile"
-                android:enabled="false"/>
-
-            <ImageView
-                android:id="@+id/enableDisableEditName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/edit_icon"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"/>
-            <ImageButton
-                android:id="@+id/cancelEditName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:visibility="gone"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_baseline_close_24"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/enableDisableEditName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:src="@drawable/edit_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileImagee" />
 
-            <TextView
-                android:id="@+id/phoneText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="+20 xxxx xxxx xx"
-                android:textColor="#99FFFFFF"
-                android:textSize="24sp"
-                android:background="@drawable/custom_edit_profile"
-                android:enabled="false"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/cancelEditName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_close_24"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileImagee" />
 
-            <EditText
-                android:id="@+id/bioText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:hint="@string/description"
-                android:textColor="#CCFFFFFF"
-                android:textSize="20sp"
-                android:background="@drawable/custom_edit_profile"
-                android:enabled="false"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:lines="3"
-                android:maxLines="10"
-                android:minLines="1"
-                android:scrollbars="vertical"
-                android:singleLine="false"/>
-            <ImageView
-                android:id="@+id/enableDisableEditBio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/edit_icon"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"/>
-
-            <ImageButton
-                android:id="@+id/cancelEditBio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:visibility="gone"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_baseline_close_24" />
-
-
-        </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/progressBarSetting"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/phoneText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:indeterminateTint="@color/md_theme_light_primaryInverse"
-            android:visibility="invisible"
-            android:layout_margin="20dp"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_19sdp"
+            android:background="@drawable/custom_edit_profile"
+            android:enabled="false"
+            android:hint="+20 xxxx xxxx xx"
+            android:textColor="#99FFFFFF"
+            android:textSize="@dimen/_18ssp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
 
-    </LinearLayout>
+        <EditText
+            android:id="@+id/bioText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:background="@drawable/custom_edit_profile"
+            android:enabled="false"
+            android:gravity="start"
+            android:hint="@string/description"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:textColor="#CCFFFFFF"
+            android:textSize="@dimen/_15ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toBottomOf="@+id/phoneText"
+            app:layout_constraintVertical_bias="0.023" />
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/enableDisableEditBio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_145sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:src="@drawable/edit_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileImagee" />
+
+        <ImageButton
+            android:id="@+id/cancelEditBio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_145sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_close_24"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profileImagee" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="98dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="353dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarSetting"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:indeterminateTint="@color/md_theme_light_primaryInverse"
+        android:visibility="gone"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

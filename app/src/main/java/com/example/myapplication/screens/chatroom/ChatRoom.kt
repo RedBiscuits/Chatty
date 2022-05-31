@@ -4,6 +4,7 @@ package com.example.myapplication.screens.chatroom
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.net.Uri
@@ -22,6 +23,7 @@ import com.datastructures.chatty.R
 import com.example.myapplication.adapters.MessageAdapter
 import com.example.myapplication.ui.main.Home
 import com.example.myapplication.ui.main.Home.oldData
+import com.example.myapplication.ui.main.ProfileActivity
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -242,6 +244,14 @@ class ChatRoom : AppCompatActivity() {
                 //empty the message holder to receive the next message
                 msgTxt.setText("")
             }
+        }
+
+
+        recImg.setOnClickListener {
+            var intent = Intent(this , ProfileActivity :: class.java).apply {
+                putExtra("phone" , calleeUser!!.profile)
+            }
+            startActivity(intent)
         }
     }
 
