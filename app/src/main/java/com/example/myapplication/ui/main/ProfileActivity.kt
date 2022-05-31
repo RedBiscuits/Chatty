@@ -38,10 +38,6 @@ public class ProfileActivity : AppCompatActivity() {
     }
 
 
-
-
-
-
     val profId by lazy {
         intent.getStringExtra("phone")
     }
@@ -70,8 +66,8 @@ public class ProfileActivity : AppCompatActivity() {
 
         me = profId == phone
 
-
         checkStoragePermission()
+
         backButton.setOnClickListener {
             finish()
         }
@@ -82,7 +78,6 @@ public class ProfileActivity : AppCompatActivity() {
             val friends = it.get("friends") as ArrayList<String>
             var bio = it.get("description").toString()
             var profileImage = it.get("profileImageUrl").toString()
-            Log.d("LOOOOOL" , profileImage)
             var username = it.get("name").toString()
 
             if (!me){
@@ -99,9 +94,7 @@ public class ProfileActivity : AppCompatActivity() {
                         isFriend = phone in hisFriends
 
                         profImage = it.get("profileImageUrl").toString()
-
                         profBio = it.get("description").toString()
-
                         profName = it.get("name").toString()
 
 
@@ -224,9 +217,6 @@ public class ProfileActivity : AppCompatActivity() {
 
         }
 
-
-
-
     }
 
 
@@ -238,11 +228,9 @@ public class ProfileActivity : AppCompatActivity() {
             cancelEditBio.isVisible = false
             Toast.makeText(this , "Bio is successfully updated" , Toast.LENGTH_LONG).show()
         }
-
             .addOnFailureListener {
                 Toast.makeText(this , it.message , Toast.LENGTH_LONG).show()
             }
-
     }
 
 
@@ -298,7 +286,7 @@ public class ProfileActivity : AppCompatActivity() {
 
         Intrinsics.checkNotNullParameter(permissions, "permissions")
         Intrinsics.checkNotNullParameter(grantResults, "grantResults")
-        super.onRequestPermissionsResult(requestCode, permissions!!, grantResults)
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 101) {
             if (grantResults.isNotEmpty() && grantResults[0] == 0) {
                 Toast.makeText(this, "Storage Permission Granted", Toast.LENGTH_LONG).show()
@@ -366,14 +354,12 @@ public class ProfileActivity : AppCompatActivity() {
         enableDisableEditName.isVisible = true
         enableDisableEditBio.isVisible = true
         profileImagee.isEnabled = true
-
     }
 
     fun hideEditable(){
         enableDisableEditName.isVisible = false
         enableDisableEditBio.isVisible = false
         profileImagee.isEnabled = false
-
     }
 
     private fun hideProfile(bio: String) {
@@ -383,7 +369,6 @@ public class ProfileActivity : AppCompatActivity() {
     }
 
     private fun showProfile(name: String , bio: String , image : String) {
-        Log.d("mmmmm" , name)
         nameText.setText(name)
         phoneText.text = profId
         bioText.setText(bio)
