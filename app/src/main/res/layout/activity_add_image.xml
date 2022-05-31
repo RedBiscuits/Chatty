@@ -25,6 +25,7 @@
         android:background="@drawable/grey_btn"
         android:ems="10"
         android:hint="Description"
+        android:textStyle="bold"
         android:paddingLeft="@dimen/_12sdp"
         android:paddingRight="@dimen/_12sdp"
         android:textColor="@color/black"

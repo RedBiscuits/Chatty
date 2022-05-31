@@ -32,4 +32,6 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="description">Description</string>
+    <string name="profile">Profile</string>
+    <string name="saveChanges">Save Changes</string>
 </resources>

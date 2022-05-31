@@ -29,4 +29,6 @@
     <string name="register">التسجيل</string>
     <string name="login">تسجيل الدخول</string>
     <string name="description">الوصف</string>
+    <string name="profile">الصفحة الشخصية</string>
+    <string name="saveChanges">حفظ التغييرات</string>
 </resources>

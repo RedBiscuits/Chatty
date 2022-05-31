@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Setting"
+            android:text="@string/settings"
             android:layout_centerInParent="true"
             android:textColor="#ffff"
             android:textStyle="bold"
@@ -80,7 +80,8 @@
             android:background="@drawable/round_back_secondary"
             android:text="Edit Profile"
             android:textColor="@color/statusbar"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            android:onClick="goToEditProfile"/>
 
         <LinearLayout
             android:layout_width="match_parent"

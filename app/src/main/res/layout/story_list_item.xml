@@ -2,6 +2,7 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -20,8 +21,8 @@
         android:id="@+id/myStoryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_6sdp"
         android:layout_marginTop="@dimen/_25sdp"
-        android:layout_marginEnd="@dimen/_50sdp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:gravity="center_vertical"
@@ -34,14 +35,15 @@
         android:id="@+id/myLastStory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_46sdp"
-        android:layout_marginEnd="@dimen/_50sdp"
-        android:textColor="@color/black"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+
         android:gravity="center_vertical"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toEndOf="@+id/myStoryImg"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/myStoryTitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

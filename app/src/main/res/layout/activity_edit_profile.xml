@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/statusbar">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="goToHome"
+            android:padding="14dp"
+            android:src="@drawable/back_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile"
+            android:layout_centerInParent="true"
+            android:textColor="#ffff"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImagee"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/user_icon" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:hint="User Name"
+                android:maxLength="25"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:textColor="#ffffff"
+                android:textSize="44sp"
+                android:textStyle="bold"
+                android:background="@drawable/custom_edit_profile"
+                android:enabled="false"/>
+
+            <ImageView
+                android:id="@+id/enableDisableEditName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/edit_icon"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"/>
+            <ImageButton
+                android:id="@+id/cancelEditName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_close_24"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/phoneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="+20 xxxx xxxx xx"
+                android:textColor="#99FFFFFF"
+                android:textSize="24sp"
+                android:background="@drawable/custom_edit_profile"
+                android:enabled="false"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/bioText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:hint="@string/description"
+                android:textColor="#CCFFFFFF"
+                android:textSize="20sp"
+                android:background="@drawable/custom_edit_profile"
+                android:enabled="false"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:lines="3"
+                android:maxLines="10"
+                android:minLines="1"
+                android:scrollbars="vertical"
+                android:singleLine="false"/>
+            <ImageView
+                android:id="@+id/enableDisableEditBio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/edit_icon"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"/>
+
+            <ImageButton
+                android:id="@+id/cancelEditBio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_close_24" />
+
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBarSetting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:indeterminateTint="@color/md_theme_light_primaryInverse"
+            android:visibility="invisible"
+            android:layout_margin="20dp"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
