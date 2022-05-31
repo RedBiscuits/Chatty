@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.myapplication.ui.main.Home"
-    style="@style/Theme.Material3.DayNight">
+    style="@style/Theme.MyApplication">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
