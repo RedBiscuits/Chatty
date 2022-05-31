@@ -1,8 +1,12 @@
 package com.example.myapplication.screens.chatroom
 
+
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.media.MediaRecorder
+import android.net.Uri
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
@@ -17,6 +21,7 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.*
+import com.google.firebase.storage.FirebaseStorage
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import kotlinx.coroutines.launch
@@ -24,6 +29,7 @@ import kotlinx.coroutines.runBlocking
 import org.jitsi.meet.sdk.JitsiMeetActivity
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 import timber.log.Timber
+import java.io.File
 import java.nio.charset.StandardCharsets
 import java.sql.Timestamp
 import java.util.*
@@ -34,16 +40,24 @@ class ChatRoom : AppCompatActivity() {
     //local state and current user handle
     private var calleeUser: User? = null
     private var currentMsg: String? = null
+    private  var mediaRecorder : MediaRecorder? = null
+    private var recording = false
+    private val storageRef = FirebaseStorage.getInstance().reference
+    private val fireStoreRef = FirebaseFirestore.getInstance()
+
 
     //required data structures
     private var messageList = ArrayList<Message>()
     private val lastMessage: MutableMap<String, String> = HashMap()
+    private val isRecord: MutableMap<String, Boolean> = HashMap()
     private val db = FirebaseFirestore.getInstance()
     private val userRef = db.collection("users")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //to hide action bar
+        var recordFile = ""
+        var recordPath = this.getExternalFilesDir("/")!!.absolutePath
         supportActionBar?.hide()
         window.statusBarColor = getColor(R.color.statusbar)
         setContentView(R.layout.activity_chat_room)
@@ -130,13 +144,76 @@ class ChatRoom : AppCompatActivity() {
         sendBtn.setOnClickListener {
             //Remove extra spaces and break lines
             updateLastSeen(currentUser.profile)
+            if(currentMsg == "" || currentMsg == null){
+                if (!recording){
+                    recording = true
+                    timer.visibility = View.VISIBLE
+                    timer.base = SystemClock.elapsedRealtime()
+                    timer.start()
+                    mediaRecorder = MediaRecorder()
+                    recordFile = "Recording${System.currentTimeMillis()}.3gp"
+                    mediaRecorder!!.setAudioSource(MediaRecorder.AudioSource.MIC)
+                    mediaRecorder!!.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+                    mediaRecorder!!.setOutputFile("$recordPath/$recordFile")
+                    mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+                    try {
+                        mediaRecorder!!.prepare()
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                    mediaRecorder!!.start()
+                }
+                else {
+                    recording = false
+                    timer.visibility = View.INVISIBLE
+                    timer.stop()
+                    mediaRecorder!!.stop()
+                    mediaRecorder!!.release()
+                    mediaRecorder = null
+                    val randomKey = UUID.randomUUID().toString()
+                    val riverRef = storageRef.child("records/$randomKey")
+
+                    riverRef.putFile(Uri.fromFile(File("$recordPath/$recordFile")))
+                        .addOnSuccessListener {
+                            println("onSuccess")
+                            riverRef.downloadUrl.addOnSuccessListener { uri ->
+                                val tmp = Message(
+                                    uri.toString(),
+                                    Timestamp(System.currentTimeMillis()).toString()
+                                    , currentUser.profile , true)
+                                updateState(tmp)
+                                //serialize encrypted message in the hashmap
+                                lastMessage["text"] = encryptMsg(tmp.text)
+                                lastMessage["time"] = tmp.time
+                                lastMessage["user"] = encryptMsg(tmp.user)
+                                isRecord["isRecord"] = true
+
+                                //Send message hashmap to fireStore and handle success / failure
+                                val msgDoc: String = Timestamp(System.currentTimeMillis())
+                                    .toString().replace("\\s".toRegex(), "")
+                                collRef.document(msgDoc).set(isRecord)
+                                collRef.document(msgDoc).set(lastMessage, SetOptions.merge())
+                                    .addOnSuccessListener {
+                                        Timber.tag(ContentValues.TAG).d("DocumentSnapshot successfully written!")
+                                    }
+                                    .addOnFailureListener { e: Exception? ->
+                                        Timber.tag(ContentValues.TAG).w(e, "Error writing document")
+                                    }
+                                msgTxt.setText("")
+                            }
+                        }.addOnFailureListener{
+                            println("onFail" + it.message)
+                        }
+                }
+            }
             currentMsg = msgTxt.text.toString().trim { it <= ' ' }
             if (currentMsg != "") {
                 // Add a new message object to the end of messages arraylist
                 val tmp = Message(
                     currentMsg,
                     Timestamp(System.currentTimeMillis()).toString()
-                    , currentUser.profile
+                    , currentUser.profile , false
                 )
                 updateState(tmp)
                 //serialize encrypted message in the hashmap
@@ -160,8 +237,6 @@ class ChatRoom : AppCompatActivity() {
             }
         }
     }
-
-
 
     private fun getDoc(num1: String, num2: String): String {
         return if (num1 > num2) num1 + num2 else num2 + num1
@@ -196,9 +271,11 @@ class ChatRoom : AppCompatActivity() {
                                     Message(
                                         String(Base64.getDecoder().decode(msg.text)),
                                         msg.time,
-                                        String(Base64.getDecoder().decode(msg.user))
+                                        String(Base64.getDecoder().decode(msg.user)),
+                                        msg.isRecord
                                     )
                                 )
+                                println("msg >>>>>>>> " + msg.isRecord)
                             }
                         } catch (x: Exception) {
                             Timber.tag(ContentValues.TAG).d("Empty messages")
@@ -236,16 +313,19 @@ class ChatRoom : AppCompatActivity() {
                         Message(
                             String(Base64.getDecoder().decode(msg.text)),
                             msg.time,
-                            String(Base64.getDecoder().decode(msg.user))
+                            String(Base64.getDecoder().decode(msg.user)),
+                            msg.isRecord
                         )
                     )
                     oldData.add(
                         Message(
                             String(Base64.getDecoder().decode(msg.text)),
                             msg.time,
-                            String(Base64.getDecoder().decode(msg.user))
+                            String(Base64.getDecoder().decode(msg.user)),
+                            msg.isRecord
                         )
                     )
+                    println("old msg >>>>>>>> " + msg.isRecord)
                     recycler_chat.adapter!!.notifyItemInserted(messageList.size)
                 }
             } else {
