@@ -72,7 +72,8 @@
             app:tabSelectedTextColor="@color/md_theme_light_primary"
             app:tabTextColor="@color/md_theme_light_onSecondaryContainer"
             tools:ignore="SpeakableTextPresentCheck"
-            android:background="@color/md_theme_dark_secondary"/>
+            android:background="@color/md_theme_dark_secondary"
+            style="@style/app_theme"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
