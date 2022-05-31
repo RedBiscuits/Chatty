@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/statusbar">
 
     <ImageView
         android:id="@+id/storyImage"
@@ -39,9 +40,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_12sdp"
-        app:tint="@color/design_default_color_on_primary"
+        app:tint="@color/lightgray"
         android:layout_marginBottom="@dimen/_18sdp"
         android:src="@drawable/ic_baseline_send_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/md_theme_light_inversePrimary"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

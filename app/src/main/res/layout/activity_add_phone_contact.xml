@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="1dp"
+    android:padding="@dimen/_1sdp"
     android:background="@color/statusbar"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -12,10 +12,10 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:onClick="goToHome"
-            android:padding="14dp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:onClick="goBack"
+            android:padding="@dimen/_14sdp"
             android:src="@drawable/back_button" />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_centerInParent="true"
             android:text="Create new contact"
             android:textColor="#ffff"
-            android:textSize="18sp"
+            android:textSize="@dimen/_18ssp"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -32,11 +32,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/_20sdp"
         android:background="@drawable/round_back_white"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/_20sdp">
 
         <EditText
             android:id="@+id/add_phone_contact_display_name"
@@ -48,7 +48,7 @@
             android:hint="@string/name"
             android:inputType="textAutoComplete"
             android:lines="1"
-            android:padding="10dp"
+            android:padding="@dimen/_6sdp"
             android:paddingStart="@dimen/_16sdp"
             tools:ignore="TextFields" />
 
@@ -63,7 +63,7 @@
             android:background="@drawable/round_background_button"
             android:hint="@string/phone"
             android:inputType="phone"
-            android:padding="10dp"
+            android:padding="@dimen/_6sdp"
             android:paddingStart="@dimen/_16sdp" />
 
         <LinearLayout
@@ -80,7 +80,7 @@
                 android:layout_marginEnd="@dimen/_46sdp"
                 android:layout_weight="1.3"
                 android:autofillHints="phone"
-                android:padding="10dp"
+                android:padding="@dimen/_6sdp"
                 android:spinnerMode="dropdown" />
 
         </LinearLayout>
