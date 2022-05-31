@@ -160,4 +160,9 @@ public class SettingActivity extends AppCompatActivity {
         Intent intent =new Intent(SettingActivity.this,  Password_setting.class);
         startActivity(intent);
     }
+
+    public void goToEditProfile(View view) {
+        Intent intent =new Intent(SettingActivity.this,  ProfileActivity.class);
+        startActivity(intent);
+    }
 }

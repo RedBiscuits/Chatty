@@ -17,7 +17,9 @@ import com.bumptech.glide.Glide
 import com.datastructures.chatty.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.login_tab_fragment.*
 import kotlin.collections.ArrayList
 import kotlin.jvm.internal.Intrinsics
 
@@ -52,7 +54,7 @@ public class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.activity_edit_profile)
 
         me = profId == phone
         checkStoragePermission()
@@ -82,14 +84,14 @@ public class ProfileActivity : AppCompatActivity() {
 
                 if (isFriend){
                     showProfile(username , bio , profileImage)
-                    progressBar.isVisible = false
+                    progressBarSetting.isVisible = false
                 } else {
                     if (privacy){
                         hideProfile(bio)
-                        progressBar.isVisible = false
+                        progressBarSetting.isVisible = false
                     } else{
                         showProfile(username , bio , profileImage)
-                        progressBar.isVisible = false
+                        progressBarSetting.isVisible = false
                     }
                 }
 
@@ -97,7 +99,7 @@ public class ProfileActivity : AppCompatActivity() {
             } else {
                 showEditable()
                 showProfile(username , bio , profileImage)
-                progressBar.isVisible = false
+                progressBarSetting.isVisible = false
             }
 
         }

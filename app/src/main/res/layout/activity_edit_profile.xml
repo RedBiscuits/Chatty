@@ -32,52 +32,80 @@
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/userImageSetting"
+            android:id="@+id/profileImagee"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:src="@drawable/user_icon"/>
+            android:src="@drawable/user_icon" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/usernameSetting"
+                android:id="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:hint="User Name"
+                android:maxLength="25"
+                android:imeOptions="actionDone"
+                android:inputType="text"
                 android:textColor="#ffffff"
                 android:textSize="44sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/custom_edit_profile"
+                android:enabled="false"/>
+
+            <ImageView
+                android:id="@+id/enableDisableEditName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/edit_icon"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"/>
+            <ImageButton
+                android:id="@+id/cancelEditName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_close_24"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/phoneSetting"
+            <TextView
+                android:id="@+id/phoneText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:hint="+20 xxxx xxxx xx"
                 android:textColor="#99FFFFFF"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:background="@drawable/custom_edit_profile"
+                android:enabled="false"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/bioSetting"
+                android:id="@+id/bioText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -85,21 +113,47 @@
                 android:layout_marginEnd="20dp"
                 android:hint="@string/description"
                 android:textColor="#CCFFFFFF"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:background="@drawable/custom_edit_profile"
+                android:enabled="false"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:lines="3"
+                android:maxLines="10"
+                android:minLines="1"
+                android:scrollbars="vertical"
+                android:singleLine="false"/>
+            <ImageView
+                android:id="@+id/enableDisableEditBio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/edit_icon"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"/>
+
+            <ImageButton
+                android:id="@+id/cancelEditBio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_close_24" />
+
+
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/round_back_secondary"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:text="@string/saveChanges"
-            android:textAllCaps="false"
-            android:textColor="@color/statusbar"
-            android:textSize="32dp" />
+        <ProgressBar
+            android:id="@+id/progressBarSetting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:indeterminateTint="@color/md_theme_light_primaryInverse"
+            android:visibility="invisible"
+            android:layout_margin="20dp"/>
+
+
     </LinearLayout>
 
 </LinearLayout>

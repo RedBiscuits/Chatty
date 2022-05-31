@@ -16,13 +16,11 @@ import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.datastructures.chatty.R;
 import com.example.myapplication.screens.authentication.LoginActivity;
-import com.sarnava.textwriter.TextWriter;
 
 import java.util.List;
 import java.util.Objects;
@@ -35,12 +33,10 @@ public class Pattern extends AppCompatActivity {
     String Save_Pattern_Key = "Pattern Code";
     String final_Pattern = "";
     PatternLockView mpatternLockView;
-    Button btnCancel;
-    private TextWriter textWriter;
+    Button btnCancel, btnFinger;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
     private static final int REQUESTCODE = 101010;
-    LottieAnimationView FingerprintLogin;
 
 
     @Override
@@ -51,8 +47,7 @@ public class Pattern extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Objects.requireNonNull(getSupportActionBar()).hide(); //hide the title bar
         setContentView(R.layout.mainpattern);
-        FingerprintLogin = findViewById(R.id.Use_finger_print);
-
+        btnFinger = findViewById(R.id.Use_finger_print);
 
         if (SavePattern != null && !SavePattern.equals("null")) {
 
@@ -119,13 +114,14 @@ public class Pattern extends AppCompatActivity {
                         .build();
 
                 //call the Dialog when the user press the  Fingerprint Button
-                FingerprintLogin.setOnClickListener(view -> {
+                btnFinger.setOnClickListener(view -> {
                     biometricPrompt.authenticate(promptInfo);
                 });
             }
             else {
                 Toast.makeText(this, "Fingerprint not supported",
                         Toast.LENGTH_LONG).show();
+                finish();
             }
 
             mpatternLockView = (PatternLockView) findViewById(R.id.patternLockView);
@@ -159,23 +155,11 @@ public class Pattern extends AppCompatActivity {
 
             });
             btnCancel = findViewById(R.id.cancel_button);
-            btnCancel.setOnClickListener(v -> {
-                finishAndRemoveTask();
-                finishAffinity();
-                System.exit(0);
-            });
-            textWriter=findViewById(R.id.textwriter);
-            textWriter.setWidth(8)
-                    .setDelay(30)
-                    .setColor(R.color.md_theme_dark_onSecondaryContainer)
-                    .setConfig(TextWriter.Configuration.INTERMEDIATE)
-                    .setSizeFactor(50f)
-                    .setLetterSpacing(20f)
-                    .setText("CARBON")
-                    .startAnimation();
+            btnCancel.setOnClickListener(v -> finish());
+
         }
         else startActivity(new Intent(Pattern.this,
-                com.example.myapplication.ui.main.SplashScreen.class));
+                    com.example.myapplication.ui.main.SplashScreen.class));
     }
 
 }
