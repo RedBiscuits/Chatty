@@ -136,7 +136,7 @@ public class Users extends Fragment implements UsersRecyclerViewClick {
     private void OnNewGroupPressed() {
         ArrayList<String> filteredNumbers = new ArrayList<>();
         Intent intent = new Intent(this.getActivity() , AddGroupActivity.class);
-        for (String num : friendsNumbers){
+        for (String num : friends){
             if (num.length() == 11){
                 filteredNumbers.add(num);
             }

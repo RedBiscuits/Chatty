@@ -66,299 +66,295 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
         fireStoreRef.collection("users").document(uid!!).get()
             .addOnSuccessListener {
 
-                val simpleDateFormat = SimpleDateFormat("dd/M/yyyy HH:mm:ss")
-                var friends = it.get("friends") as ArrayList<String>
+    val simpleDateFormat = SimpleDateFormat("dd/M/yyyy HH:mm:ss")
+    var friends = it.get("friends") as ArrayList<String>
 
-                if (friends.size != 0) {
-                    for (friend in friends) {
+    if (friends.size != 0) {
+        for (friend in friends) {
 
-                        fireStoreRef.collection("users").document(friend).get()
-                            .addOnSuccessListener {
-                                    itFriend->
-
-
-                                if (itFriend.getBoolean("hasStory") == true) { //
-
-                                    databaseRef.child("users").child(friend).orderByChild("date")
-                                        .addValueEventListener(object : ValueEventListener {
-
-                                            override fun onDataChange(dataSnapShot: DataSnapshot) {
-                                                storyOfFriends.clear()
-
-                                                if (!dataSnapShot.exists()){
-                                                    itFriend.reference.update("hasStory" , false)
-                                                }else {
-                                                    val stories: ArrayList<MyStory> = ArrayList()
-                                                    var lastStory = StoryModel("", "", "")
-
-                                                    for (snapShot in dataSnapShot.children) {
-
-                                                        val story = snapShot.getValue<StoryModel>()
-                                                        lastStory = story!!
-
-                                                        val currentDate = simpleDateFormat.format(Date())
-
-                                                        val diff = (simpleDateFormat.parse(currentDate).time - simpleDateFormat.parse(story!!.date).time)
-
-                                                        val seconds = diff / 1000
-                                                        val minutes = seconds / 60
-                                                        val hours = minutes / 60
-                                                        if (hours >= 24) {
-                                                            snapShot.ref.removeValue()
-                                                            continue
-                                                        } else {
-                                                            stories.add(
-                                                                MyStory(
-                                                                    story.uri,
-                                                                    simpleDateFormat.parse(
-                                                                        story.date
-                                                                    ),
-                                                                    story.description
-                                                                )
-                                                            )
-                                                        }
+    fireStoreRef.collection("users").document(friend).get()
+        .addOnSuccessListener {
+                itFriend->
 
 
-                                                    }
+    if (itFriend.getBoolean("hasStory") == true) { //
 
+        databaseRef.child("users").child(friend).orderByChild("date")
+            .addValueEventListener(object : ValueEventListener {
 
+                override fun onDataChange(dataSnapShot: DataSnapshot) {
+                    storyOfFriends.clear()
 
+                    if (!dataSnapShot.exists()){
+                        itFriend.reference.update("hasStory" , false)
+                    }else {
+                        val stories: ArrayList<MyStory> = ArrayList()
+                        var lastStory = StoryModel("", "", "")
 
-                                                    val currentDate = simpleDateFormat.format(Date())
+                        for (snapShot in dataSnapShot.children) {
 
-                                                    val diff = (simpleDateFormat.parse(currentDate)!!.time - simpleDateFormat.parse(lastStory.date)!!.time)
-                                                    val seconds = diff / 1000
-                                                    val minutes = seconds / 60
-                                                    val hours = minutes / 60
-                                                    var lastStoryTime = ""
+                            val story = snapShot.getValue<StoryModel>()
+                            lastStory = story!!
 
+                            val currentDate = simpleDateFormat.format(Date())
 
+                            val diff = (simpleDateFormat.parse(currentDate).time - simpleDateFormat.parse(story!!.date).time)
 
-                                                    if (hours == 0L && minutes == 0L) {
-                                                        lastStoryTime = "now"
-                                                    } else if (hours == 0L) {
-                                                        lastStoryTime = "${(minutes % 60)} minutes ago"
-                                                    } else {
-                                                        if (currentDate.substring(0, 2) == lastStory.date.substring(0, 2)) {
-                                                            lastStoryTime = "Today "
-                                                        } else {
-                                                            lastStoryTime = "YesterDay "
-                                                        }
-
-                                                        if (lastStory.date.substring(10, 12).toInt() > 12) {
-
-                                                            lastStoryTime = "$lastStoryTime${
-                                                                (lastStory.date.substring(10, 12).toInt() - 12)
-                                                            }:${lastStory.date.substring(13, 15)} PM"
-
-                                                        } else if (lastStory.date.substring(10, 12).toInt() < 12) {
-                                                            lastStoryTime = "$lastStoryTime${
-                                                                (lastStory.date.substring(
-                                                                    10,
-                                                                    12
-                                                                ))
-                                                            }:${lastStory.date.substring(13, 15)} AM"
-                                                        }
-
-                                                    }
-
-                                                    if (lastStoryTime.get(0) == '-'){
-                                                        lastStoryTime = lastStoryTime.substring(1 , lastStoryTime.lastIndex + 1)
-                                                    }
-
-                                                    storyOfFriends.add(
-                                                        UserModel(
-                                                            stories,
-                                                            itFriend.get("name").toString(),
-                                                            lastStoryTime,
-                                                            itFriend.getBoolean("hasStory")!!,
-                                                            itFriend.get("friends") as ArrayList<String>,
-                                                            itFriend.get("storyUrl").toString(),
-                                                            itFriend.get("profileImageUrl").toString()
-                                                        )
-                                                    )
-
-
-
-                                                }
-                                                adapter.submitList(storyOfFriends)
-                                                rvStatus.adapter = adapter
-
-                                            }
-
-                                            override fun onCancelled(error: DatabaseError) {
-                                                Toast.makeText(
-                                                    requireContext(),
-                                                    error.message,
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
-
-                                        })
-
-
-                                }
+                            val seconds = diff / 1000
+                            val minutes = seconds / 60
+                            val hours = minutes / 60
+                            if (hours >= 24) {
+                                snapShot.ref.removeValue()
+                                continue
+                            } else {
+                                stories.add(
+                                    MyStory(
+                                        story.uri,
+                                        simpleDateFormat.parse(
+                                            story.date
+                                        ),
+                                        story.description
+                                    )
+                                )
                             }
 
-                            .addOnFailureListener {
-                                Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
-                                    .show()
+
+                        }
+
+
+
+
+                        val currentDate = simpleDateFormat.format(Date())
+
+                        val diff = (simpleDateFormat.parse(currentDate)!!.time - simpleDateFormat.parse(lastStory.date)!!.time)
+                        val seconds = diff / 1000
+                        val minutes = seconds / 60
+                        val hours = minutes / 60
+                        var lastStoryTime = ""
+
+
+
+                        if (hours == 0L && minutes == 0L) {
+                            lastStoryTime = "now"
+                        } else if (hours == 0L) {
+                            lastStoryTime = "${(minutes % 60)} minutes ago"
+                        } else {
+                            if (currentDate.substring(0, 2) == lastStory.date.substring(0, 2)) {
+                                lastStoryTime = "Today "
+                            } else {
+                                lastStoryTime = "YesterDay "
                             }
+
+                            if (lastStory.date.substring(10, 12).toInt() > 12) {
+
+                                lastStoryTime = "$lastStoryTime${
+                                    (lastStory.date.substring(10, 12).toInt() - 12)
+                                }:${lastStory.date.substring(13, 15)} PM"
+
+                            } else if (lastStory.date.substring(10, 12).toInt() < 12) {
+                                lastStoryTime = "$lastStoryTime${
+                                    (lastStory.date.substring(
+                                        10,
+                                        12
+                                    ))
+                                }:${lastStory.date.substring(13, 15)} AM"
+                            }
+
+                        }
+
+                        lastStoryTime.replace("-" , "")
+
+                        storyOfFriends.add(
+                            UserModel(
+                                stories,
+                                itFriend.get("name").toString(),
+                                lastStoryTime,
+                                itFriend.getBoolean("hasStory")!!,
+                                itFriend.get("friends") as ArrayList<String>,
+                                itFriend.get("storyUrl").toString(),
+                                itFriend.get("profileImageUrl").toString()
+                            )
+                        )
+
+
 
                     }
+                    adapter.submitList(storyOfFriends)
+                    rvStatus.adapter = adapter
+
                 }
 
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(
+                        requireContext(),
+                        error.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+            })
 
 
-                if (it.getBoolean("hasStory") == true){
+            }
+        }
 
-                    databaseRef.child("users").child(uid!!).orderByChild("date").addValueEventListener(object : ValueEventListener{
-                        override fun onDataChange(dataSnapShot: DataSnapshot) {
+        .addOnFailureListener {
+            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG)
+                .show()
+        }
 
-                            if (!dataSnapShot.exists()){
-                                it.reference.update("hasStory" , false)
-                            } else {
-
-
-                                val myStories: ArrayList<MyStory> = ArrayList<MyStory>()
-
-                                var lastStory = StoryModel("", "", "")
-                                for (snapShot in dataSnapShot.children) {
-                                    val story = snapShot.getValue<StoryModel>()
-
-                                    lastStory = story!!
-                                    val currentDate = simpleDateFormat.format(Date())
-                                    val diff = (simpleDateFormat.parse(currentDate)!!.time - simpleDateFormat.parse(story.date)!!.time)
-                                    val seconds = diff / 1000
-                                    val minutes = seconds / 60
-                                    val hours = minutes / 60
-
-                                    if (hours >= 24) {
-                                        snapShot.ref.removeValue()
-                                        continue
-                                    } else {
-                                        myStories.add(
-                                            MyStory(
-                                                story.uri,
-                                                simpleDateFormat.parse(story.date),
-                                                story.description
-                                            )
-                                        )
-
-                                    }
-
-                                    if (myStories.size > 0 ){
-                                        showMyStory()
-                                    }
-
-                                }
+    }
+    }
 
 
 
+    if (it.getBoolean("hasStory") == true){
 
+        databaseRef.child("users").child(uid!!).orderByChild("date").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(dataSnapShot: DataSnapshot) {
 
-                            if (it.getBoolean("hasStory") == true) {
-
-
-                                val currentDate = simpleDateFormat.format(Date())
-                                val diff = (simpleDateFormat.parse(currentDate)!!.time - simpleDateFormat.parse(lastStory.date)!!.time)
-                                val seconds = diff / 1000
-                                val minutes = seconds / 60
-                                val hours = minutes / 60
-                                var lastStoryTime = ""
-
-                                if (currentDate.substring(0, 2) == lastStory.date.substring(0, 2)) {
-                                    day.text = "Today"
-                                } else {
-                                    day.text = "Yesterday"
-                                }
-
-                                if (hours == 0L && minutes == 0L) {
-                                    lastStoryTime = "now"
-                                    day.visibility = View.GONE
-                                } else if (hours == 0L) {
-                                    day.visibility = View.GONE
-                                    lastStoryTime = "${(minutes % 60)} minutes ago"
-                                } else {
-                                    day.visibility = View.VISIBLE
-
-                                    if (lastStory.date.substring(10, 12).toInt() > 12) {
-
-                                        lastStoryTime = "${
-                                            (lastStory.date.substring(10, 12).toInt() - 12)
-                                        }:${lastStory.date.substring(13, 15)} PM"
-
-                                    } else if (lastStory.date.substring(10, 12).toInt() < 12) {
-
-
-                                        if ((lastStory.date.substring(10, 12).toInt() >= 10)) {
-
-                                            lastStoryTime = "${
-                                                (lastStory.date.substring(
-                                                    10,
-                                                    12
-                                                ))
-                                            }:${lastStory.date.substring(13, 15)} AM"
-
-                                        }
-
-                                     }
-                                }
-
-                                if (lastStoryTime.get(0) == '-'){
-                                    lastStoryTime = lastStoryTime.substring(1 , lastStoryTime.lastIndex + 1)
-                                }
-
-
-                                myUser = UserModel(
-                                    myStories,
-                                    it.get("name").toString(),
-                                    lastStoryTime,
-                                    it.getBoolean("hasStory") as Boolean,
-                                    friends,
-                                    it.get("storyUrl").toString(),
-                                    it.get("profileImageUrl").toString()
-                                )
-                            } else {
-                                myUser = UserModel(
-                                    myStories,
-                                    it.get("name").toString(),
-                                    "",
-                                    it.getBoolean("hasStory") as Boolean,
-                                    friends,
-                                    it.get("storyUrl").toString(),
-                                    it.get("profileImageUrl").toString()
-                                )
-                            }
-
-
-                            myLastStory.text = myUser.lastStory
-                            myStoryTitle.text = myUser.name
-                            Glide.with(requireContext()).load(myUser.storyUrl).into(myStoryImg)
-
-
-                            }
-
-                        }
-
-                        override fun onCancelled(error: DatabaseError) {
-                            Toast.makeText(requireContext() , error.message , Toast.LENGTH_LONG).show()
-                        }
-
-
-                    })
-
-
-
+                if (!dataSnapShot.exists()){
+                    it.reference.update("hasStory" , false)
                 } else {
-                    myUser = UserModel(null, "", "", false, null, null, null)
 
-                    hideMyStory()
+
+                    val myStories: ArrayList<MyStory> = ArrayList<MyStory>()
+
+                    var lastStory = StoryModel("", "", "")
+                    for (snapShot in dataSnapShot.children) {
+                        val story = snapShot.getValue<StoryModel>()
+
+                        lastStory = story!!
+                        val currentDate = simpleDateFormat.format(Date())
+                        val diff = (simpleDateFormat.parse(currentDate)!!.time - simpleDateFormat.parse(story.date)!!.time)
+                        val seconds = diff / 1000
+                        val minutes = seconds / 60
+                        val hours = minutes / 60
+
+                        if (hours >= 24) {
+                            snapShot.ref.removeValue()
+                            continue
+                        } else {
+                            myStories.add(
+                                MyStory(
+                                    story.uri,
+                                    simpleDateFormat.parse(story.date),
+                                    story.description
+                                )
+                            )
+
+                        }
+
+                        if (myStories.size > 0 ){
+                            showMyStory()
+                        }
+
+                    }
+
+
+
+
+                    if (it.getBoolean("hasStory") == true) {
+
+
+                        val currentDate = simpleDateFormat.format(Date())
+                        val diff = (simpleDateFormat.parse(currentDate)!!.time - simpleDateFormat.parse(lastStory.date)!!.time)
+                        val seconds = diff / 1000
+                        val minutes = seconds / 60
+                        val hours = minutes / 60
+                        var lastStoryTime = ""
+
+                        if (currentDate.substring(0, 2) == lastStory.date.substring(0, 2)) {
+                            day.text = "Today"
+                        } else {
+                            day.text = "Yesterday"
+                        }
+
+                        if (hours == 0L && minutes == 0L) {
+                            lastStoryTime = "now"
+                            day.visibility = View.GONE
+                        } else if (hours == 0L) {
+                            day.visibility = View.GONE
+                            lastStoryTime = "${(minutes % 60)} minutes ago"
+                        } else {
+                            day.visibility = View.VISIBLE
+
+                            if (lastStory.date.substring(10, 12).toInt() > 12) {
+
+                                lastStoryTime = "${
+                                    (lastStory.date.substring(10, 12).toInt() - 12)
+                                }:${lastStory.date.substring(13, 15)} PM"
+
+                            } else if (lastStory.date.substring(10, 12).toInt() < 12) {
+
+
+                                if ((lastStory.date.substring(10, 12).toInt() >= 10)) {
+
+                                    lastStoryTime = "${
+                                        (lastStory.date.substring(
+                                            10,
+                                            12
+                                        ))
+                                    }:${lastStory.date.substring(13, 15)} AM"
+
+                                }
+
+                             }
+                        }
+
+                        lastStoryTime.replace("-" , "")
+
+
+
+                        myUser = UserModel(
+                            myStories,
+                            it.get("name").toString(),
+                            lastStoryTime,
+                            it.getBoolean("hasStory") as Boolean,
+                            friends,
+                            it.get("storyUrl").toString(),
+                            it.get("profileImageUrl").toString()
+                        )
+                    } else {
+                        myUser = UserModel(
+                            myStories,
+                            it.get("name").toString(),
+                            "",
+                            it.getBoolean("hasStory") as Boolean,
+                            friends,
+                            it.get("storyUrl").toString(),
+                            it.get("profileImageUrl").toString()
+                        )
+                    }
+
+
+                    myLastStory.text = myUser.lastStory
+                    myStoryTitle.text = myUser.name
+                    Glide.with(requireContext()).load(myUser.storyUrl).into(myStoryImg)
+
+
+                    }
+
                 }
-            }
-            .addOnFailureListener {
-                Toast.makeText(requireContext() , it.message , Toast.LENGTH_LONG).show()
-            }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(requireContext() , error.message , Toast.LENGTH_LONG).show()
+                }
+
+
+            })
+
+
+
+        } else {
+            myUser = UserModel(null, "", "", false, null, null, null)
+
+            hideMyStory()
+        }
+    }
+    .addOnFailureListener {
+        Toast.makeText(requireContext() , it.message , Toast.LENGTH_LONG).show()
+    }
 
     }
 
