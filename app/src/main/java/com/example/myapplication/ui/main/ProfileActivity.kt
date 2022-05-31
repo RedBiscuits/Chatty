@@ -31,6 +31,8 @@ public class ProfileActivity : AppCompatActivity() {
         FirebaseFirestore.getInstance()
     }
 
+
+
     private val phone : String by lazy {
         prefUser("phone")
     }
@@ -55,6 +57,12 @@ public class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
+
+        try {
+            this.supportActionBar!!.hide();
+        }catch (e : Exception){
+            e.printStackTrace()
+        }
 
         me = profId == phone
         checkStoragePermission()
