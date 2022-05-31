@@ -9,7 +9,6 @@ public class Message implements  Cloneable {
     private String user;
     private String name;
 
-<<<<<<< Updated upstream
     public boolean getIsRecord() {
         return isRecord;
     }
@@ -18,16 +17,6 @@ public class Message implements  Cloneable {
         isRecord = record;
     }
 
-=======
-    public boolean isRecord() {
-        return isRecord;
-    }
-
-    public void setRecord(boolean record) {
-        isRecord = record;
-    }
-
->>>>>>> Stashed changes
     private boolean isRecord = false;
     public String getName() {
         return name;
@@ -44,12 +33,6 @@ public class Message implements  Cloneable {
 //        this.time = time;
 //        this.user = user;
 //    }
-    public Message(String text, String time, String user , boolean isRecord) {
-        this.text = text;
-        this.time = time;
-        this.user = user;
-        this.isRecord = isRecord;
-    }
     public Message(String text, String time, String user , boolean isRecord) {
         this.text = text;
         this.time = time;

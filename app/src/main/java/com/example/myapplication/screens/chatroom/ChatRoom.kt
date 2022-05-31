@@ -1,7 +1,6 @@
 package com.example.myapplication.screens.chatroom
 
 
-<<<<<<< Updated upstream
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
@@ -9,11 +8,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import android.net.Uri
-=======
-import android.annotation.SuppressLint
-import android.content.ContentValues
-import android.media.MediaRecorder
->>>>>>> Stashed changes
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
@@ -29,11 +23,7 @@ import com.datastructures.chatty.R
 import com.example.myapplication.adapters.MessageAdapter
 import com.example.myapplication.ui.main.Home
 import com.example.myapplication.ui.main.Home.oldData
-<<<<<<< Updated upstream
 import com.example.myapplication.ui.main.ProfileActivity
-=======
-import com.getbase.floatingactionbutton.FloatingActionButton
->>>>>>> Stashed changes
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -58,18 +48,9 @@ class ChatRoom : AppCompatActivity() {
     private var calleeUser: User? = null
     private var currentMsg: String? = null
     private  var mediaRecorder : MediaRecorder? = null
-<<<<<<< Updated upstream
     private var recording = false
     private val storageRef = FirebaseStorage.getInstance().reference
     private val fireStoreRef = FirebaseFirestore.getInstance()
-=======
-
-
-    var recording = false
-    var recordFile = ""
-    var recordPath = this.getExternalFilesDir("/")!!.absolutePath
-
->>>>>>> Stashed changes
 
 
     //required data structures
@@ -172,14 +153,9 @@ class ChatRoom : AppCompatActivity() {
         sendBtn.setOnClickListener {
             //Remove extra spaces and break lines
             updateLastSeen(currentUser.profile)
-<<<<<<< Updated upstream
             if(currentMsg == "" || currentMsg == null){
                 if (!recording){
                     recording = true
-=======
-            if(currentMsg == ""){
-                if (!recording){
->>>>>>> Stashed changes
                     timer.visibility = View.VISIBLE
                     timer.base = SystemClock.elapsedRealtime()
                     timer.start()
@@ -197,18 +173,13 @@ class ChatRoom : AppCompatActivity() {
                     }
                     mediaRecorder!!.start()
                 }
-<<<<<<< Updated upstream
                 else {
                     recording = false
-=======
-                else{
->>>>>>> Stashed changes
                     timer.visibility = View.INVISIBLE
                     timer.stop()
                     mediaRecorder!!.stop()
                     mediaRecorder!!.release()
                     mediaRecorder = null
-<<<<<<< Updated upstream
                     val randomKey = UUID.randomUUID().toString()
                     val riverRef = storageRef.child("records/$randomKey")
 
@@ -243,8 +214,6 @@ class ChatRoom : AppCompatActivity() {
                         }.addOnFailureListener{
                             println("onFail" + it.message)
                         }
-=======
->>>>>>> Stashed changes
                 }
             }
             currentMsg = msgTxt.text.toString().trim { it <= ' ' }
@@ -277,7 +246,6 @@ class ChatRoom : AppCompatActivity() {
             }
         }
 
-<<<<<<< Updated upstream
 
         recImg.setOnClickListener {
             var intent = Intent(this , ProfileActivity :: class.java).apply {
@@ -287,8 +255,6 @@ class ChatRoom : AppCompatActivity() {
         }
     }
 
-=======
->>>>>>> Stashed changes
     private fun getDoc(num1: String, num2: String): String {
         return if (num1 > num2) num1 + num2 else num2 + num1
     }
@@ -412,7 +378,6 @@ class ChatRoom : AppCompatActivity() {
         }
     }
 
-<<<<<<< Updated upstream
 
     private fun checkPermission(permission: String, requestCode: Int) {
         if (ContextCompat.checkSelfPermission(
@@ -462,9 +427,5 @@ class ChatRoom : AppCompatActivity() {
             }
         }
 
-=======
-    private fun sendMsg(btn:FloatingActionButton){
-        btn
->>>>>>> Stashed changes
     }
 }

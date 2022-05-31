@@ -39,20 +39,22 @@ public class Home extends AppCompatActivity {
     private static SharedPreferenceClass sharedPreferenceClass;
     private SharedPreferences sharedPreferences;
     boolean dark = false;
-    TextWriter textWriter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(getSupportActionBar()).hide(); //hide the title bar
-    
+
         //Binding and drawing layout
         int nightModeFlags =
                 this.getResources().getConfiguration().uiMode &
                         Configuration.UI_MODE_NIGHT_MASK;
-
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            setContentView(R.layout.activity_main_dark);
+        } else {
             setContentView(R.layout.activity_main);
+        }
         //Tab layout setup
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -104,15 +106,6 @@ public class Home extends AppCompatActivity {
             System.out.println(e.getMessage());
         }
 
-
-        textWriter=findViewById(R.id.title);
-        textWriter.setWidth(8)
-                .setDelay(30)
-                .setConfig(TextWriter.Configuration.INTERMEDIATE)
-                .setSizeFactor(20f)
-                .setLetterSpacing(20f)
-                .setText("CARBON")
-                .startAnimation();
     }
 
 

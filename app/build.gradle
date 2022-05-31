@@ -133,7 +133,7 @@ dependencies {
     implementation 'com.github.sarnavakonar:TextWriter:v1.0'
 
 
-    implementation 'com.github.sarnavakonar:TextWriter:v1.0'
+
 
 
 }
