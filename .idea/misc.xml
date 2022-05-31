@@ -11,17 +11,13 @@
         <entry key="..\:/FCIS/Year2/Semester 4 FCIS 2024/Data structure/Project/Chatty-master/app/src/main/res/layout/user_msg.xml" value="0.38181818181818183" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/Chatty13/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.2435" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/Chatty13/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.2435" />
-        <entry key="..\:/Users/Administrator/AndroidStudioProjects/Chatty13/app/src/main/res/layout/activity_add_image.xml" value="0.1762917933130699" />
-        <entry key="..\:/Users/Administrator/AndroidStudioProjects/Chatty13/app/src/main/res/layout/activity_add_text_story.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/Chatty13/app/src/main/res/layout/activity_main.xml" value="0.24139492753623187" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/Chatty13/app/src/main/res/layout/activity_maps.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/Chatty13/app/src/main/res/layout/activity_profile.xml" value="0.24139492753623187" />
-        <entry key="..\:/Users/Administrator/AndroidStudioProjects/Chatty13/app/src/main/res/layout/activity_splash_screen.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/Chatty13/app/src/main/res/layout/fragment_stories.xml" value="0.33" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/Chatty13/app/src/main/res/layout/story_list_item.xml" value="0.67" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/Chatty13/app/src/main/res/layout/user_list_item.xml" value="0.24139492753623187" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.197" />
-        <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/drawable/delete.xml" value="0.1985" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/drawable/gradient_drawable_dark.xml" value="0.197" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/drawable/grey_btn.xml" value="0.124" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/drawable/rounded_edittext.xml" value="0.1985" />
@@ -54,6 +50,8 @@
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1435" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/mipmap-anydpi-v26/user_img.xml" value="0.1435" />
         <entry key="..\:/Users/Joo/AndroidStudioProjects/MyApplication10/app/src/main/res/mipmap-anydpi-v26/user_img_round.xml" value="0.1435" />
+        <entry key="..\:/github/Chatty/app/src/main/res/drawable-v24/ic_baseline_play_arrow_24.xml" value="0.197" />
+        <entry key="..\:/github/Chatty/app/src/main/res/drawable-v24/item_shape.xml" value="0.1885" />
         <entry key="..\:/github/Chatty/app/src/main/res/drawable/bg_view_blue_oval.xml" value="0.197" />
         <entry key="..\:/github/Chatty/app/src/main/res/drawable/custtom_button.xml" value="0.197" />
         <entry key="..\:/github/Chatty/app/src/main/res/drawable/ic_backspace_24.xml" value="0.197" />
@@ -64,7 +62,7 @@
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_add_phone_contact.xml" value="0.24230072463768115" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_add_text_story.xml" value="0.24230072463768115" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_chat.xml" value="0.2056159420289855" />
-        <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_chat_room.xml" value="0.2" />
+        <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_chat_room.xml" value="0.152" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_create_group.xml" value="0.24230072463768115" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_fingerprint.xml" value="0.264" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/activity_login.xml" value="0.2" />
@@ -83,10 +81,14 @@
         <entry key="..\:/github/Chatty/app/src/main/res/layout/mainpattern.xml" value="0.2" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/other_msg.xml" value="0.6" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/raw_item.xml" value="0.24230072463768115" />
+        <entry key="..\:/github/Chatty/app/src/main/res/layout/record_item.xml" value="0.176" />
+        <entry key="..\:/github/Chatty/app/src/main/res/layout/signup_tab_fragment.xml" value="0.23596014492753623" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/story_list_item.xml" value="0.2056159420289855" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/user_list_item.xml" value="0.1" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/user_list_item_dark.xml" value="0.18020833333333333" />
         <entry key="..\:/github/Chatty/app/src/main/res/layout/user_msg.xml" value="0.536" />
+        <entry key="..\:/github/Chatty/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.109" />
+        <entry key="..\:/github/Chatty/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.109" />
       </map>
     </option>
   </component>

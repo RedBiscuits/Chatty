@@ -7,7 +7,17 @@ public class Message implements  Cloneable {
     private String text;
     private String time;
     private String user;
+    private String name;
 
+    public boolean getIsRecord() {
+        return isRecord;
+    }
+
+    public void setRecord(boolean record) {
+        isRecord = record;
+    }
+
+    private boolean isRecord = false;
     public String getName() {
         return name;
     }
@@ -16,15 +26,18 @@ public class Message implements  Cloneable {
         this.name = name;
     }
 
-    private String name;
-
-
     public Message(){};
 
-    public Message(String text, String time, String user) {
+//    public Message(String text, String time, String user) {
+//        this.text = text;
+//        this.time = time;
+//        this.user = user;
+//    }
+    public Message(String text, String time, String user , boolean isRecord) {
         this.text = text;
         this.time = time;
         this.user = user;
+        this.isRecord = isRecord;
     }
 
     public String getText() {

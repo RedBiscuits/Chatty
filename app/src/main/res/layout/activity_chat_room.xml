@@ -155,6 +155,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/sendBtn"
+            style="@style/Widget.Material3.FloatingActionButton.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -162,13 +163,23 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
-            android:contentDescription="Send message"
             android:backgroundTint="@color/md_theme_dark_secondary"
-            style="@style/Widget.Material3.FloatingActionButton.Secondary"
+            android:contentDescription="Send message"
             android:src="@drawable/ic_baseline_send_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:tint="@color/design_default_color_on_primary" />
+
+        <Chronometer
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="55dp"
+            android:layout_toStartOf="@+id/sendBtn"
+            android:id="@+id/timer"
+            android:elevation="@dimen/_100sdp"
+            android:visibility="invisible"/>
 
     </RelativeLayout>
 
