@@ -130,6 +130,8 @@ dependencies {
     //lottie
     implementation "com.airbnb.android:lottie:5.0.3"
     implementation "androidx.browser:browser:1.4.0"
+    implementation 'com.github.sarnavakonar:TextWriter:v1.0'
+
 
     implementation 'com.github.sarnavakonar:TextWriter:v1.0'
 

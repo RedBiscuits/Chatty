@@ -3,7 +3,9 @@ package com.example.myapplication.screens.security;
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
 import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.WindowManager;
@@ -16,11 +18,13 @@ import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.datastructures.chatty.R;
 import com.example.myapplication.screens.authentication.LoginActivity;
+import com.example.myapplication.ui.main.Home;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,10 +37,13 @@ public class Pattern extends AppCompatActivity {
     String Save_Pattern_Key = "Pattern Code";
     String final_Pattern = "";
     PatternLockView mpatternLockView;
-    Button btnCancel, btnFinger;
+    Button btnCancel;
+    LottieAnimationView btnFinger;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
     private static final int REQUESTCODE = 101010;
+    SharedPreferences sharedPreferences;
+    String phoneNumber ;
 
 
     @Override
@@ -48,6 +55,8 @@ public class Pattern extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide(); //hide the title bar
         setContentView(R.layout.mainpattern);
         btnFinger = findViewById(R.id.Use_finger_print);
+        sharedPreferences = this.getSharedPreferences("mypref", Context.MODE_PRIVATE);
+        phoneNumber = sharedPreferences.getString("phone", null);
 
         if (SavePattern != null && !SavePattern.equals("null")) {
 
@@ -141,9 +150,15 @@ public class Pattern extends AppCompatActivity {
 
                     final_Pattern = PatternLockUtils.patternToString(mpatternLockView, pattern);
                     if (final_Pattern.equals(SavePattern)) {
+                        if(phoneNumber != null) {
+                            Intent intent = new Intent(Pattern.this, Home.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }else {
                         Toast.makeText(Pattern.this, "Correct!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Pattern.this,
                                 LoginActivity.class));
+                        }
                     } else
                         Toast.makeText(Pattern.this, "Incorrect!", Toast.LENGTH_SHORT).show();
                 }

@@ -11,8 +11,7 @@ import com.example.myapplication.ui.main.PlaceholderFragment.Companion.newInstan
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
-    R.string.tab_text_2,
-    R.string.tab_text_3
+    R.string.tab_text_2
 )
 
 /**
@@ -28,7 +27,6 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         return when (position) {
             0 -> Users()
             1 -> StoriesFragment()
-            2 -> newInstance(position + 1)
             else -> newInstance(position + 1)
         }
     }
@@ -39,6 +37,6 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
 
     override fun getCount(): Int {
         // Show 2 total pages.
-        return 3
+        return 2
     }
 }

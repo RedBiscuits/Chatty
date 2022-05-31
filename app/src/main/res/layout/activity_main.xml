@@ -4,70 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/statusbar"
-    tools:context="com.example.myapplication.ui.main.Home">
+    tools:context="com.example.myapplication.ui.main.Home"
+    style="@style/Theme.MyApplication">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/statusbar"
         android:theme="@style/ThemeOverlay.Material3.BottomAppBar"
         android:background="@color/md_theme_dark_secondary">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/statusbar">
+                android:layout_height="wrap_content">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/current_user_profile_image"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:onClick="goToProfile"
                     android:src="@mipmap/logo"
-                    app:civ_border_color="@color/white"
-                    app:civ_border_width="@dimen/_1sdp"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="1dp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="SpeakableTextPresentCheck" />
 
-                <!--                <TextView-->
-                <!--                    android:id="@+id/title"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_gravity="center"-->
-                <!--                    android:gravity="center"-->
-                <!--                    android:minHeight="?actionBarSize"-->
-                <!--                    android:text="@string/app_name"-->
-                <!--                    android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"-->
-                <!--                    android:textSize="@dimen/_20ssp"-->
-                <!--                    android:layout_marginStart="@dimen/_15sdp"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--                    app:layout_constraintStart_toEndOf="@+id/current_user_profile_image"-->
-                <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
 
                 <com.sarnava.textwriter.TextWriter
-                    android:id="@+id/title"
-                    android:layout_width="148dp"
-                    android:layout_height="36dp"
+                    android:id="@+id/title2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.269"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="MissingConstraints" />
+                    app:layout_constraintEnd_toStartOf="@+id/settings_button"
+                    app:layout_constraintStart_toEndOf="@+id/current_user_profile_image"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/settings_button"
@@ -79,33 +60,33 @@
                     android:shadowDx="-2"
                     android:shadowDy="-2"
                     android:shadowRadius="2"
-                    android:src="@drawable/ic_round_settings_24"
+                    android:src="@drawable/ic_baseline_settings_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.949"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
-            app:tabTextColor="@color/lightgray"
-            app:tabSelectedTextColor="@color/lightgray"
             android:layout_width="match_parent"
-            android:scrollbarSize="@dimen/_15sdp"
             android:layout_height="wrap_content"
-            android:background="@color/statusbar"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:backgroundTint="@color/statusbar"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/black"
+            tools:ignore="SpeakableTextPresentCheck"
+
+            android:background="@color/md_theme_dark_secondary" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:background="@drawable/background_for_home"
         android:layout_height="match_parent"
+        android:background="@color/statusbar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

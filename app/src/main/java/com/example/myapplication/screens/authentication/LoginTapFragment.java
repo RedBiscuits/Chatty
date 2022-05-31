@@ -61,16 +61,11 @@ public class LoginTapFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.login_tab_fragment, container, false);
 
-        sharedPreferenceClass = new SharedPreferenceClass(getActivity());
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.login_tab_fragment, container, false);
         sharedPreferences = this.getActivity().getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         String phoneNumber = sharedPreferences.getString(KEY_PHONE_NUMBER, null);
-        if(phoneNumber != null) {
-            Intent intent = new Intent(getActivity(), Home.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
+
 
         initWidgets(root);
 

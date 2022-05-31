@@ -341,7 +341,7 @@ public class ProfileActivity : AppCompatActivity() {
 
                 riverRef.downloadUrl.addOnSuccessListener {
 
-                    fireStoreRef.collection("users").document(phone).update("profileImage" , it).addOnSuccessListener {
+                    fireStoreRef.collection("users").document(phone).update("profileImageUrl" , it).addOnSuccessListener {
                         Glide.with(this).load(selectedImgUri).into(profileImagee)
                         Toast.makeText(this,"Image Successfully Updated", Toast.LENGTH_LONG).show()
                     }
@@ -388,6 +388,7 @@ public class ProfileActivity : AppCompatActivity() {
         phoneText.text = profId
         bioText.setText(bio)
         if (image != ""){
+            profileImagee.setImageURI(Uri.parse(image))
             Glide.with(this).load(image).into(profileImagee)
         }
         bioText.isVisible = true

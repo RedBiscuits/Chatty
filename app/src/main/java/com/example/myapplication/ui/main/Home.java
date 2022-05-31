@@ -3,6 +3,7 @@ package com.example.myapplication.ui.main;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -50,11 +51,8 @@ public class Home extends AppCompatActivity {
         int nightModeFlags =
                 this.getResources().getConfiguration().uiMode &
                         Configuration.UI_MODE_NIGHT_MASK;
-        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
-            setContentView(R.layout.activity_main_dark);
-        } else {
+
             setContentView(R.layout.activity_main);
-        }
         //Tab layout setup
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -74,6 +72,16 @@ public class Home extends AppCompatActivity {
 
         CircleImageView meow = findViewById(R.id.current_user_profile_image);
         meow.setOnClickListener(view -> goToProfile(phone));
+
+        TextWriter textWriter=findViewById(R.id.title2);
+        textWriter.setWidth(8)
+                .setDelay(30)
+                .setConfig(TextWriter.Configuration.INTERMEDIATE)
+                .setSizeFactor(20f)
+                .setLetterSpacing(20f)
+                .setColor(Color.WHITE)
+                .setText("CARBON")
+                .startAnimation();
 
         try {
             DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(phone);
