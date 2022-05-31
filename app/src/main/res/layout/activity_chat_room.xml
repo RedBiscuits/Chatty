@@ -60,7 +60,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
-                android:background="#99B7C5"
+                android:background="@android:color/transparent"
                 android:contentDescription="video call"
                 android:foregroundGravity="center_vertical"
                 android:minWidth="48dp"
