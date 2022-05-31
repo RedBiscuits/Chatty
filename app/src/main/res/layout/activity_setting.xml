@@ -10,21 +10,22 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/back_button"
-            android:padding="14dp"
-            android:onClick="goBack"/>
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:onClick="goBack"
+            android:padding="@dimen/_14sdp"
+            android:src="@drawable/back_button" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/settings"
             android:layout_centerInParent="true"
+            android:text="@string/settings"
             android:textColor="#ffff"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
+            android:textSize="@dimen/_16ssp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <LinearLayout
