@@ -382,9 +382,6 @@ class ChatRoom : AppCompatActivity() {
                 arrayOf(permission),
                 requestCode
             )
-        } else {
-            Toast.makeText(this@ChatRoom, "Permission already granted", Toast.LENGTH_SHORT)
-                .show()
         }
     }
 

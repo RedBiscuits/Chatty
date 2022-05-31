@@ -147,7 +147,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="97dp"
         android:layout_marginBottom="22dp"
-        android:background="@drawable/custtom_button"
+        android:background="@color/md_theme_light_secondaryContainer"
         android:fontFamily="serif"
         android:maxHeight="@dimen/_20sdp"
         android:minWidth="@dimen/_100sdp"
