@@ -7,13 +7,13 @@
     app:cardCornerRadius="@dimen/_19sdp"
     android:minWidth="@dimen/_100sdp"
     android:layout_marginVertical="@dimen/_8sdp"
-    android:layout_marginEnd="@dimen/_4sdp"
-    android:layout_marginStart="@dimen/_100sdp">
+    android:layout_marginEnd="@dimen/_44sdp"
+    android:layout_marginStart="@dimen/_4sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
-        android:background="@color/md_theme_light_secondaryContainer">
+        android:background="#DCF6FA">
     <Button
         android:id="@+id/play"
         android:layout_width="wrap_content"

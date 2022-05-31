@@ -58,7 +58,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
         }
         else if(viewType == 4){
             view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.record_item, parent, false);
+                    .inflate(R.layout.othr_record_item, parent, false);
             return new ReceivedRecordHolder(view);
         }
         return null;
