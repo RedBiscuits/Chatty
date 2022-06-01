@@ -1,5 +1,5 @@
 
-![Logo](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/carbon_gif_logo.gif?token=GHSAT0AAAAAABRAJDUPHWFEANGVIOXHOYTGYUXJ4EA)
+![Logo](carbon_gif_logo.gif)
 
 
 # Carbon Chat App
