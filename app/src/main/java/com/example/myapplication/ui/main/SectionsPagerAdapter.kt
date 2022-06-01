@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.datastructures.chatty.R
 import com.example.myapplication.screens.chat.Users
 import com.example.myapplication.screens.status.StoriesFragment
-import com.example.myapplication.ui.main.PlaceholderFragment.Companion.newInstance
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
@@ -27,7 +26,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         return when (position) {
             0 -> Users()
             1 -> StoriesFragment()
-            else -> newInstance(position + 1)
+            else -> Users()
         }
     }
 
