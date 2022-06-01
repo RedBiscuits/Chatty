@@ -42,31 +42,31 @@
 
 # In App Screenshots
 ## Splash screen
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/splash.png)
+![App Screenshot](screenshots/splash.png)
 ## Registeration
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/register.png?token=GHSAT0AAAAAABRAJDUP5OQXNW7X5B6B24NOYUXKZHQ)
+![App Screenshot](screenshots/register.png)
 ## Login
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/login.png?token=GHSAT0AAAAAABRAJDUP3BLC2NJDDNNP3GNWYUXK2WQ)
+![App Screenshot](screenshots/login.png)
 ## Home
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/home.png?token=GHSAT0AAAAAABRAJDUPXGBZRK6SMOZNYPQEYUXKRUA)
+![App Screenshot](screenshots/home.png)
 ## Chatroom
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/chatroom.png?token=GHSAT0AAAAAABRAJDUOY457CFG2OIQGVQKUYUXKSMA)
+![App Screenshot](screenshots/chatroom.png)
 ## Video call
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/videocall.png?token=GHSAT0AAAAAABRAJDUOWPFOOU6VSAZBPBMCYUXKTCQ)
+![App Screenshot](screenshots/videocall.png)
 ## Video call options
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/videochat_options.png?token=GHSAT0AAAAAABRAJDUPYHF2NWL5XENEP4JCYUXKTSA)
+![App Screenshot](screenshots/videochat_options.png)
 ## Overlaying videocall
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/in_app_videochat.png?token=GHSAT0AAAAAABRAJDUP2PCNNTUSZF44XOOKYUXKUDQ)
+![App Screenshot](screenshots/in_app_videochat.png)
 ## Stories
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/stories.png?token=GHSAT0AAAAAABRAJDUOQLWS6YKZLP5BTIVGYUXKYCA)
+![App Screenshot](screenshots/stories.png)
 ## Profile
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/profile.png?token=GHSAT0AAAAAABRAJDUO4YJDI6LDFGSLHDBGYUXKVMQ)
+![App Screenshot](screenshots/profile.png)
 ## Private account
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/private_profile1_cleanup.png?token=GHSAT0AAAAAABRAJDUOEHGR6FO5YFQPNNISYUXKYOQ)
+![App Screenshot](screenshots/private_profile1_cleanup.png)
 ## Setting applock
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/applock_insettings.png?token=GHSAT0AAAAAABRAJDUP6YUGK2CNE2RGZCOIYUXKWRQ)
+![App Screenshot](screenshots/applock_insettings.png)
 ## Applock
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/applock.png?token=GHSAT0AAAAAABRAJDUOOTKZXTUKGULBGTAMYUXKXFQ)
+![App Screenshot](screenshots/applock.png)
 
 
 # Technologies
