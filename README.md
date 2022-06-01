@@ -42,7 +42,7 @@
 
 # In App Screenshots
 ## Splash screen
-![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/splash.png?token=GHSAT0AAAAAABRAJDUO3IYYBV6UWUFQOX6SYUXKQVQ)
+![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/splash.png)
 ## Registeration
 ![App Screenshot](https://raw.githubusercontent.com/RedBiscuits/Chatty/master/screenshots/register.png?token=GHSAT0AAAAAABRAJDUP5OQXNW7X5B6B24NOYUXKZHQ)
 ## Login
